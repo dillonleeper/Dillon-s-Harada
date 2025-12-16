@@ -29,10 +29,21 @@
       gap: 20px;
     }
 
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      max-width: 980px;
+      width: 100%;
+      gap: 16px;
+    }
+
     h1 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      font-weight: 600;
       margin: 0;
-      text-align: center;
+      color: #1d1d1f;
+      letter-spacing: -0.01em;
     }
 
     .subtitle {
@@ -73,7 +84,7 @@
       padding: 8px;
       border-radius: 8px;
       background: #f1f3f6;
-      border: 1px solid #d2d2d7;
+      border: 1px solid #c0c2c7;
       color: #1d1d1f;
       grid-column: 2;
       grid-row: 2;
@@ -84,6 +95,7 @@
       overflow: auto;
       word-wrap: break-word;
       hyphens: auto;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03) inset;
     }
 
     .center-title {
@@ -92,8 +104,8 @@
       text-align: center;
       padding: 8px;
       border-radius: 8px;
-      background: #f1f3f6;
-      border: 2px solid #d2d2d7;
+      background: #e8eaed;
+      border: 2px solid #b8bac0;
       color: #1d1d1f;
       grid-column: 2;
       grid-row: 2;
@@ -104,6 +116,7 @@
       gap: 2px;
       line-height: 1.2;
       overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04) inset;
     }
 
     .center-title strong {
@@ -201,6 +214,7 @@
       color: #1d1d1f;
       display: -webkit-box;
       -webkit-line-clamp: 1;
+      line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -213,6 +227,7 @@
       color: #6e6e73;
       display: -webkit-box;
       -webkit-line-clamp: 1;
+      line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -257,8 +272,64 @@
 
     .meta {
       font-size: 0.8rem;
+      color: #86868b;
+      text-align: right;
+      font-weight: 400;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .today-reflection {
+      max-width: 980px;
+      width: 100%;
+      background: #f9fafb;
+      border: 1px solid #e5e5ea;
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .reflection-count {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      white-space: nowrap;
+    }
+
+    .pillar-dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .pillar-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e5e5ea;
+      transition: all 0.2s ease;
+    }
+
+    .pillar-dot.active {
+      transform: scale(1.1);
+    }
+
+    .pillar-dot[data-pillar="P1"].active { background: var(--pillar-p1); border: 1.5px solid #a8c5ff; }
+    .pillar-dot[data-pillar="P2"].active { background: var(--pillar-p2); border: 1.5px solid #c5b8ff; }
+    .pillar-dot[data-pillar="P3"].active { background: var(--pillar-p3); border: 1.5px solid #90d4a8; }
+    .pillar-dot[data-pillar="P4"].active { background: var(--pillar-p4); border: 1.5px solid #7dd4ca; }
+    .pillar-dot[data-pillar="P5"].active { background: var(--pillar-p5); border: 1.5px solid #ffb366; }
+    .pillar-dot[data-pillar="P6"].active { background: var(--pillar-p6); border: 1.5px solid #ffa8b8; }
+    .pillar-dot[data-pillar="P7"].active { background: var(--pillar-p7); border: 1.5px solid #ffd966; }
+    .pillar-dot[data-pillar="P8"].active { background: var(--pillar-p8); border: 1.5px solid #b8bac7; }
+
+    .reflection-insight {
+      flex: 1;
+      font-size: 0.8rem;
       color: #6e6e73;
-      text-align: center;
+      line-height: 1.4;
     }
 
     .stats {
@@ -269,6 +340,7 @@
       border: 1px solid #d2d2d7;
       padding: 12px 14px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      display: none;
     }
 
     .stats h2 {
@@ -353,6 +425,314 @@
       color: #1d1d1f;
     }
 
+    .pillar-balance {
+      max-width: 980px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #d2d2d7;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .pillar-balance h2 {
+      font-size: 1rem;
+      margin: 0 0 12px 0;
+    }
+
+    .balance-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .time-range-selector {
+      display: flex;
+      gap: 4px;
+      background: #f1f3f6;
+      border-radius: 6px;
+      padding: 2px;
+    }
+
+    .time-range-btn {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border: none;
+      background: transparent;
+      color: #6e6e73;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+
+    .time-range-btn:hover {
+      background: #e5e5ea;
+      color: #1d1d1f;
+    }
+
+    .time-range-btn.active {
+      background: #ffffff;
+      color: #1d1d1f;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .balance-content {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .radar-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .radar-canvas {
+      width: 320px;
+      height: 320px;
+      display: block;
+    }
+
+    .radar-legend {
+      font-size: 0.65rem;
+      color: #6e6e73;
+      line-height: 1.6;
+      padding: 8px;
+      background: #f9fafb;
+      border-radius: 6px;
+      border: 1px solid #e5e5ea;
+    }
+
+    .radar-legend-item {
+      display: flex;
+      gap: 4px;
+    }
+
+    .radar-legend-label {
+      font-weight: 600;
+      color: #1d1d1f;
+      min-width: 20px;
+    }
+
+    .balance-insights {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      gap: 6px;
+    }
+
+    .insight-card {
+      background: #f9fafb;
+      border: 1px solid #e5e5ea;
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+
+    .insight-label {
+      font-size: 0.7rem;
+      color: #86868b;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border: 1px solid #86868b;
+      border-radius: 50%;
+      font-size: 0.6rem;
+      color: #86868b;
+      cursor: help;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .info-icon:hover {
+      border-color: #1d1d1f;
+      color: #1d1d1f;
+    }
+
+    .info-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 240px;
+      padding: 8px 12px;
+      background: #1d1d1f;
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 400;
+      line-height: 1.4;
+      border-radius: 6px;
+      text-transform: none;
+      letter-spacing: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .info-icon:hover .info-tooltip {
+      opacity: 1;
+    }
+
+    .info-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #1d1d1f;
+    }
+
+    .insight-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1d1d1f;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .insight-description {
+      font-size: 0.72rem;
+      color: #6e6e73;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .insight-secondary {
+      font-size: 0.68rem;
+      color: #86868b;
+      margin-top: 2px;
+      line-height: 1.3;
+      font-style: italic;
+    }
+
+    .neglected-pillar {
+      background: #fff5e6;
+      border-color: #ffb366;
+    }
+
+    .neglected-pillar .insight-value {
+      color: #ff8800;
+    }
+
+    .overweighted-pillar {
+      background: #f0f4ff;
+      border-color: #a8c5ff;
+    }
+
+    .overweighted-pillar .insight-value {
+      color: #0066cc;
+    }
+
+    .stability-card {
+      background: #f5f5f7;
+      border-color: #d1d1d6;
+    }
+
+    .stability-card .insight-value {
+      color: #1d1d1f;
+    }
+
+    .balance-footer {
+      margin-top: 6px;
+      padding: 8px 10px;
+      background: #f5f5f7;
+      border-top: 1px solid #e5e5ea;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: #6e6e73;
+      line-height: 1.4;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .streak-momentum {
+      max-width: 980px;
+      width: 100%;
+      background: #fafbfc;
+      border: 1px solid #e5e5ea;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      height: 48px;
+      box-sizing: border-box;
+    }
+
+    .hud-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .hud-label {
+      font-size: 0.7rem;
+      color: #86868b;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .hud-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1d1d1f;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hud-momentum {
+      flex: 1;
+      max-width: 280px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .momentum-mini-bars {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 24px;
+    }
+
+    .momentum-mini-bar {
+      flex: 1;
+      background: #d1d1d6;
+      border-radius: 2px;
+      min-height: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .momentum-mini-bar.has-data {
+      background: #007AFF;
+    }
+
+    .momentum-mini-bar.today {
+      background: #FF9500;
+    }
+
     @media (max-width: 900px) {
       .grid-wrapper {
         grid-template-columns: 1fr;
@@ -378,7 +758,20 @@
         gap: 12px;
       }
 
+      .today-reflection {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+      }
 
+      .reflection-count {
+        font-size: 0.8rem;
+      }
+
+      .reflection-insight {
+        font-size: 0.75rem;
+      }
 
       .pillar-title {
         font-size: 0.9rem;
@@ -411,16 +804,70 @@
       td {
         padding: 4px;
       }
-    }
+
+      .streak-momentum {
+        flex-direction: column;
+        height: auto;
+        gap: 8px;
+        padding: 10px 12px;
+      }
+
+      .hud-stat {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .hud-momentum {
+        width: 100%;
+        max-width: none;
+      }
+
+      .balance-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .balance-content {
+        grid-template-columns: 1fr;
+      }
+
+      .radar-canvas {
+        width: 100%;
+        height: auto;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .radar-legend {
+        font-size: 0.6rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Harada Open Window 64</h1>
-  <div class="meta" id="dateDisplay"></div>
+  <div class="header-container">
+    <h1>Harada Open Window 64</h1>
+    <div class="meta" id="dateDisplay"></div>
+  </div>
 
   <div class="grid-wrapper" id="gridWrapper">
     <!-- Pillars & center will be injected here by JavaScript -->
+  </div>
+
+  <div class="today-reflection">
+    <div class="reflection-count" id="reflectionCount">—</div>
+    <div class="pillar-dots" id="pillarDots">
+      <div class="pillar-dot" data-pillar="P1"></div>
+      <div class="pillar-dot" data-pillar="P2"></div>
+      <div class="pillar-dot" data-pillar="P3"></div>
+      <div class="pillar-dot" data-pillar="P4"></div>
+      <div class="pillar-dot" data-pillar="P5"></div>
+      <div class="pillar-dot" data-pillar="P6"></div>
+      <div class="pillar-dot" data-pillar="P7"></div>
+      <div class="pillar-dot" data-pillar="P8"></div>
+    </div>
+    <div class="reflection-insight" id="reflectionInsight">Loading...</div>
   </div>
 
   <div class="stats">
@@ -436,6 +883,71 @@
       <tbody id="statsBody"></tbody>
     </table>
     <div class="stats-summary" id="statsSummary"></div>
+  </div>
+
+  <div class="pillar-balance">
+    <div class="balance-header">
+      <h2>Balance Over Time</h2>
+      <div class="time-range-selector">
+        <button class="time-range-btn" data-range="7">Last 7 days</button>
+        <button class="time-range-btn active" data-range="30">Last 30 days</button>
+        <button class="time-range-btn" data-range="90">Last 90 days</button>
+        <button class="time-range-btn" data-range="ytd">YTD</button>
+        <button class="time-range-btn" data-range="all">All Time</button>
+      </div>
+    </div>
+    <div class="balance-content">
+      <div class="radar-section">
+        <canvas id="radarChart" class="radar-canvas" width="320" height="320"></canvas>
+        <div class="radar-legend">
+          <div class="radar-legend-item"><span class="radar-legend-label">P1</span><span>Skill & Craft Mastery</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">P2</span><span>Technical Leverage (AI / Code / Data)</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">P3</span><span>Career Money Systems</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">P4</span><span>SaaS / Business Systems</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">P5</span><span>Art Business Systems</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">P6</span><span>Brand & Audience</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">P7</span><span>Health & Energy</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">P8</span><span>Identity & Discipline</span></div>
+        </div>
+      </div>
+      <div class="balance-insights">
+        <div class="insight-card">
+          <div class="insight-label">
+            Balance Score
+            <span class="info-icon">
+              i
+              <span class="info-tooltip">Measures how evenly your effort is distributed across all 8 pillars. Higher scores (80-100) indicate balanced focus, while lower scores suggest concentration in fewer areas.</span>
+            </span>
+          </div>
+          <div class="insight-value" id="balanceScore">—</div>
+          <div class="insight-description" id="balanceDescription">Loading...</div>
+        </div>
+        <div class="insight-card overweighted-pillar">
+          <div class="insight-label">
+            Focus Pattern
+            <span class="info-icon">
+              i
+              <span class="info-tooltip">Shows where your attention is concentrated and which areas might benefit from more focus.</span>
+            </span>
+          </div>
+          <div class="insight-value" id="focusPatternPrimary">—</div>
+          <div class="insight-description" id="focusPatternDescription">Loading...</div>
+          <div class="insight-secondary" id="focusPatternSecondary"></div>
+        </div>
+        <div class="insight-card stability-card">
+          <div class="insight-label">
+            Focus Stability
+            <span class="info-icon">
+              i
+              <span class="info-tooltip">Measures consistency of your pillar focus from day to day (0-10 scale). Steady patterns (8-10) show reliable attention. Dynamic patterns (0-4) reflect frequent shifts.</span>
+            </span>
+          </div>
+          <div class="insight-value" id="stabilityScore">—</div>
+          <div class="insight-description" id="stabilityDescription">Loading...</div>
+        </div>
+        <div class="balance-footer" id="balanceFooter">Loading balance insights...</div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -568,6 +1080,9 @@
 
     const STORAGE_TODAY_KEY = "haradaTodayState";
     const STORAGE_STATS_KEY = "haradaStatsAllTime";
+    const STORAGE_HISTORY_KEY = "haradaHistory";
+    const STORAGE_STREAKS_KEY = "haradaStreaks";
+    const MIN_TASKS_FOR_STREAK = 1; // Configurable threshold
 
     function getTodayString() {
       const d = new Date();
@@ -589,11 +1104,16 @@
 
     let todayState = null;
     let statsAllTime = null;
+    let dailyHistory = null;
+    let streakData = null;
+    let selectedTimeRange = "30";
 
     function loadState() {
       const today = getTodayString();
       const rawToday = localStorage.getItem(STORAGE_TODAY_KEY);
       const rawStats = localStorage.getItem(STORAGE_STATS_KEY);
+      const rawHistory = localStorage.getItem(STORAGE_HISTORY_KEY);
+      const rawStreaks = localStorage.getItem(STORAGE_STREAKS_KEY);
 
       try {
         todayState = rawToday ? JSON.parse(rawToday) : null;
@@ -601,6 +1121,14 @@
         todayState = null;
       }
       if (!todayState || todayState.date !== today) {
+        // Save yesterday's count before resetting
+        if (todayState && todayState.date) {
+          const yesterdayCount = Object.keys(todayState.completed).length;
+          if (dailyHistory) {
+            dailyHistory[todayState.date] = yesterdayCount;
+            localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(dailyHistory));
+          }
+        }
         todayState = { date: today, completed: {} };
         localStorage.setItem(STORAGE_TODAY_KEY, JSON.stringify(todayState));
       }
@@ -614,6 +1142,23 @@
         statsAllTime = {};
         localStorage.setItem(STORAGE_STATS_KEY, JSON.stringify(statsAllTime));
       }
+
+      try {
+        dailyHistory = rawHistory ? JSON.parse(rawHistory) : {};
+      } catch {
+        dailyHistory = {};
+      }
+      localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(dailyHistory));
+
+      try {
+        streakData = rawStreaks ? JSON.parse(rawStreaks) : null;
+      } catch {
+        streakData = null;
+      }
+      if (!streakData) {
+        streakData = { current: 0, best: 0 };
+        localStorage.setItem(STORAGE_STREAKS_KEY, JSON.stringify(streakData));
+      }
     }
 
     function saveTodayState() {
@@ -622,6 +1167,122 @@
 
     function saveStats() {
       localStorage.setItem(STORAGE_STATS_KEY, JSON.stringify(statsAllTime));
+    }
+
+    function calculateStreaks() {
+      const today = getTodayString();
+      const todayCount = Object.keys(todayState.completed).length;
+      
+      // Update today in history
+      dailyHistory[today] = todayCount;
+      localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(dailyHistory));
+
+      // Get all dates sorted descending
+      const allDates = Object.keys(dailyHistory).sort().reverse();
+      
+      // Calculate current streak
+      let currentStreak = 0;
+      const dateIterator = new Date();
+      
+      while (true) {
+        const dateStr = dateIterator.toISOString().split('T')[0];
+        const count = dailyHistory[dateStr] || 0;
+        
+        if (count >= MIN_TASKS_FOR_STREAK) {
+          currentStreak++;
+        } else {
+          break;
+        }
+        
+        // Move to previous day
+        dateIterator.setDate(dateIterator.getDate() - 1);
+        
+        // Safety: don't go back more than 365 days
+        if (currentStreak > 365) break;
+      }
+
+      // Calculate best streak
+      let bestStreak = 0;
+      let tempStreak = 0;
+      let previousDate = null;
+      
+      for (const dateStr of allDates) {
+        const count = dailyHistory[dateStr];
+        const currentDate = new Date(dateStr);
+        
+        if (count >= MIN_TASKS_FOR_STREAK) {
+          if (previousDate === null) {
+            tempStreak = 1;
+          } else {
+            const dayDiff = Math.floor((previousDate - currentDate) / (1000 * 60 * 60 * 24));
+            if (dayDiff === 1) {
+              tempStreak++;
+            } else {
+              bestStreak = Math.max(bestStreak, tempStreak);
+              tempStreak = 1;
+            }
+          }
+        } else {
+          bestStreak = Math.max(bestStreak, tempStreak);
+          tempStreak = 0;
+        }
+        
+        previousDate = currentDate;
+      }
+      bestStreak = Math.max(bestStreak, tempStreak);
+
+      streakData.current = currentStreak;
+      streakData.best = Math.max(streakData.best, bestStreak);
+      localStorage.setItem(STORAGE_STREAKS_KEY, JSON.stringify(streakData));
+    }
+
+    function getLast7Days() {
+      const days = [];
+      const today = new Date();
+      
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
+        const dayName = date.toLocaleDateString(undefined, { weekday: 'short' });
+        const count = dailyHistory[dateStr] || 0;
+        const isToday = dateStr === getTodayString();
+        days.push({ date: dateStr, dayName, count, isToday });
+      }
+      
+      return days;
+    }
+
+    function updateStreakUI() {
+      calculateStreaks();
+
+      document.getElementById('currentStreak').textContent = streakData.current;
+      document.getElementById('bestStreak').textContent = streakData.best;
+      
+      // Render mini momentum bars
+      const last7 = getLast7Days();
+      const chart = document.getElementById('momentumChart');
+      chart.innerHTML = '';
+      
+      const maxCount = Math.max(...last7.map(d => d.count), 8);
+      
+      last7.forEach(day => {
+        const bar = document.createElement('div');
+        bar.className = 'momentum-mini-bar';
+        
+        if (day.count > 0) {
+          bar.classList.add('has-data');
+        }
+        if (day.isToday) {
+          bar.classList.add('today');
+        }
+        
+        const heightPercent = day.count > 0 ? Math.max((day.count / maxCount) * 100, 8) : 8;
+        bar.style.height = `${heightPercent}%`;
+        bar.title = `${day.dayName}: ${day.count} tasks`;
+        
+        chart.appendChild(bar);
+      });
     }
 
     function createPillarBox(pillar) {
@@ -747,12 +1408,63 @@
 
       saveTodayState();
       saveStats();
-      updateStatsUI();
+      updateTodayReflection();
+      updatePillarBalance();
+    }
+
+    function updateTodayReflection() {
+      // Count tasks completed today per pillar
+      const pillarTouches = {};
+      pillars.forEach(p => pillarTouches[p.id] = 0);
+      
+      let totalToday = 0;
+      Object.keys(todayState.completed).forEach(taskId => {
+        const pillarId = taskId.split('-')[0];
+        if (pillarTouches[pillarId] !== undefined) {
+          pillarTouches[pillarId]++;
+          totalToday++;
+        }
+      });
+
+      // Update count
+      const pillarsCount = Object.values(pillarTouches).filter(c => c > 0).length;
+      document.getElementById('reflectionCount').textContent = 
+        totalToday === 0 ? 'No tasks yet' : 
+        totalToday === 1 ? '1 task' : 
+        `${totalToday} tasks`;
+
+      // Update dots
+      document.querySelectorAll('.pillar-dot').forEach(dot => {
+        const pillarId = dot.dataset.pillar;
+        if (pillarTouches[pillarId] > 0) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+
+      // Update insight with coaching voice
+      const insightEl = document.getElementById('reflectionInsight');
+      if (totalToday === 0) {
+        insightEl.textContent = "Your grid awaits—each task is a step forward.";
+      } else if (pillarsCount === 1) {
+        const activePillar = pillars.find(p => pillarTouches[p.id] > 0);
+        insightEl.textContent = `Deep focus in ${activePillar.name} today.`;
+      } else if (pillarsCount === 8) {
+        insightEl.textContent = "You touched all 8 pillars—beautifully balanced.";
+      } else if (pillarsCount >= 5) {
+        insightEl.textContent = `Broad engagement across ${pillarsCount} pillars today.`;
+      } else {
+        insightEl.textContent = `Your attention centered on ${pillarsCount} pillars today.`;
+      }
     }
 
     function updateStatsUI() {
+      // Hidden table - keeping for potential future use
       const statsBody = document.getElementById("statsBody");
       const statsSummary = document.getElementById("statsSummary");
+      if (!statsBody) return;
+      
       statsBody.innerHTML = "";
 
       const pillarTotalsToday = {};
@@ -829,14 +1541,344 @@
         <span class="today">Today:</span> ${totalToday} tasks completed across all pillars.<br>
         <span class="today">All time:</span> ${totalAllTime} total task completions tracked.
       `;
+
+      updatePillarBalance();
+    }
+
+    function calculateFocusStability(datesInRange) {
+      // Filter to days with non-zero completions
+      const nonZeroDays = datesInRange.filter(dateStr => (dailyHistory[dateStr] || 0) > 0);
+      
+      if (nonZeroDays.length < 3) {
+        return {
+          score: null,
+          classification: null,
+          description: "Complete tasks across at least 3 different days to unlock stability insights."
+        };
+      }
+
+      // Get all-time pillar distribution for approximation
+      const allTimePillarTotals = {};
+      pillars.forEach(p => allTimePillarTotals[p.id] = 0);
+      Object.entries(statsAllTime).forEach(([cellId, count]) => {
+        const [pillarId] = cellId.split('-');
+        if (allTimePillarTotals[pillarId] !== undefined) {
+          allTimePillarTotals[pillarId] += count;
+        }
+      });
+      const allTimeTotal = Object.values(allTimePillarTotals).reduce((sum, v) => sum + v, 0);
+      
+      // For each day, approximate pillar shares using all-time distribution
+      const dailyShares = {}; // pillarId -> array of daily shares
+      pillars.forEach(p => dailyShares[p.id] = []);
+      
+      nonZeroDays.forEach(dateStr => {
+        const dayTotal = dailyHistory[dateStr];
+        if (dayTotal > 0) {
+          pillars.forEach(p => {
+            // Approximate pillar count for this day using all-time ratio
+            const pillarRatio = allTimeTotal > 0 ? allTimePillarTotals[p.id] / allTimeTotal : 1/8;
+            const estimatedPillarCount = dayTotal * pillarRatio;
+            const share = estimatedPillarCount / dayTotal;
+            dailyShares[p.id].push(share);
+          });
+        }
+      });
+      
+      // Calculate standard deviation for each pillar's daily shares
+      const pillarStdDevs = [];
+      pillars.forEach(p => {
+        const shares = dailyShares[p.id];
+        if (shares.length > 0) {
+          const mean = shares.reduce((sum, s) => sum + s, 0) / shares.length;
+          const variance = shares.reduce((sum, s) => sum + Math.pow(s - mean, 2), 0) / shares.length;
+          const stdDev = Math.sqrt(variance);
+          pillarStdDevs.push(stdDev);
+        }
+      });
+      
+      // Average the standard deviations to get volatility index
+      const volatilityIndex = pillarStdDevs.reduce((sum, sd) => sum + sd, 0) / pillarStdDevs.length;
+      
+      // Normalize and convert to 0-10 stability score (inverse of volatility)
+      // Cap volatilityIndex at 0.25 for normalization
+      const cappedVolatility = Math.min(volatilityIndex, 0.25);
+      const normalizedVolatility = cappedVolatility / 0.25;
+      const stabilityScore = Math.round((1 - normalizedVolatility) * 10);
+      const clampedScore = Math.max(0, Math.min(10, stabilityScore));
+      
+      // Classify
+      let classification, description;
+      if (clampedScore >= 8) {
+        classification = "Steady";
+        description = "Your focus pattern has been consistent.";
+      } else if (clampedScore >= 5) {
+        classification = "Moderate";
+        description = "Your attention shifts moderately between pillars.";
+      } else {
+        classification = "Dynamic";
+        description = "Your focus moves frequently across different areas.";
+      }
+      
+      return {
+        score: clampedScore,
+        classification: classification,
+        description: description
+      };
+    }
+
+    function updatePillarBalance() {
+      // Calculate pillar totals from dailyHistory for selected time range
+      const pillarTotals = {};
+      pillars.forEach(p => pillarTotals[p.id] = 0);
+      
+      const today = new Date();
+      let datesInRange = [];
+      
+      // Determine which dates to include based on selected range
+      if (selectedTimeRange === "ytd") {
+        // Year to Date: from Jan 1 of current year through today
+        const yearStart = new Date(today.getFullYear(), 0, 1);
+        const daysSinceYearStart = Math.floor((today - yearStart) / (1000 * 60 * 60 * 24)) + 1;
+        for (let i = 0; i < daysSinceYearStart; i++) {
+          const date = new Date(yearStart);
+          date.setDate(date.getDate() + i);
+          datesInRange.push(date.toISOString().split('T')[0]);
+        }
+      } else if (selectedTimeRange === "all") {
+        // All Time: use all dates in history
+        datesInRange = Object.keys(dailyHistory);
+      } else {
+        // Last N days
+        const days = parseInt(selectedTimeRange);
+        for (let i = 0; i < days; i++) {
+          const date = new Date(today);
+          date.setDate(date.getDate() - i);
+          datesInRange.push(date.toISOString().split('T')[0]);
+        }
+      }
+      
+      // Get today's pillar totals
+      const todayPillarTotals = {};
+      pillars.forEach(p => todayPillarTotals[p.id] = 0);
+      Object.keys(todayState.completed).forEach(cellId => {
+        const [pillarId] = cellId.split('-');
+        if (todayPillarTotals[pillarId] !== undefined) {
+          todayPillarTotals[pillarId]++;
+        }
+      });
+      
+      // Get all-time pillar totals
+      const allTimePillarTotals = {};
+      pillars.forEach(p => allTimePillarTotals[p.id] = 0);
+      Object.entries(statsAllTime).forEach(([cellId, count]) => {
+        const [pillarId] = cellId.split('-');
+        if (allTimePillarTotals[pillarId] !== undefined) {
+          allTimePillarTotals[pillarId] += count;
+        }
+      });
+      
+      // Calculate total completions in the date range
+      const recentDaysTotal = datesInRange.reduce((sum, dateStr) => sum + (dailyHistory[dateStr] || 0), 0);
+      const allTimeTotal = Object.values(allTimePillarTotals).reduce((sum, v) => sum + v, 0);
+      
+      // Approximate recent pillar distribution using all-time ratios
+      // Note: This is an approximation since we don't store per-pillar daily data
+      pillars.forEach(p => {
+        const pillarRatio = allTimeTotal > 0 ? allTimePillarTotals[p.id] / allTimeTotal : 1/8;
+        pillarTotals[p.id] = Math.round(recentDaysTotal * pillarRatio);
+      });
+      
+      const values = pillars.map(p => pillarTotals[p.id] || 0);
+      const total = values.reduce((sum, v) => sum + v, 0);
+      
+      if (total === 0) {
+        document.getElementById('balanceScore').textContent = '—';
+        document.getElementById('balanceDescription').textContent = 'Complete tasks to see your balance.';
+        document.getElementById('neglectedPillar').textContent = '—';
+        document.getElementById('neglectedDescription').textContent = 'No data yet.';
+        document.getElementById('overweightedPillar').textContent = '—';
+        document.getElementById('overweightedDescription').textContent = 'No data yet.';
+        document.getElementById('stabilityScore').textContent = '—';
+        document.getElementById('stabilityDescription').textContent = 'No data yet.';
+        return;
+      }
+
+      // Calculate coefficient of variation (lower = more balanced)
+      const mean = total / values.length;
+      const variance = values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length;
+      const stdDev = Math.sqrt(variance);
+      const cv = mean > 0 ? (stdDev / mean) : 0;
+      
+      // Convert to 0-100 scale (invert so 100 = perfectly balanced)
+      const balanceScore = Math.round(Math.max(0, 100 - (cv * 100)));
+      
+      document.getElementById('balanceScore').textContent = balanceScore;
+      
+      let description = '';
+      if (balanceScore >= 80) description = 'Well-distributed across all pillars.';
+      else if (balanceScore >= 60) description = 'Mostly balanced with a few areas standing out.';
+      else if (balanceScore >= 40) description = 'Some concentration in select areas.';
+      else description = 'Focus is heavily concentrated.';
+      
+      document.getElementById('balanceDescription').textContent = description;
+
+      // Find most neglected and most active pillars
+      const minValue = Math.min(...values);
+      const minIndex = values.indexOf(minValue);
+      const neglectedPillar = pillars[minIndex];
+      
+      const maxValue = Math.max(...values);
+      const maxIndex = values.indexOf(maxValue);
+      const activePillar = pillars[maxIndex];
+      const percentage = total > 0 ? Math.round((maxValue / total) * 100) : 0;
+      
+      // Update Focus Pattern card (merged Most Active + Most Neglected)
+      document.getElementById('focusPatternPrimary').textContent = activePillar.name;
+      document.getElementById('focusPatternDescription').textContent = 
+        `Your current anchor (${percentage}% of activity).`;
+      document.getElementById('focusPatternSecondary').textContent = 
+        neglectedPillar.id !== activePillar.id ? 
+        `${neglectedPillar.name} could use attention.` : 
+        'Focus is evenly distributed.';
+
+      // Calculate and display focus stability
+      const stability = calculateFocusStability(datesInRange);
+      
+      if (stability.score === null) {
+        document.getElementById('stabilityScore').textContent = '—';
+        document.getElementById('stabilityDescription').textContent = stability.description;
+      } else {
+        document.getElementById('stabilityScore').textContent = `${stability.classification} (${stability.score}/10)`;
+        document.getElementById('stabilityDescription').textContent = stability.description;
+      }
+
+      // Update balance footer with contextual message
+      const balanceFooter = document.getElementById('balanceFooter');
+      const nonZeroDays = datesInRange.filter(dateStr => (dailyHistory[dateStr] || 0) > 0);
+      
+      if (nonZeroDays.length < 3) {
+        balanceFooter.textContent = "Build a few more days of data to reveal deeper patterns.";
+      } else if (balanceScore >= 75) {
+        balanceFooter.textContent = "Your attention flows naturally across all areas.";
+      } else if (balanceScore >= 50) {
+        balanceFooter.textContent = "There's room to explore pillars beyond your anchors.";
+      } else {
+        balanceFooter.textContent = "Your energy is concentrated—intentional or opportunity?";
+      }
+
+      // Render radar chart
+      renderRadarChart(values);
+    }
+
+    function renderRadarChart(values) {
+      const canvas = document.getElementById('radarChart');
+      const ctx = canvas.getContext('2d');
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = 120;
+      const maxValue = Math.max(...values, 50); // Minimum scale of 50
+      
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw grid circles
+      ctx.strokeStyle = '#e5e5ea';
+      ctx.lineWidth = 1;
+      for (let i = 1; i <= 4; i++) {
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, (radius / 4) * i, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      
+      // Draw axes
+      ctx.strokeStyle = '#d2d2d7';
+      ctx.lineWidth = 1;
+      pillars.forEach((pillar, i) => {
+        const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      });
+      
+      // Draw labels
+      ctx.fillStyle = '#1d1d1f';
+      ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      
+      pillars.forEach((pillar, i) => {
+        const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
+        const labelRadius = radius + 24;
+        const x = centerX + Math.cos(angle) * labelRadius;
+        const y = centerY + Math.sin(angle) * labelRadius;
+        
+        ctx.fillText(`P${i + 1}`, x, y);
+      });
+      
+      // Draw data polygon
+      ctx.fillStyle = 'rgba(0, 122, 255, 0.15)';
+      ctx.strokeStyle = '#007AFF';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      
+      values.forEach((value, i) => {
+        const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
+        const valueRadius = (value / maxValue) * radius;
+        const x = centerX + Math.cos(angle) * valueRadius;
+        const y = centerY + Math.sin(angle) * valueRadius;
+        
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      });
+      
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      
+      // Draw data points
+      ctx.fillStyle = '#007AFF';
+      values.forEach((value, i) => {
+        const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
+        const valueRadius = (value / maxValue) * radius;
+        const x = centerX + Math.cos(angle) * valueRadius;
+        const y = centerY + Math.sin(angle) * valueRadius;
+        
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fill();
+      });
     }
 
     function init() {
       loadState();
       document.getElementById("dateDisplay").textContent =
-        "Today is " + formatPrettyDate() + " · Daily checkmarks reset automatically each new day.";
+        formatPrettyDate() + " · Daily progress resets";
       renderGrid();
-      updateStatsUI();
+      updateTodayReflection();
+      updatePillarBalance();
+      
+      // Set up time range selector
+      document.querySelectorAll('.time-range-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const range = e.target.dataset.range;
+          selectedTimeRange = range;
+          
+          // Update active state
+          document.querySelectorAll('.time-range-btn').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          
+          // Refresh balance view
+          updatePillarBalance();
+        });
+      });
     }
 
     init();
