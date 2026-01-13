@@ -1553,14 +1553,15 @@
         -webkit-overflow-scrolling: touch;
       }
 
-      .pillar-box {
+      .pillar-box, .center-box {
         min-height: 100vh;
         scroll-snap-align: start;
         display: flex;
         flex-direction: column;
-        padding: 20px;
+        padding: 24px 16px;
         border-bottom: 3px solid #d2d2d7;
         aspect-ratio: auto;
+        width: 100%;
       }
 
       .pillar-box:last-of-type {
@@ -1568,31 +1569,30 @@
       }
 
       /* Pillar-specific colored borders for visual distinction */
-      .pillar-box:nth-child(1) { border-left: 4px solid #a8c5ff; }
-      .pillar-box:nth-child(2) { border-left: 4px solid #c5b8ff; }
-      .pillar-box:nth-child(3) { border-left: 4px solid #90d4a8; }
-      .pillar-box:nth-child(4) { border-left: 4px solid #b8bac7; }
-      .pillar-box:nth-child(5) { border-left: 4px solid #7dd4ca; }
-      .pillar-box:nth-child(6) { border-left: 4px solid #ffd966; }
-      .pillar-box:nth-child(7) { border-left: 4px solid #ffa8b8; }
-      .pillar-box:nth-child(8) { border-left: 4px solid #ffb366; }
+      .pillar-box:nth-child(1) { border-left: 5px solid #a8c5ff; }
+      .pillar-box:nth-child(2) { border-left: 5px solid #c5b8ff; }
+      .pillar-box:nth-child(3) { border-left: 5px solid #90d4a8; }
+      .pillar-box:nth-child(4) { border-left: 5px solid #b8bac7; }
+      .pillar-box:nth-child(5) { border-left: 5px solid #7dd4ca; }
+      .pillar-box:nth-child(6) { border-left: 5px solid #ffd966; }
+      .pillar-box:nth-child(7) { border-left: 5px solid #ffa8b8; }
+      .pillar-box:nth-child(8) { border-left: 5px solid #ffb366; }
 
       .center-box {
-        min-height: 100vh;
-        scroll-snap-align: start;
-        padding: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
         border-bottom: 3px solid #d2d2d7;
+        border-left: none;
       }
 
+      /* Keep tasks in 3x3 grid but make it responsive */
       .tasks-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
-        gap: 8px;
+        gap: 10px;
         width: 100%;
         max-width: 500px;
         margin: 0 auto;
@@ -1602,49 +1602,54 @@
       .task-cell {
         min-height: unset;
         aspect-ratio: 1 / 1;
-        font-size: 0.65rem;
-        padding: 8px;
+        font-size: 0.7rem;
+        padding: 10px 8px;
+        border-width: 1.5px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 3px;
       }
 
       .task-title {
-        font-size: 0.65rem;
-        line-height: 1.2;
+        font-size: 0.7rem;
+        line-height: 1.15;
       }
 
       .task-hint {
-        font-size: 0.55rem;
-        line-height: 1.2;
+        font-size: 0.6rem;
+        line-height: 1.15;
       }
 
       .pillar-title {
-        font-size: 1.2rem;
-        padding: 16px;
-        margin-bottom: 12px;
+        font-size: 1.3rem;
+        padding: 14px 12px;
+        margin-bottom: 16px;
         position: static;
         grid-column: auto;
         grid-row: auto;
         aspect-ratio: auto;
+        text-align: center;
       }
 
       .center-title {
-        font-size: 1.1rem;
-        padding: 24px;
+        font-size: 1.2rem;
+        padding: 28px 20px;
         aspect-ratio: auto;
         position: static;
         grid-column: auto;
         grid-row: auto;
+        text-align: center;
+        max-width: 400px;
       }
 
       .center-title strong {
-        font-size: 0.95rem;
+        font-size: 1rem;
       }
 
       .center-title span {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
       }
 
       .pillar-card {
@@ -1655,46 +1660,63 @@
 
       /* Add swipe hint */
       .grid-wrapper::after {
-        content: "← Swipe to navigate →";
+        content: "↕ Swipe between pillars";
         position: fixed;
-        bottom: 20px;
+        bottom: 24px;
         left: 50%;
         transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.8);
         color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 0.75rem;
+        padding: 10px 18px;
+        border-radius: 24px;
+        font-size: 0.8rem;
         pointer-events: none;
         z-index: 1000;
-        animation: fadeOut 3s ease-in-out forwards;
+        animation: fadeOut 4s ease-in-out forwards;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       }
 
       @keyframes fadeOut {
-        0%, 80% { opacity: 1; }
+        0%, 75% { opacity: 1; }
         100% { opacity: 0; }
       }
 
-      /* Hide sections that don't work well on mobile scroll */
+      /* Adjust sections for mobile scroll */
       .growth-insights-section,
       .stats,
       .pillar-balance,
       .achievements-section {
         scroll-snap-align: start;
         min-height: auto;
+        padding: 16px;
       }
 
       .achievements-grid {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
       }
 
       .time-range-selector {
         flex-wrap: wrap;
+        gap: 6px;
       }
 
       .time-range-btn {
-        font-size: 0.65rem;
-        padding: 4px 8px;
+        font-size: 0.7rem;
+        padding: 6px 10px;
+      }
+
+      /* Better spacing for stats on mobile */
+      .stats {
+        margin-bottom: 0;
+      }
+
+      table {
+        font-size: 0.7rem;
+      }
+
+      th, td {
+        padding: 6px 4px;
       }
     }
 
