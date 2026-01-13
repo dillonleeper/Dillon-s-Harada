@@ -1623,15 +1623,25 @@
         line-height: 1.1;
       }
 
+      /* Position pillar title in center of 3x3 grid */
       .pillar-title {
         font-size: 1rem;
-        padding: 10px 8px;
-        margin-bottom: 8px;
-        position: static;
-        grid-column: auto;
-        grid-row: auto;
-        aspect-ratio: auto;
+        font-weight: 600;
+        padding: 10px 6px;
+        margin: 0;
+        position: relative;
+        grid-column: 2;
+        grid-row: 2;
+        aspect-ratio: 1 / 1;
         text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        line-height: 1.2;
+        word-wrap: break-word;
+        hyphens: auto;
+        overflow: auto;
       }
 
       .center-title {
