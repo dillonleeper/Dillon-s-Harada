@@ -4079,7 +4079,8 @@
         `;
 
         // All time progress cell (out of 365)
-        const allTimeCount = pillarTotalsAllTime[p.id];
+        // Ensure all-time is at least as much as today (data integrity check)
+        const allTimeCount = Math.max(pillarTotalsAllTime[p.id], todayCount);
         const allTimePercent = Math.min((allTimeCount / 365) * 100, 100);
         tdAll.className = "progress-cell";
         tdAll.innerHTML = `
