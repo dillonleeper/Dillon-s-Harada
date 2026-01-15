@@ -31,14 +31,14 @@
       color: #1d1d1f;
       
       /* Pillar Colors - More Saturated Pastels */
-      --pillar-p1: #D6E4FF; /* More Saturated Blue - Skill & Craft */
-      --pillar-p2: #E5DBFF; /* More Saturated Violet - Technical */
-      --pillar-p3: #D4F0DD; /* More Saturated Green - Career */
-      --pillar-p4: #CCEEE8; /* More Saturated Teal - SaaS */
-      --pillar-p5: #FFE4CC; /* More Saturated Peach - Learning & Growth */
-      --pillar-p6: #FFD9E0; /* More Saturated Pink - Brand */
-      --pillar-p7: #FFF3CC; /* More Saturated Yellow - Health */
-      --pillar-p8: #FFD4C8; /* Soft Coral - Identity */
+      --pillar-p1: #D6E4FF; /* More Saturated Blue - Identity & Self-Understanding */
+      --pillar-p2: #E5DBFF; /* More Saturated Violet - Love & Attachment */
+      --pillar-p3: #D4F0DD; /* More Saturated Green - Meaningful Work */
+      --pillar-p4: #CCEEE8; /* More Saturated Teal - Autonomy & Freedom */
+      --pillar-p5: #FFE4CC; /* More Saturated Peach - Emotional Regulation */
+      --pillar-p6: #FFD9E0; /* More Saturated Pink - Aesthetic & Environment */
+      --pillar-p7: #FFF3CC; /* More Saturated Yellow - Competence & Mastery */
+      --pillar-p8: #FFD4C8; /* Soft Coral - Selective Connection */
     }
 
     body {
@@ -1924,14 +1924,14 @@
           <div class="radar-tooltip-value"></div>
         </div>
         <div class="radar-legend">
-          <div class="radar-legend-item"><span class="radar-legend-label">Skill & Craft Mastery</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Technical Building</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Finance</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Connection & Presence</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Learning & Growth</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Creative Platform</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Health & Energy</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Identity & Discipline</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">Identity & Self-Understanding</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">Love, Attachment & Emotional Safety</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">Meaningful Work & Leverage</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">Autonomy & Freedom of Time</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">Emotional Regulation & Mental Health</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">Aesthetic, Environment & Vibe</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">Competence, Mastery & Self-Respect</span></div>
+          <div class="radar-legend-item"><span class="radar-legend-label">Selective Connection</span></div>
         </div>
       </div>
       <div class="balance-insights">
@@ -2026,10 +2026,10 @@
   </div>
 
   <div class="analytics-section" id="goalProgressSection" style="display: none;">
-    <h2>🎯 Goal Progress: $150K Role + Launch Art Income</h2>
-    <h3>Finance/h3>
+    <h2>🎯 Goal Progress: Meaningful Work & Self-Development</h2>
+    <h3>Meaningful Work & Leverage</h3>
     <div class="metrics-grid" id="careerMetricsGrid"></div>
-    <h3 style="margin-top: 16px;">Creative Platform</h3>
+    <h3 style="margin-top: 16px;">Competence, Mastery & Self-Respect</h3>
     <div class="metrics-grid" id="creativeMetricsGrid"></div>
     <div id="timeToGoal" style="margin-top: 16px; padding: 12px; background: #f0f9ff; border: 1px solid #007aff; border-radius: 8px; font-size: 0.8rem; color: #1d1d1f;"></div>
   </div>
@@ -2119,7 +2119,7 @@
   </div>
 
   <!-- Settings Button & Overlay -->
-  <button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button>
+  <!-- <button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button> -->
   <div class="settings-overlay" id="settingsOverlay">
     <div class="settings-panel">
       <div class="settings-header">
@@ -2332,114 +2332,114 @@
     const pillars = [
       {
         id: "P1",
-        name: "Skill & Craft Mastery",
+        name: "Identity & Self-Understanding",
         tasks: [
-          { title: "Sketch", hint: "New idea or concept" },
-          { title: "Study", hint: "Form (anatomy/perspective/composition)" },
-          { title: "Simplify", hint: "Reference into simple shapes" },
-          { title: "Practice", hint: "Gesture drawing for 15 min" },
-          { title: "Work", hint: "On current piece/idea" },
-          { title: "Capture", hint: "One new idea in notes" },
-          { title: "Observe", hint: "Analyze reference images" },
-          { title: "Control", hint: "Edges in current artwork" }
+          { title: "Write/Speak", hint: "Honestly about how I feel" },
+          { title: "Notice", hint: "Thoughts/emotions without judging" },
+          { title: "Identify", hint: "A pattern in myself" },
+          { title: "Decide", hint: "Because it feels true" },
+          { title: "Act", hint: "In a way I'd respect" },
+          { title: "Treat Others", hint: "How I want to be treated" },
+          { title: "Pause", hint: "Before reacting, choose intentionally" },
+          { title: "Be Mindful", hint: "Present in at least one moment" }
         ]
       },
       {
         id: "P2",
-        name: "Technical Building",
+        name: "Love, Attachment & Emotional Safety",
         tasks: [
-          { title: "Write", hint: "Code for personal project" },
-          { title: "Build", hint: "One new feature" },
-          { title: "Fix", hint: "Bug in current project" },
-          { title: "Refactor", hint: "Existing code" },
-          { title: "Test", hint: "App flow or functionality" },
-          { title: "Build Tool", hint: "That solves a problem" },
-          { title: "Learn by", hint: "Implementing (tutorial/example)" },
-          { title: "Apply", hint: "New technique to project" }
+          { title: "Express", hint: "A need, boundary, or feeling" },
+          { title: "Allow Closeness", hint: "Without performing" },
+          { title: "Stay Present", hint: "With uncertainty" },
+          { title: "Show Real Me", hint: "Not the polished version" },
+          { title: "Say Yes", hint: "To invitation that feels aligned" },
+          { title: "Trust", hint: "A little more than instinct" },
+          { title: "Respond", hint: "Honestly instead of strategically" },
+          { title: "Leave Better", hint: "Connection better than found" }
         ]
       },
       {
         id: "P3",
-        name: "Finance",
+        name: "Meaningful Work & Leverage",
         tasks: [
+          { title: "Improve", hint: "System/process/tool that compounds" },
+          { title: "Work On", hint: "Something that matters beyond today" },
+          { title: "Learn/Practice", hint: "Skill that increases leverage" },
+          { title: "Write Code", hint: "For personal project I care about" },
+          { title: "Fix", hint: "Bug or friction point" },
           { title: "Apply", hint: "To 1-2 target roles" },
-          { title: "Research", hint: "Companies/roles for applications" },
-          { title: "Reach Out", hint: "1 person at target company" },
-          { title: "Practice", hint: "Answering interview questions" },
-          { title: "Save", hint: "Money or budget" },
-          { title: "Learn", hint: "One career-relevant skill" },
-          { title: "Invest", hint: "In stocks, funds, or education" },
-          { title: "Bookmark", hint: "One role or opportunity" }
+          { title: "Bookmark", hint: "Role/idea/opportunity" },
+          { title: "Decide", hint: "Improves finances/efficiency/earning" }
         ]
       },
       {
         id: "P4",
-        name: "Connection & Presence",
+        name: "Autonomy & Freedom of Time",
         tasks: [
-          { title: "Reach Out", hint: "To one person (text/DM)" },
-          { title: "Say Yes", hint: "To an invitation" },
-          { title: "Plan", hint: "A hangout or suggest plans" },
-          { title: "Show Up", hint: "To chess meetup or social event" },
-          { title: "Be", hint: "Mindful (no multitasking)" },
-          { title: "Engage", hint: "In online community genuinely" },
-          { title: "Follow Up", hint: "With someone you haven't talked to" },
-          { title: "Plan Date", hint: "Or activity with girlfriend" }
+          { title: "Choose", hint: "Preserves flexibility in time/energy" },
+          { title: "Say No", hint: "To commitment that drains" },
+          { title: "Leave Margin", hint: "In schedule or mental load" },
+          { title: "Invest", hint: "In stocks/funds/education" },
+          { title: "Reduce Friction", hint: "In tomorrow's schedule" },
+          { title: "Avoid", hint: "Over-committing out of guilt" },
+          { title: "Design Day", hint: "Instead of reacting to it" },
+          { title: "Choose Freedom", hint: "Over short-term relief" }
         ]
       },
       {
         id: "P5",
-        name: "Learning & Growth",
+        name: "Emotional Regulation & Mental Health",
         tasks: [
-          { title: "Read", hint: "About topic you're curious about" },
-          { title: "Watch", hint: "Documentary or educational content" },
-          { title: "Take", hint: "Online course in career-relevant skill" },
-          { title: "Listen", hint: "To podcast in your field" },
-          { title: "Learn From", hint: "Someone you admire" },
-          { title: "Consume", hint: "Content that inspires you" },
-          { title: "Listen", hint: "To audiobook or lecture" },
-          { title: "Explore", hint: "Adjacent skills" }
+          { title: "Ground", hint: "Nervous system (movement/breath)" },
+          { title: "Notice Emotion", hint: "Without fixing or numbing" },
+          { title: "Treat Self", hint: "As someone worth caring for" },
+          { title: "Move Body", hint: "Gym/walk/stretch/workout" },
+          { title: "Sleep", hint: "~8 hours or support better sleep" },
+          { title: "Drink Water", hint: "Hit hydration target" },
+          { title: "Take", hint: "Supplements intentionally" },
+          { title: "Notice", hint: "Disrespect, choose not to react" }
         ]
       },
       {
         id: "P6",
-        name: "Creative Platform",
+        name: "Aesthetic, Environment & Vibe",
         tasks: [
-          { title: "Create", hint: "Art (even 15-20 min)" },
-          { title: "Publish", hint: "One piece of content" },
-          { title: "Capture", hint: "Process or idea" },
-          { title: "Share", hint: "Work-in-progress or process" },
-          { title: "Write", hint: "Caption or content idea" },
-          { title: "Edit", hint: "Media for posting" },
-          { title: "Plan", hint: "Tomorrow's content" },
-          { title: "Observe", hint: "What's working for creators" }
+          { title: "Improve", hint: "Environment in one small way" },
+          { title: "Clean/Organize", hint: "Reset one area" },
+          { title: "Optimize", hint: "Lighting, sound, or atmosphere" },
+          { title: "Remove", hint: "Visual or mental clutter" },
+          { title: "Create", hint: "Environment for focus or rest" },
+          { title: "Choose Calm", hint: "Clarity, warmth in social presence" },
+          { title: "Avoid", hint: "Conversations/content that drain" },
+          { title: "Keep Clean", hint: "Mental space by capturing thoughts" }
         ]
       },
       {
         id: "P7",
-        name: "Health & Energy",
+        name: "Competence, Mastery & Self-Respect",
         tasks: [
-          { title: "Train", hint: "Go to gym/workout" },
-          { title: "Eat", hint: "Enough (hit calorie target)" },
-          { title: "Sleep", hint: "8 hours" },
-          { title: "Stretch", hint: "Posture & hips" },
-          { title: "Drink", hint: "Water (hit daily target)" },
-          { title: "Take", hint: "Supplements" },
-          { title: "Recover", hint: "Active rest or full rest day" },
-          { title: "Meal Prep", hint: "For tomorrow" }
+          { title: "Practice", hint: "Something requiring focus/skill" },
+          { title: "Complete", hint: "Task cleanly, not rushing" },
+          { title: "Hold Standard", hint: "Even when no one sees" },
+          { title: "Create Art", hint: "Even 15-20 minutes" },
+          { title: "Sketch", hint: "New idea or concept" },
+          { title: "Work On", hint: "Current piece or creative idea" },
+          { title: "Capture", hint: "One new creative idea in notes" },
+          { title: "Finish", hint: "Something I started today" }
         ]
       },
       {
         id: "P8",
-        name: "Identity & Discipline",
+        name: "Selective Connection",
         tasks: [
-          { title: "Shut Down", hint: "Phone/laptop when arriving home" },
-          { title: "Keep", hint: "Environment clean and organized" },
-          { title: "Decide", hint: "Today's #1 priority (morning)" },
-          { title: "Start", hint: "Hard thing first (no warm-up)" },
-          { title: "Keep", hint: "Promise to yourself today" },
-          { title: "Regain", hint: "Attention when distracted" },
-          { title: "Be", hint: "Present (no multitasking)" },
-          { title: "Treat Others", hint: "How you want to be treated" }
+          { title: "Have", hint: "One present, real interaction" },
+          { title: "Choose", hint: "Solitude intentionally" },
+          { title: "Avoid Forcing", hint: "Social energy I don't have" },
+          { title: "Plan", hint: "Hangout or suggest plans" },
+          { title: "Engage", hint: "In community I care about" },
+          { title: "Show Up Fully", hint: "For one conversation" },
+          { title: "Leave Phone", hint: "Alone during connection" },
+          { title: "Connect", hint: "Because it feels nourishing" }
         ]
       }
     ];
@@ -2457,24 +2457,24 @@
     // Default settings for new analytics
     const DEFAULT_SETTINGS = {
       pillarTargets: {
-        P1: 5,   // Skill & Craft Mastery
-        P2: 10,  // Technical Building
-        P3: 45,  // Career Transition - Primary Goal!
-        P4: 8,   // Connection & Presence
-        P5: 5,   // Learning & Growth
-        P6: 10,  // Creative Platform
-        P7: 12,  // Health & Energy
-        P8: 15   // Identity & Discipline
+        P1: 8,   // Identity & Self-Understanding
+        P2: 8,   // Love, Attachment & Emotional Safety
+        P3: 10,  // Meaningful Work & Leverage
+        P4: 6,   // Autonomy & Freedom of Time
+        P5: 10,  // Emotional Regulation & Mental Health
+        P6: 8,   // Aesthetic, Environment & Vibe
+        P7: 8,   // Competence, Mastery & Self-Respect
+        P8: 6    // Selective Connection
       },
       goalWeights: {
-        P1: 6,   // Skill & Craft Mastery
-        P2: 4,   // Technical Building
-        P3: 10,  // Career Transition - Most relevant!
-        P4: 5,   // Connection & Presence
-        P5: 5,   // Learning & Growth
-        P6: 6,   // Creative Platform
-        P7: 7,   // Health & Energy
-        P8: 8    // Identity & Discipline
+        P1: 9,   // Identity & Self-Understanding - Core foundation
+        P2: 8,   // Love, Attachment & Emotional Safety - Deep connection
+        P3: 10,  // Meaningful Work & Leverage - Most relevant for growth
+        P4: 7,   // Autonomy & Freedom of Time - Essential for life design
+        P5: 10,  // Emotional Regulation & Mental Health - Critical foundation
+        P6: 6,   // Aesthetic, Environment & Vibe - Supporting pillar
+        P7: 8,   // Competence, Mastery & Self-Respect - Personal growth
+        P8: 7    // Selective Connection - Quality over quantity
       },
       availableHoursPerDay: 3,
       workHoursPerWeek: 45
@@ -2693,21 +2693,21 @@
         id: 'mind-and-body',
         name: 'Mind & Body',
         icon: '🧠💪',
-        description: 'Complete Health + Identity on same day, 5 times',
+        description: 'Complete Emotional Regulation + Identity on same day, 5 times',
         check: (data) => data.mindBodyCount >= 5
       },
       {
         id: 'builders-trifecta',
         name: "Builder's Trifecta",
         icon: '🛠️',
-        description: 'Complete Technical Building, Career Transition, and Connection on same day',
+        description: 'Complete Meaningful Work, Autonomy, and Selective Connection on same day',
         check: (data) => data.buildersTrifectaToday
       },
       {
         id: 'creators-flow',
-        name: "Creator's Flow",
+        name: "Inner Harmony",
         icon: '🎨',
-        description: 'Complete Skill & Craft, Creative Platform, and Learning pillars on same day',
+        description: 'Complete Identity, Love & Attachment, and Emotional Regulation on same day',
         check: (data) => data.creatorsFlowToday
       }
     ];
@@ -3461,14 +3461,14 @@
 
       // Define explicit grid placement for each pillar
       const pillarLayout = [
-        { pillar: pillars[0], row: 1, col: 1 }, // P1: Skill & Craft Mastery
-        { pillar: pillars[1], row: 1, col: 2 }, // P2: Technical Building
-        { pillar: pillars[2], row: 1, col: 3 }, // P3: Finance
-        { pillar: pillars[7], row: 2, col: 1 }, // P8: Identity & Discipline
-        { pillar: pillars[3], row: 2, col: 3 }, // P4: Connection & Presence
-        { pillar: pillars[6], row: 3, col: 1 }, // P7: Health & Energy
-        { pillar: pillars[5], row: 3, col: 2 }, // P6: Creative Platform
-        { pillar: pillars[4], row: 3, col: 3 }  // P5: Learning & Growth
+        { pillar: pillars[0], row: 1, col: 1 }, // P1: Identity & Self-Understanding
+        { pillar: pillars[1], row: 1, col: 2 }, // P2: Love, Attachment & Emotional Safety
+        { pillar: pillars[2], row: 1, col: 3 }, // P3: Meaningful Work & Leverage
+        { pillar: pillars[7], row: 2, col: 1 }, // P8: Selective Connection
+        { pillar: pillars[3], row: 2, col: 3 }, // P4: Autonomy & Freedom of Time
+        { pillar: pillars[6], row: 3, col: 1 }, // P7: Competence, Mastery & Self-Respect
+        { pillar: pillars[5], row: 3, col: 2 }, // P6: Aesthetic, Environment & Vibe
+        { pillar: pillars[4], row: 3, col: 3 }  // P5: Emotional Regulation & Mental Health
       ];
 
       // Create pillar cards with explicit positioning
@@ -3486,8 +3486,8 @@
       const centerTitle = document.createElement("div");
       centerTitle.className = "center-title";
       centerTitle.innerHTML = `
-        <strong>Goal:</strong>
-        <span>Create & Grow</span>
+        <strong>Live with Intention</strong>
+        <span>Integrity Over Optics</span>
       `;
       
       tasksGrid.appendChild(centerTitle);
