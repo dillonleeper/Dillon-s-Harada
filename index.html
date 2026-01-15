@@ -2409,16 +2409,16 @@
       }
     }
 
-    // Pillar color map - matching Harada chart colors
+    // Pillar color map - matching Harada chart colors - matching Harada chart colors
     const pillarColors = {
-      'P1': '#D6E4FF', // More Saturated Blue - Identity & Self-Understanding
-      'P2': '#E5DBFF', // More Saturated Violet - Love & Attachment
-      'P3': '#D4F0DD', // More Saturated Green - Meaningful Work
-      'P4': '#CCEEE8', // More Saturated Teal - Autonomy & Freedom
-      'P5': '#FFE4CC', // More Saturated Peach - Emotional Regulation
-      'P6': '#FFD9E0', // More Saturated Pink - Aesthetic & Environment
-      'P7': '#FFF3CC', // More Saturated Yellow - Competence & Mastery
-      'P8': '#FFD4C8'  // Soft Coral - Selective Connection
+      'P1': '#D6E4FF', // More Saturated Blue - Identity & Self-Understandingrated Blue - Identity & Self-Understanding
+      'P2': '#E5DBFF', // More Saturated Violet - Love & Attachmentted Violet - Love & Attachment
+      'P3': '#D4F0DD', // More Saturated Green - Meaningful Workated Green - Meaningful Work
+      'P4': '#CCEEE8', // More Saturated Teal - Autonomy & Freedomrated Teal - Autonomy & Freedom
+      'P5': '#FFE4CC', // More Saturated Peach - Emotional Regulationated Peach - Emotional Regulation
+      'P6': '#FFD9E0', // More Saturated Pink - Aesthetic & Environmentrated Pink - Aesthetic & Environment
+      'P7': '#FFF3CC', // More Saturated Yellow - Competence & Masteryted Yellow - Competence & Mastery
+      'P8': '#FFD4C8'  // Soft Coral - Selective Connection - Selective Connection
     };
 
     const pillars = [
@@ -3607,11 +3607,11 @@
 
       const layoutOrder = ["P1", "P2", "P3", "P8", "CENTER", "P4", "P7", "P6", "P5"];
 
-      layoutOrder.forEach((id) => {
+      layoutOrder.forEach(id => {
         if (id === "CENTER") {
           gridWrapper.appendChild(createCenterBox());
         } else {
-          const pillar = pillars.find((p) => p.id === id);
+          const pillar = pillars.find(p => p.id === id);
           gridWrapper.appendChild(createPillarBox(pillar));
         }
       });
@@ -4032,7 +4032,7 @@
         insightEl.textContent = `${totalToday} tasks—you're building something real today.`;
       } else if (totalAllTime % 50 === 0 && totalAllTime > 0) {
         insightEl.textContent = `${totalAllTime} total completions—milestone reached!`;
-      } else if (pillarsCount === 1) {
+      } else if ( pillarsCount === 1) {
         const activePillar = pillars.find(p => pillarTouches[p.id] > 0);
         const count = pillarTouches[activePillar.id];
         if (count >= 4) {
@@ -4566,6 +4566,11 @@
       
       saveJournalEntries();
       
+      // Clear the textarea after saving
+      if (text) {
+        journalTextarea.value = '';
+      }
+      
       if (journalStatus) {
         journalStatus.textContent = text ? 'Reflection saved ✓' : 'Reflection cleared';
         journalStatus.className = 'journal-status';
@@ -4680,7 +4685,6 @@
       // Draw labels
       ctx.fillStyle = '#1d1d1f';
       ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif';
-      ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       
       pillars.forEach((pillar, i) => {
@@ -4692,6 +4696,15 @@
         // Split long names into multiple lines if needed
         const name = pillar.name;
         const words = name.split(' ');
+        
+        // Adjust text alignment based on position
+        if (x < centerX - 10) {
+          ctx.textAlign = 'right';
+        } else if (x > centerX + 10) {
+          ctx.textAlign = 'left';
+        } else {
+          ctx.textAlign = 'center';
+        }
         
         if (words.length > 2) {
           // Multi-line for longer names
@@ -5104,7 +5117,7 @@
       const recommendations = [];
       
       pillars.forEach(pillar => {
-        const actual = totalToday > 0 ? (pillarTotals[pillar.id] / totalToday) * 100 : 0;
+        const actual = totalToday > 0 ? Math.round((pillarTotals[pillar.id] / totalToday) * 100) : 0;
         const target = targets[pillar.id];
         const weight = weights[pillar.id];
         const daysSince = getDaysSinceLastActivity(pillar.id);
