@@ -4250,9 +4250,12 @@
       
       // Calculate pillar totals from ALL-TIME stats (not filtered by range)
       const countsByPillar = {};
-      pillars.forEach(p => {
-        const pillarStats = statsAllTime?.[p.id];
-        countsByPillar[p.id] = pillarStats || 0;
+      pillars.forEach(p => countsByPillar[p.id] = 0);
+      Object.entries(statsAllTime).forEach(([cellId, count]) => {
+        const [pillarId] = cellId.split('-');
+        if (countsByPillar[pillarId] !== undefined) {
+          countsByPillar[pillarId] += count;
+        }
       });
       
       console.log('countsByPillar:', countsByPillar);
