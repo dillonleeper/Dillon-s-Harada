@@ -2902,20 +2902,29 @@
     
     function saveToFirebase(collection, data) {
       if (!db || !currentUser) {
-        console.log('Firebase not ready, using localStorage only');
+        console.log('⚠️ Firebase not ready, using localStorage only');
         showSyncStatus('Offline mode', false);
         return Promise.resolve();
       }
+      
+      console.log('📤 Saving to Firebase:', {
+        collection: collection,
+        userId: currentUser.uid,
+        userEmail: currentUser.email || 'Anonymous',
+        dataSize: JSON.stringify(data).length + ' bytes'
+      });
+      console.log('📤 Data:', data);
       
       showSyncStatus('Syncing...', false);
       
       return db.collection('users').doc(currentUser.uid).collection(collection)
         .doc('data').set(data, { merge: true })
         .then(() => {
+          console.log('✅ Successfully saved ' + collection + ' to Firebase');
           showSyncStatus('Synced ✓', false);
         })
         .catch((error) => {
-          console.error(`Error saving ${collection}:`, error);
+          console.error(`❌ Error saving ${collection}:`, error);
           showSyncStatus('Sync failed', true);
         });
     }
@@ -2963,35 +2972,57 @@
     function setupFirebaseListeners() {
       if (!db || !currentUser) return;
       
+      console.log('🔄 Setting up Firebase listeners for user:', {
+        uid: currentUser.uid,
+        email: currentUser.email || 'Anonymous'
+      });
+      
       const userRef = db.collection('users').doc(currentUser.uid);
       
       // Listen to today's state
       userRef.collection('todayState').doc('data').onSnapshot((doc) => {
+        console.log('📥 todayState snapshot received:', {
+          exists: doc.exists,
+          hasPendingWrites: doc.metadata.hasPendingWrites,
+          fromCache: doc.metadata.fromCache
+        });
+        
         if (doc.exists && !doc.metadata.hasPendingWrites) {
           const cloudData = doc.data();
           const cloudDate = cloudData?.date;
           const localDate = todayState?.date;
           
+          console.log('☁️ Cloud today data:', cloudData);
+          console.log('💾 Local today data:', todayState);
+          console.log('📅 Cloud date:', cloudDate, '| Local date:', localDate, '| Today:', getTodayString());
+          
           // Only update if cloud has newer data for today
           if (cloudDate === getTodayString() && JSON.stringify(cloudData) !== JSON.stringify(todayState)) {
-            console.log('📥 Syncing today\'s data from cloud');
+            console.log('🔄 Updating local data from cloud');
             todayState = cloudData;
             localStorage.setItem(STORAGE_TODAY_KEY, JSON.stringify(todayState));
             updateTodayReflection();
             updateStatsUI();
+          } else if (JSON.stringify(cloudData) === JSON.stringify(todayState)) {
+            console.log('✅ Data already in sync');
+          } else {
+            console.log('⏭️ Skipping update - date mismatch or same data');
           }
         }
       });
       
       // Listen to all-time stats
       userRef.collection('statsAllTime').doc('data').onSnapshot((doc) => {
+        console.log('📥 statsAllTime snapshot:', { exists: doc.exists, hasPendingWrites: doc.metadata.hasPendingWrites });
         if (doc.exists && !doc.metadata.hasPendingWrites) {
           const cloudData = doc.data();
           if (JSON.stringify(cloudData) !== JSON.stringify(statsAllTime)) {
-            console.log('📥 Syncing all-time stats from cloud');
+            console.log('🔄 Syncing all-time stats from cloud');
             statsAllTime = cloudData;
             localStorage.setItem(STORAGE_STATS_KEY, JSON.stringify(statsAllTime));
             updateStatsUI();
+          } else {
+            console.log('✅ Stats already in sync');
           }
         }
       });
