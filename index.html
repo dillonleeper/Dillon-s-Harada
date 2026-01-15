@@ -2118,64 +2118,6 @@
     </div>
   </div>
 
-  <!-- Customize Button & Overlay -->
-  <button class="settings-btn" id="customizeBtn" title="Customize Your Chart" style="bottom: 168px;">✏️</button>
-  <div class="settings-overlay" id="customizeOverlay">
-    <div class="settings-panel" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
-      <div class="settings-header">
-        <h2>Customize Your Harada Chart</h2>
-        <button class="settings-close" id="customizeClose">×</button>
-      </div>
-      
-      <div style="margin-bottom: 20px;">
-        <h3 style="font-size: 1rem; margin-bottom: 12px;">Your Main Goal</h3>
-        <div style="margin-bottom: 12px;">
-          <label style="display: block; font-size: 0.8rem; font-weight: 500; margin-bottom: 6px;">Goal Title</label>
-          <input type="text" id="centerGoalTitle" placeholder="e.g., Create & Grow" style="width: 100%; padding: 10px; border: 1px solid #d2d2d7; border-radius: 6px; font-size: 0.85rem;" />
-        </div>
-        <div>
-          <label style="display: block; font-size: 0.8rem; font-weight: 500; margin-bottom: 6px;">Description (optional)</label>
-          <input type="text" id="centerGoalDesc" placeholder="e.g., Build career and creative platform" style="width: 100%; padding: 10px; border: 1px solid #d2d2d7; border-radius: 6px; font-size: 0.85rem;" />
-        </div>
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h3 style="font-size: 1rem; margin: 0;">Your 8 Pillars</h3>
-          <button id="resetToDefaultBtn" style="background: none; border: 1px solid #d2d2d7; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; color: #6e6e73;">Reset to Default</button>
-        </div>
-        <p style="font-size: 0.75rem; color: #6e6e73; margin-bottom: 16px;">Each pillar represents a key area of your life. Click to edit.</p>
-        
-        <div id="pillarsCustomizeList"></div>
-      </div>
-
-      <button id="saveCustomizeBtn" class="settings-save-btn">Save My Chart</button>
-    </div>
-  </div>
-
-  <!-- Edit Pillar Modal -->
-  <div class="settings-overlay" id="editPillarOverlay">
-    <div class="settings-panel" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
-      <div class="settings-header">
-        <h2 id="editPillarTitle">Edit Pillar</h2>
-        <button class="settings-close" id="editPillarClose">×</button>
-      </div>
-      
-      <div style="margin-bottom: 20px;">
-        <label style="display: block; font-size: 0.8rem; font-weight: 500; margin-bottom: 6px;">Pillar Name</label>
-        <input type="text" id="editPillarName" placeholder="e.g., Health & Fitness" style="width: 100%; padding: 10px; border: 1px solid #d2d2d7; border-radius: 6px; font-size: 0.85rem;" />
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <h3 style="font-size: 0.9rem; margin-bottom: 12px;">8 Daily Tasks</h3>
-        <p style="font-size: 0.75rem; color: #6e6e73; margin-bottom: 12px;">Define 8 specific, actionable tasks for this pillar.</p>
-        <div id="editPillarTasksList"></div>
-      </div>
-
-      <button id="savePillarBtn" class="settings-save-btn">Save Pillar</button>
-    </div>
-  </div>
-
   <!-- Settings Button & Overlay -->
   <button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button>
   <div class="settings-overlay" id="settingsOverlay">
@@ -2387,17 +2329,7 @@
       'P8': '#F2F3F7'  // Soft Gray-Lavender
     };
 
-    // User's custom Harada configuration
-    let userHarada = null;
-    const STORAGE_USER_HARADA_KEY = "haradaUserConfig";
-
-    // Default template
-    const DEFAULT_HARADA_TEMPLATE = {
-      centerGoal: {
-        title: "Create & Grow",
-        description: ""
-      },
-      pillars: [
+    const pillars = [
       {
         id: "P1",
         name: "Skill & Craft Mastery",
@@ -2510,40 +2442,7 @@
           { title: "Treat Others", hint: "How you want to be treated" }
         ]
       }
-    ]
-    };
-
-    // Load or initialize user's Harada configuration
-    function loadUserHarada() {
-      try {
-        const stored = localStorage.getItem(STORAGE_USER_HARADA_KEY);
-        if (stored) {
-          userHarada = JSON.parse(stored);
-          console.log('✅ Loaded custom Harada configuration');
-        } else {
-          userHarada = JSON.parse(JSON.stringify(DEFAULT_HARADA_TEMPLATE));
-          saveUserHarada();
-          console.log('✅ Initialized with default Harada template');
-        }
-      } catch (error) {
-        console.error('Error loading Harada config:', error);
-        userHarada = JSON.parse(JSON.stringify(DEFAULT_HARADA_TEMPLATE));
-      }
-      
-      if (db && currentUser) {
-        saveToFirebase('haradaConfig', userHarada);
-      }
-    }
-
-    function saveUserHarada() {
-      localStorage.setItem(STORAGE_USER_HARADA_KEY, JSON.stringify(userHarada));
-      if (db && currentUser) {
-        saveToFirebase('haradaConfig', userHarada);
-      }
-    }
-
-    // Use userHarada.pillars instead of constant
-    const pillars = userHarada ? userHarada.pillars : [];
+    ];
 
     const STORAGE_TODAY_KEY = "haradaTodayState";
     const STORAGE_STATS_KEY = "haradaStatsAllTime";
@@ -3203,19 +3102,6 @@
             goalMetrics = cloudData;
             localStorage.setItem(STORAGE_GOAL_METRICS_KEY, JSON.stringify(goalMetrics));
             renderGoalProgress();
-          }
-        }
-      });
-      
-      // Listen to Harada config
-      userRef.collection('haradaConfig').doc('data').onSnapshot((doc) => {
-        if (doc.exists && !doc.metadata.hasPendingWrites) {
-          const cloudData = doc.data();
-          if (JSON.stringify(cloudData) !== JSON.stringify(userHarada)) {
-            console.log('📥 Syncing Harada config from cloud');
-            userHarada = cloudData;
-            localStorage.setItem(STORAGE_USER_HARADA_KEY, JSON.stringify(userHarada));
-            location.reload();
           }
         }
       });
@@ -5537,136 +5423,6 @@
       renderGoalProgress();
     }
 
-    // Customize Harada functions
-    let currentEditingPillarIndex = null;
-
-    function openCustomize() {
-      const overlay = document.getElementById('customizeOverlay');
-      if (!overlay) return;
-
-      document.getElementById('centerGoalTitle').value = userHarada.centerGoal.title;
-      document.getElementById('centerGoalDesc').value = userHarada.centerGoal.description || '';
-
-      renderPillarsCustomizeList();
-      overlay.classList.add('visible');
-    }
-
-    function closeCustomize() {
-      const overlay = document.getElementById('customizeOverlay');
-      if (overlay) overlay.classList.remove('visible');
-    }
-
-    function renderPillarsCustomizeList() {
-      const container = document.getElementById('pillarsCustomizeList');
-      if (!container) return;
-
-      container.innerHTML = '';
-
-      userHarada.pillars.forEach((pillar, index) => {
-        const card = document.createElement('div');
-        card.style.cssText = 'padding: 12px 16px; background: #f9fafb; border: 1px solid #e5e5ea; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s ease;';
-        card.onmouseenter = () => card.style.background = '#f1f3f6';
-        card.onmouseleave = () => card.style.background = '#f9fafb';
-        
-        const nameDiv = document.createElement('div');
-        nameDiv.innerHTML = `
-          <div style=\"font-weight: 600; font-size: 0.85rem; color: #1d1d1f; margin-bottom: 2px;\">${pillar.name}</div>
-          <div style=\"font-size: 0.7rem; color: #6e6e73;\">${pillar.tasks.length} tasks defined</div>
-        `;
-        
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Edit';
-        editBtn.style.cssText = 'background: #007AFF; color: white; border: none; padding: 6px 16px; border-radius: 6px; font-size: 0.75rem; cursor: pointer;';
-        editBtn.onclick = (e) => {
-          e.stopPropagation();
-          openEditPillar(index);
-        };
-        
-        card.appendChild(nameDiv);
-        card.appendChild(editBtn);
-        card.onclick = () => openEditPillar(index);
-        
-        container.appendChild(card);
-      });
-    }
-
-    function openEditPillar(pillarIndex) {
-      currentEditingPillarIndex = pillarIndex;
-      const pillar = userHarada.pillars[pillarIndex];
-      
-      const overlay = document.getElementById('editPillarOverlay');
-      if (!overlay) return;
-
-      document.getElementById('editPillarTitle').textContent = `Edit Pillar ${pillarIndex + 1}`;
-      document.getElementById('editPillarName').value = pillar.name;
-
-      const tasksList = document.getElementById('editPillarTasksList');
-      if (tasksList) {
-        tasksList.innerHTML = '';
-        
-        pillar.tasks.forEach((task, taskIndex) => {
-          const taskRow = document.createElement('div');
-          taskRow.style.cssText = 'margin-bottom: 12px; padding: 12px; background: #f9fafb; border: 1px solid #e5e5ea; border-radius: 6px;';
-          taskRow.innerHTML = `
-            <div style=\"font-weight: 600; font-size: 0.75rem; color: #6e6e73; margin-bottom: 8px;\">Task ${taskIndex + 1}</div>
-            <input type=\"text\" id=\"task-title-${taskIndex}\" value=\"${task.title}\" placeholder=\"Task name\" style=\"width: 100%; padding: 8px; border: 1px solid #d2d2d7; border-radius: 4px; font-size: 0.8rem; margin-bottom: 6px;\" />
-            <input type=\"text\" id=\"task-hint-${taskIndex}\" value=\"${task.hint}\" placeholder=\"Hint/description\" style=\"width: 100%; padding: 8px; border: 1px solid #d2d2d7; border-radius: 4px; font-size: 0.8rem;\" />
-          `;
-          tasksList.appendChild(taskRow);
-        });
-      }
-
-      overlay.classList.add('visible');
-    }
-
-    function closeEditPillar() {
-      const overlay = document.getElementById('editPillarOverlay');
-      if (overlay) overlay.classList.remove('visible');
-      currentEditingPillarIndex = null;
-    }
-
-    function savePillar() {
-      if (currentEditingPillarIndex === null) return;
-
-      const pillar = userHarada.pillars[currentEditingPillarIndex];
-      
-      pillar.name = document.getElementById('editPillarName').value || `Pillar ${currentEditingPillarIndex + 1}`;
-
-      pillar.tasks.forEach((task, taskIndex) => {
-        const titleInput = document.getElementById(`task-title-${taskIndex}`);
-        const hintInput = document.getElementById(`task-hint-${taskIndex}`);
-        if (titleInput) task.title = titleInput.value || `Task ${taskIndex + 1}`;
-        if (hintInput) task.hint = hintInput.value || '';
-      });
-
-      saveUserHarada();
-      closeEditPillar();
-      renderPillarsCustomizeList();
-      
-      alert('✅ Pillar saved! Click \"Save My Chart\" to apply changes.');
-    }
-
-    function saveCustomize() {
-      userHarada.centerGoal.title = document.getElementById('centerGoalTitle').value || 'Your Goal';
-      userHarada.centerGoal.description = document.getElementById('centerGoalDesc').value || '';
-
-      saveUserHarada();
-      closeCustomize();
-      
-      location.reload();
-    }
-
-    function resetToDefault() {
-      if (confirm('Reset to default Harada template? This will overwrite your current configuration.')) {
-        userHarada = JSON.parse(JSON.stringify(DEFAULT_HARADA_TEMPLATE));
-        saveUserHarada();
-        renderPillarsCustomizeList();
-        document.getElementById('centerGoalTitle').value = userHarada.centerGoal.title;
-        document.getElementById('centerGoalDesc').value = userHarada.centerGoal.description || '';
-        alert('✅ Reset to default template!');
-      }
-    }
-
     // Update all new analytics
     function updateNewAnalytics() {
       renderPriorityAlignment();
@@ -5677,7 +5433,6 @@
     }
 
     function init() {
-      loadUserHarada(); // Load custom config first
       loadState();
       const dateDisplay = document.getElementById("dateDisplay");
       if (dateDisplay) {
@@ -5694,51 +5449,6 @@
       
       // Initialize new analytics
       updateNewAnalytics();
-      
-      // Set up customize button
-      const customizeBtn = document.getElementById('customizeBtn');
-      if (customizeBtn) {
-        customizeBtn.addEventListener('click', openCustomize);
-      }
-      
-      const customizeClose = document.getElementById('customizeClose');
-      if (customizeClose) {
-        customizeClose.addEventListener('click', closeCustomize);
-      }
-      
-      const customizeOverlay = document.getElementById('customizeOverlay');
-      if (customizeOverlay) {
-        customizeOverlay.addEventListener('click', (e) => {
-          if (e.target === customizeOverlay) closeCustomize();
-        });
-      }
-      
-      const saveCustomizeBtn = document.getElementById('saveCustomizeBtn');
-      if (saveCustomizeBtn) {
-        saveCustomizeBtn.addEventListener('click', saveCustomize);
-      }
-      
-      const resetToDefaultBtn = document.getElementById('resetToDefaultBtn');
-      if (resetToDefaultBtn) {
-        resetToDefaultBtn.addEventListener('click', resetToDefault);
-      }
-      
-      const editPillarClose = document.getElementById('editPillarClose');
-      if (editPillarClose) {
-        editPillarClose.addEventListener('click', closeEditPillar);
-      }
-      
-      const editPillarOverlay = document.getElementById('editPillarOverlay');
-      if (editPillarOverlay) {
-        editPillarOverlay.addEventListener('click', (e) => {
-          if (e.target === editPillarOverlay) closeEditPillar();
-        });
-      }
-      
-      const savePillarBtn = document.getElementById('savePillarBtn');
-      if (savePillarBtn) {
-        savePillarBtn.addEventListener('click', savePillar);
-      }
       
       // Set up account/auth button
       const accountBtn = document.getElementById('accountBtn');
