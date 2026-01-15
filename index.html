@@ -4689,7 +4689,7 @@
       
       pillars.forEach((pillar, i) => {
         const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
-        const labelRadius = radius + 35;
+        const labelRadius = radius + 30;
         const x = centerX + Math.cos(angle) * labelRadius;
         const y = centerY + Math.sin(angle) * labelRadius;
         
@@ -4697,22 +4697,40 @@
         const name = pillar.name;
         const words = name.split(' ');
         
-        // Adjust text alignment based on position
-        if (x < centerX - 10) {
+        // Adjust text alignment and baseline based on position angle
+        const normalizedAngle = ((angle + Math.PI / 2) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+        
+        // Left side (90° to 270°)
+        if (normalizedAngle > Math.PI / 4 && normalizedAngle < Math.PI * 3 / 4) {
           ctx.textAlign = 'right';
-        } else if (x > centerX + 10) {
+          ctx.textBaseline = 'bottom';
+        } 
+        // Right side (270° to 90°)
+        else if (normalizedAngle > Math.PI * 5 / 4 && normalizedAngle < Math.PI * 7 / 4) {
           ctx.textAlign = 'left';
-        } else {
+          ctx.textBaseline = 'top';
+        }
+        // Top 
+        else if (normalizedAngle <= Math.PI / 4 || normalizedAngle >= Math.PI * 7 / 4) {
           ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+        }
+        // Bottom
+        else {
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
         }
         
+        // Always wrap to 2 lines for consistency and space efficiency
         if (words.length > 2) {
-          // Multi-line for longer names
           const mid = Math.ceil(words.length / 2);
           const line1 = words.slice(0, mid).join(' ');
           const line2 = words.slice(mid).join(' ');
-          ctx.fillText(line1, x, y - 6);
-          ctx.fillText(line2, x, y + 6);
+          ctx.fillText(line1, x, y - 5);
+          ctx.fillText(line2, x, y + 5);
+        } else if (words.length === 2) {
+          ctx.fillText(words[0], x, y - 5);
+          ctx.fillText(words[1], x, y + 5);
         } else {
           ctx.fillText(name, x, y);
         }
