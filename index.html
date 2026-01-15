@@ -1239,135 +1239,244 @@
       min-width: 20px;
     }
 
-    .balance-insights {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 8px;
+    .balance-story {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      align-items: start;
     }
 
-    .insight-card {
+    .daily-reflection-journal {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       background: #f9fafb;
       border: 1px solid #e5e5ea;
       border-radius: 8px;
-      padding: 10px 12px;
+      padding: 16px;
     }
 
-    .insight-label {
-      font-size: 0.7rem;
-      color: #86868b;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      margin-bottom: 4px;
+    .journal-header {
       display: flex;
-      align-items: center;
-      gap: 4px;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #e5e5ea;
+      padding-bottom: 8px;
     }
 
-    .info-icon {
-      display: inline-flex;
+    .journal-header h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin: 0;
+    }
+
+    .journal-date {
+      font-size: 0.75rem;
+      color: #6e6e73;
+      font-weight: 500;
+    }
+
+    .journal-textarea {
+      min-height: 200px;
+      padding: 12px;
+      border: 1px solid #d2d2d7;
+      border-radius: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #1d1d1f;
+      resize: vertical;
+      background: #ffffff;
+      transition: border-color 0.2s ease;
+    }
+
+    .journal-textarea:focus {
+      outline: none;
+      border-color: #007AFF;
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+    }
+
+    .journal-textarea::placeholder {
+      color: #86868b;
+    }
+
+    .journal-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .journal-save-btn, .journal-history-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .journal-save-btn {
+      background: #007AFF;
+      color: #ffffff;
+      flex: 1;
+    }
+
+    .journal-save-btn:hover {
+      background: #0051D5;
+      transform: translateY(-1px);
+    }
+
+    .journal-history-btn {
+      background: #ffffff;
+      color: #007AFF;
+      border: 1px solid #007AFF;
+      flex: 0 0 auto;
+    }
+
+    .journal-history-btn:hover {
+      background: #f0f9ff;
+    }
+
+    .journal-status {
+      font-size: 0.75rem;
+      color: #34c759;
+      min-height: 18px;
+      text-align: center;
+    }
+
+    .journal-status.error {
+      color: #ff3b30;
+    }
+
+    /* Journal History Overlay */
+    .journal-history-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
       align-items: center;
       justify-content: center;
-      width: 14px;
-      height: 14px;
-      border: 1px solid #86868b;
+      z-index: 10000;
+      padding: 20px;
+    }
+
+    .journal-history-overlay.visible {
+      display: flex;
+    }
+
+    .journal-history-panel {
+      background: #ffffff;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .journal-history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid #e5e5ea;
+    }
+
+    .journal-history-header h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      color: #1d1d1f;
+    }
+
+    .journal-history-close {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #86868b;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 50%;
-      font-size: 0.6rem;
-      color: #86868b;
-      cursor: help;
-      position: relative;
-      flex-shrink: 0;
+      transition: all 0.2s ease;
     }
 
-    .info-icon:hover {
-      border-color: #1d1d1f;
+    .journal-history-close:hover {
+      background: #f1f3f6;
       color: #1d1d1f;
     }
 
-    .info-tooltip {
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-      width: 240px;
-      padding: 8px 12px;
-      background: #1d1d1f;
-      color: #ffffff;
-      font-size: 0.7rem;
-      font-weight: 400;
-      line-height: 1.4;
-      border-radius: 6px;
-      text-transform: none;
-      letter-spacing: 0;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    .journal-history-list {
+      overflow-y: auto;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .info-icon:hover .info-tooltip {
-      opacity: 1;
-    }
-
-    .info-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: #1d1d1f;
-    }
-
-    .insight-value {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #1d1d1f;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .insight-description {
-      font-size: 0.72rem;
-      color: #6e6e73;
-      margin-top: 4px;
-      line-height: 1.4;
-    }
-
-    .insight-secondary {
-      font-size: 0.68rem;
-      color: #86868b;
-      margin-top: 2px;
-      line-height: 1.3;
-      font-style: italic;
-    }
-
-    .neglected-pillar {
-      background: #fff5e6;
-      border-color: #ffb366;
-    }
-
-    .neglected-pillar .insight-value {
-      color: #ff8800;
-    }
-
-    .overweighted-pillar {
+    .history-entry {
       background: #f9fafb;
       border: 1px solid #e5e5ea;
+      border-radius: 8px;
+      padding: 16px;
+      transition: all 0.2s ease;
     }
 
-    .overweighted-pillar .insight-value {
+    .history-entry:hover {
+      border-color: #007AFF;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .history-entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .history-entry-date {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #007AFF;
+    }
+
+    .history-entry-delete {
+      background: none;
+      border: none;
+      color: #ff3b30;
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .history-entry-delete:hover {
+      background: #fff5f5;
+    }
+
+    .history-entry-text {
+      font-size: 0.85rem;
+      line-height: 1.6;
       color: #1d1d1f;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
 
-    .stability-card {
-      background: #f5f5f7;
-      border-color: #d1d1d6;
-    }
-
-    .stability-card .insight-value {
-      color: #1d1d1f;
+    .history-empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: #86868b;
+      font-size: 0.9rem;
     }
 
     .balance-footer {
@@ -1917,70 +2026,44 @@
       <div class="timeline-labels" id="timelineLabels"></div>
     </div>
     <div class="balance-content">
-      <div class="radar-section" style="position: relative;">
-        <canvas id="radarChart" class="radar-canvas" width="320" height="320"></canvas>
-        <div id="radarTooltip" class="radar-tooltip">
-          <div class="radar-tooltip-pillar"></div>
-          <div class="radar-tooltip-value"></div>
+      <div class="balance-story">
+        <div class="radar-section" style="position: relative;">
+          <canvas id="radarChart" class="radar-canvas" width="320" height="320"></canvas>
+          <div id="radarTooltip" class="radar-tooltip">
+            <div class="radar-tooltip-pillar"></div>
+            <div class="radar-tooltip-value"></div>
+          </div>
         </div>
-        <div class="radar-legend">
-          <div class="radar-legend-item"><span class="radar-legend-label">Identity & Self-Understanding</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Love, Attachment & Emotional Safety</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Meaningful Work & Leverage</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Autonomy & Freedom of Time</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Emotional Regulation & Mental Health</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Aesthetic, Environment & Vibe</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Competence, Mastery & Self-Respect</span></div>
-          <div class="radar-legend-item"><span class="radar-legend-label">Selective Connection</span></div>
+        <div class="daily-reflection-journal">
+          <div class="journal-header">
+            <h3>Daily Reflection</h3>
+            <span class="journal-date" id="journalDate">—</span>
+          </div>
+          <textarea 
+            id="journalTextarea" 
+            class="journal-textarea" 
+            placeholder="How did today feel? What patterns did you notice? What would you do differently?"
+          ></textarea>
+          <div class="journal-actions">
+            <button id="saveJournalBtn" class="journal-save-btn">Save Reflection</button>
+            <button id="viewHistoryBtn" class="journal-history-btn">View History</button>
+          </div>
+          <div class="journal-status" id="journalStatus"></div>
         </div>
       </div>
-      <div class="balance-insights">
-        <div class="insight-card">
-          <div class="insight-label">
-            Balance Score
-            <span class="info-icon">
-              i
-              <span class="info-tooltip">Measures how evenly your effort is distributed across all 8 pillars. Higher scores (80-100) indicate balanced focus, while lower scores suggest concentration in fewer areas.</span>
-            </span>
-          </div>
-          <div class="insight-value" id="balanceScore">—</div>
-          <div class="insight-description" id="balanceDescription">Loading...</div>
-        </div>
-        <div class="insight-card">
-          <div class="insight-label">
-            Balance Trend
-            <span class="info-icon">
-              i
-              <span class="info-tooltip">Compares your current balance score to the previous equivalent period. Positive values indicate improvement in distributing focus across pillars.</span>
-            </span>
-          </div>
-          <div class="insight-value" id="balanceTrend">—</div>
-          <div class="insight-description" id="balanceTrendDescription">Loading...</div>
-        </div>
-        <div class="insight-card overweighted-pillar" id="focusPatternCard">
-          <div class="insight-label">
-            Focus Pattern
-            <span class="info-icon">
-              i
-              <span class="info-tooltip">Shows where your attention is concentrated and which areas might benefit from more focus.</span>
-            </span>
-          </div>
-          <div class="insight-value" id="focusPatternPrimary">—</div>
-          <div class="insight-description" id="focusPatternDescription">Loading...</div>
-          <div class="insight-secondary" id="focusPatternSecondary"></div>
-        </div>
-        <div class="insight-card stability-card">
-          <div class="insight-label">
-            Focus Stability
-            <span class="info-icon">
-              i
-              <span class="info-tooltip">Measures consistency of your pillar focus from day to day (0-10 scale). Steady patterns (8-10) show reliable attention. Dynamic patterns (0-4) reflect frequent shifts.</span>
-            </span>
-          </div>
-          <div class="insight-value" id="stabilityScore">—</div>
-          <div class="insight-description" id="stabilityDescription">Loading...</div>
-        </div>
-        <div class="balance-footer" id="balanceFooter">Loading balance insights...</div>
+      <div class="balance-footer" id="balanceFooter">Loading balance insights...</div>
+    </div>
+  </div>
+
+  <!-- Journal History Overlay -->
+  <div class="journal-history-overlay" id="journalHistoryOverlay">
+    <div class="journal-history-panel">
+      <div class="journal-history-header">
+        <h2>Reflection History</h2>
+        <button class="journal-history-close" id="journalHistoryClose">×</button>
+      </div>
+      <div class="journal-history-list" id="journalHistoryList">
+        <!-- History entries will be injected here -->
       </div>
     </div>
   </div>
@@ -4389,6 +4472,122 @@
       renderRadarChart(values);
     }
 
+    // Journal functionality
+    const STORAGE_JOURNAL_KEY = "haradaJournalEntries";
+    let journalEntries = {};
+
+    function loadJournalEntries() {
+      try {
+        const raw = localStorage.getItem(STORAGE_JOURNAL_KEY);
+        journalEntries = raw ? JSON.parse(raw) : {};
+      } catch {
+        journalEntries = {};
+      }
+    }
+
+    function saveJournalEntries() {
+      localStorage.setItem(STORAGE_JOURNAL_KEY, JSON.stringify(journalEntries));
+      
+      // Also sync to Firebase if available
+      if (db && currentUser) {
+        saveToFirebase('journalEntries', journalEntries);
+      }
+    }
+
+    function loadTodayJournal() {
+      const today = getTodayString();
+      const journalDate = document.getElementById('journalDate');
+      const journalTextarea = document.getElementById('journalTextarea');
+      
+      if (journalDate) {
+        journalDate.textContent = formatPrettyDate();
+      }
+      
+      if (journalTextarea) {
+        journalTextarea.value = journalEntries[today] || '';
+      }
+    }
+
+    function saveJournalEntry() {
+      const today = getTodayString();
+      const journalTextarea = document.getElementById('journalTextarea');
+      const journalStatus = document.getElementById('journalStatus');
+      
+      if (!journalTextarea) return;
+      
+      const text = journalTextarea.value.trim();
+      
+      if (text) {
+        journalEntries[today] = text;
+      } else {
+        delete journalEntries[today];
+      }
+      
+      saveJournalEntries();
+      
+      if (journalStatus) {
+        journalStatus.textContent = text ? 'Reflection saved ✓' : 'Reflection cleared';
+        journalStatus.className = 'journal-status';
+        setTimeout(() => {
+          journalStatus.textContent = '';
+        }, 2000);
+      }
+    }
+
+    function openJournalHistory() {
+      const overlay = document.getElementById('journalHistoryOverlay');
+      const listContainer = document.getElementById('journalHistoryList');
+      
+      if (!overlay || !listContainer) return;
+      
+      // Sort entries by date descending
+      const sortedEntries = Object.entries(journalEntries)
+        .sort((a, b) => b[0].localeCompare(a[0]));
+      
+      if (sortedEntries.length === 0) {
+        listContainer.innerHTML = '<div class="history-empty">No reflections yet. Start writing to build your history.</div>';
+      } else {
+        listContainer.innerHTML = sortedEntries.map(([date, text]) => {
+          const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString(undefined, {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          });
+          
+          return `
+            <div class="history-entry" data-date="${date}">
+              <div class="history-entry-header">
+                <span class="history-entry-date">${formattedDate}</span>
+                <button class="history-entry-delete" onclick="deleteJournalEntry('${date}')">Delete</button>
+              </div>
+              <div class="history-entry-text">${text}</div>
+            </div>
+          `;
+        }).join('');
+      }
+      
+      overlay.classList.add('visible');
+    }
+
+    function closeJournalHistory() {
+      const overlay = document.getElementById('journalHistoryOverlay');
+      if (overlay) {
+        overlay.classList.remove('visible');
+      }
+    }
+
+    function deleteJournalEntry(date) {
+      if (confirm('Delete this reflection?')) {
+        delete journalEntries[date];
+        saveJournalEntries();
+        openJournalHistory(); // Refresh the list
+      }
+    }
+
+    // Make deleteJournalEntry available globally
+    window.deleteJournalEntry = deleteJournalEntry;
+
     function renderRadarChart(values) {
       const canvas = document.getElementById('radarChart');
       const ctx = canvas.getContext('2d');
@@ -4399,9 +4598,18 @@
       // Store data point positions for hover detection
       const dataPoints = [];
       
+      // Sort pillars by their values (least to most active)
+      const sortedIndices = values
+        .map((value, index) => ({ value, index }))
+        .sort((a, b) => a.value - b.value)
+        .map(item => item.index);
+      
+      const sortedPillars = sortedIndices.map(i => pillars[i]);
+      const sortedValues = sortedIndices.map(i => values[i]);
+      
       // Use dynamic scaling: scale based on max value, but ensure data spreads out
-      const maxValue = Math.max(...values);
-      const minValue = Math.min(...values);
+      const maxValue = Math.max(...sortedValues);
+      const minValue = Math.min(...sortedValues);
       const range = maxValue - minValue;
       
       // If range is very small or zero, use expanded scale for better visibility
@@ -4426,7 +4634,7 @@
       // Draw axes
       ctx.strokeStyle = '#d2d2d7';
       ctx.lineWidth = 1;
-      pillars.forEach((pillar, i) => {
+      sortedPillars.forEach((pillar, i) => {
         const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
         const x = centerX + Math.cos(angle) * radius;
         const y = centerY + Math.sin(angle) * radius;
@@ -4443,7 +4651,7 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       
-      pillars.forEach((pillar, i) => {
+      sortedPillars.forEach((pillar, i) => {
         const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
         const labelRadius = radius + 24;
         const x = centerX + Math.cos(angle) * labelRadius;
@@ -4471,7 +4679,7 @@
       ctx.lineWidth = 2;
       ctx.beginPath();
       
-      values.forEach((value, i) => {
+      sortedValues.forEach((value, i) => {
         const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
         const valueRadius = (value / scale) * radius;
         const x = centerX + Math.cos(angle) * valueRadius;
@@ -4490,7 +4698,7 @@
       
       // Draw data points and store positions
       ctx.fillStyle = '#007AFF';
-      values.forEach((value, i) => {
+      sortedValues.forEach((value, i) => {
         const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
         const valueRadius = (value / scale) * radius;
         const x = centerX + Math.cos(angle) * valueRadius;
@@ -4504,7 +4712,7 @@
         dataPoints.push({
           x: x,
           y: y,
-          pillar: pillars[i],
+          pillar: sortedPillars[i],
           value: value
         });
       });
@@ -5508,6 +5716,45 @@
           updatePillarBalance();
         });
       });
+      
+      // Initialize journal
+      loadJournalEntries();
+      loadTodayJournal();
+      
+      // Journal event listeners
+      const saveJournalBtn = document.getElementById('saveJournalBtn');
+      if (saveJournalBtn) {
+        saveJournalBtn.addEventListener('click', saveJournalEntry);
+      }
+      
+      const viewHistoryBtn = document.getElementById('viewHistoryBtn');
+      if (viewHistoryBtn) {
+        viewHistoryBtn.addEventListener('click', openJournalHistory);
+      }
+      
+      const journalHistoryClose = document.getElementById('journalHistoryClose');
+      if (journalHistoryClose) {
+        journalHistoryClose.addEventListener('click', closeJournalHistory);
+      }
+      
+      const journalHistoryOverlay = document.getElementById('journalHistoryOverlay');
+      if (journalHistoryOverlay) {
+        journalHistoryOverlay.addEventListener('click', (e) => {
+          if (e.target === journalHistoryOverlay) {
+            closeJournalHistory();
+          }
+        });
+      }
+      
+      // Auto-save journal on change (debounced)
+      const journalTextarea = document.getElementById('journalTextarea');
+      let journalSaveTimeout;
+      if (journalTextarea) {
+        journalTextarea.addEventListener('input', () => {
+          clearTimeout(journalSaveTimeout);
+          journalSaveTimeout = setTimeout(saveJournalEntry, 1000);
+        });
+      }
     }
 
     init();
