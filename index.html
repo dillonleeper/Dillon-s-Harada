@@ -4355,6 +4355,21 @@
         }
       });
       
+      // Calculate today's counts per pillar for data integrity check
+      const todayPillarCounts = {};
+      pillars.forEach(p => todayPillarCounts[p.id] = 0);
+      Object.keys(todayState.completed).forEach((cellId) => {
+        const [pillarId] = cellId.split("-");
+        if (todayPillarCounts[pillarId] !== undefined) {
+          todayPillarCounts[pillarId] += 1;
+        }
+      });
+      
+      // Apply safety check: ensure all-time is at least as high as today's count
+      pillars.forEach(p => {
+        countsByPillar[p.id] = Math.max(countsByPillar[p.id], todayPillarCounts[p.id]);
+      });
+      
       console.log('countsByPillar:', countsByPillar);
       
       // Get date strings for timeline rendering
