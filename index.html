@@ -4439,7 +4439,7 @@
       
       // Draw labels
       ctx.fillStyle = '#1d1d1f';
-      ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif';
+      ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       
@@ -4449,7 +4449,20 @@
         const x = centerX + Math.cos(angle) * labelRadius;
         const y = centerY + Math.sin(angle) * labelRadius;
         
-        ctx.fillText(`P${i + 1}`, x, y);
+        // Split long names into multiple lines if needed
+        const name = pillar.name;
+        const words = name.split(' ');
+        
+        if (words.length > 2) {
+          // Multi-line for longer names
+          const mid = Math.ceil(words.length / 2);
+          const line1 = words.slice(0, mid).join(' ');
+          const line2 = words.slice(mid).join(' ');
+          ctx.fillText(line1, x, y - 6);
+          ctx.fillText(line2, x, y + 6);
+        } else {
+          ctx.fillText(name, x, y);
+        }
       });
       
       // Draw data polygon
