@@ -281,7 +281,47 @@
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
-
+    
+    /* Phase 2: Node State Visual Language (Subtle & Ambient) */
+    
+    /* Dormant: Muted, low contrast - resting state */
+    .task-cell.node-dormant {
+      opacity: 0.6;
+      border-color: #d2d2d7;
+    }
+    
+    .task-cell.node-dormant .task-title {
+      color: #86868b;
+    }
+    
+    .task-cell.node-dormant .task-hint {
+      color: #c4c4c7;
+    }
+    
+    /* Active: Normal emphasis - engaged state */
+    .task-cell.node-active {
+      opacity: 0.9;
+      border-color: #86868b;
+    }
+    
+    .task-cell.node-active .task-title {
+      color: #1d1d1f;
+      font-weight: 600;
+    }
+    
+    /* Integrated: Calm, resolved emphasis - not celebratory */
+    .task-cell.node-integrated {
+      opacity: 1;
+      border-width: 1.5px;
+      border-color: #1d1d1f;
+    }
+    
+    .task-cell.node-integrated .task-title {
+      color: #1d1d1f;
+      font-weight: 700;
+    }
+    
+    /* Preserve completed state appearance */
     .task-cell.completed {
       border-color: #d2d2d7;
       opacity: 0.7;
@@ -768,78 +808,6 @@
       transition: width 0.5s ease;
     }
 
-    /* Today's Quest Card */
-    .quest-card {
-      max-width: min(var(--app-max-width), calc(100vw - 40px));
-      width: 100%;
-      background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
-      border: 2px solid #FFD700;
-      border-radius: 12px;
-      padding: 14px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
-    }
-
-    .quest-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .quest-icon {
-      font-size: 1.5rem;
-    }
-
-    .quest-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1d1d1f;
-    }
-
-    .quest-description {
-      font-size: 0.85rem;
-      color: #6e6e73;
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-
-    .quest-progress {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .quest-progress-bar {
-      flex: 1;
-      background: #e5e5ea;
-      border-radius: 8px;
-      height: 12px;
-      overflow: hidden;
-    }
-
-    .quest-progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #34c759, #30d158);
-      border-radius: 8px;
-      transition: width 0.5s ease;
-    }
-
-    .quest-progress-text {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #1d1d1f;
-      white-space: nowrap;
-    }
-
-    .quest-reward {
-      font-size: 0.75rem;
-      color: #ff9500;
-      font-weight: 600;
-      text-align: center;
-    }
-
     /* Recommendations Section */
     .recommendations-list {
       display: flex;
@@ -1183,6 +1151,57 @@
     .growth-insight-item em {
       color: #6e6e73;
       font-style: italic;
+    }
+
+    /* Phase 2: Weekly Narrative Section */
+    .weekly-narrative-section {
+      max-width: min(var(--app-max-width), calc(100vw - 40px));
+      width: 100%;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #d2d2d7;
+      padding: 16px 18px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .weekly-narrative-section h2 {
+      font-size: 1rem;
+      margin: 0 0 14px 0;
+      font-weight: 600;
+      color: #1d1d1f;
+    }
+
+    .weekly-narrative-content {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #1d1d1f;
+    }
+
+    .weekly-narrative-content p {
+      margin: 0 0 12px 0;
+    }
+
+    .weekly-narrative-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .narrative-domain {
+      font-weight: 600;
+      color: #1d1d1f;
+    }
+
+    .narrative-state-dormant {
+      color: #86868b;
+    }
+
+    .narrative-state-active {
+      color: #007AFF;
+    }
+
+    .narrative-state-integrated {
+      color: #1d1d1f;
+      font-weight: 600;
     }
 
     .pillar-balance {
@@ -2147,24 +2166,6 @@
     </div>
   </div>
 
-  <!-- Today's Quest Card -->
-  <div class="quest-card" id="questCard" style="display: none;">
-    <div class="quest-header">
-      <span class="quest-icon">🎯</span>
-      <span class="quest-title">Today's Quest</span>
-    </div>
-    <div class="quest-description" id="questDescription">
-      Complete tasks to unlock your quest!
-    </div>
-    <div class="quest-progress">
-      <div class="quest-progress-bar">
-        <div class="quest-progress-fill" id="questProgressFill" style="width: 0%;"></div>
-      </div>
-      <div class="quest-progress-text" id="questProgressText">0/8</div>
-    </div>
-    <div class="quest-reward" id="questReward">Reward: +10 XP Bonus</div>
-  </div>
-
   <div class="grid-wrapper" id="gridWrapper">
     <!-- Pillars & center will be injected here by JavaScript -->
   </div>
@@ -2188,6 +2189,14 @@
     <h2>Your Growth</h2>
     <div class="growth-insights-content" id="growthInsights">
       <!-- Insights will be injected here by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Phase 2: Weekly State Change Narrative -->
+  <div class="weekly-narrative-section" id="weeklyNarrativeSection" style="display: none;">
+    <h2>This Week</h2>
+    <div class="weekly-narrative-content" id="weeklyNarrativeContent">
+      <!-- Weekly narrative will be injected here -->
     </div>
   </div>
 
@@ -2731,6 +2740,22 @@
     const STORAGE_SETTINGS_KEY = "haradaSettings";
     const STORAGE_PILLAR_STREAKS_KEY = "haradaPillarStreaks";
     const STORAGE_GOAL_METRICS_KEY = "haradaGoalMetrics";
+    
+    // Phase 2: Weight-based progression
+    const STORAGE_NODE_WEIGHTS_KEY = "haradaNodeWeights";
+    const STORAGE_LAST_DECAY_KEY = "haradaLastDecayDate";
+    const STORAGE_WEEKLY_NARRATIVE_KEY = "haradaWeeklyNarrative";
+    
+    // Weight system configuration
+    const WEIGHT_INCREMENT = 5;        // Weight gained per action
+    const WEIGHT_DECAY_RATE = 0.5;     // Gentle daily decay (0.5% of current weight)
+    const WEIGHT_MAX = 100;            // Maximum weight value
+    
+    // State thresholds (derived from weight)
+    const STATE_DORMANT_MAX = 20;      // Below this: Dormant
+    const STATE_ACTIVE_MIN = 20;       // At or above: Active
+    const STATE_INTEGRATED_MIN = 70;   // At or above: Integrated
+    
     const MIN_TASKS_FOR_STREAK = 1; // Configurable threshold
 
     // Default settings for new analytics
@@ -3026,8 +3051,12 @@
       xpToday: 0,
       freezes: 0
     };
-    let dailyQuest = null;
     let achievementsUnlocked = [];
+    
+    // Phase 2: Node weight system
+    let nodeWeights = {};              // { cellId: { weight, lastActivity, state } }
+    let lastDecayDate = null;          // Track when decay last ran
+    let weeklyNarrative = null;        // Weekly state change summary
 
     function loadState() {
       const today = getTodayString();
@@ -3168,11 +3197,12 @@
       // Load game state from localStorage or Firebase
       loadGameState();
       
-      // Load daily quest
-      loadDailyQuest();
-      
       // Load unlocked achievements/milestones
       loadUnlockedAchievements();
+      
+      // Phase 2: Load node weights and apply decay
+      loadNodeWeights();
+      applyDailyDecay();
     }
     
     // ===== GAMIFICATION FUNCTIONS =====
@@ -3334,151 +3364,250 @@
       }
     }
     
-    // ===== DAILY QUEST FUNCTIONS =====
+    // ===== PHASE 2: NODE WEIGHT SYSTEM =====
     
-    function loadDailyQuest() {
-      const today = getTodayString();
-      const questKey = `harada_dailyQuest_${today}`;
-      
+    /**
+     * Load node weights from storage.
+     * Migrates existing completion data to weights if needed.
+     */
+    function loadNodeWeights() {
       try {
-        const rawQuest = localStorage.getItem(questKey);
-        if (rawQuest) {
-          dailyQuest = JSON.parse(rawQuest);
+        const rawWeights = localStorage.getItem(STORAGE_NODE_WEIGHTS_KEY);
+        if (rawWeights) {
+          nodeWeights = JSON.parse(rawWeights);
         } else {
-          generateDailyQuest();
+          // Initialize from existing completion data
+          nodeWeights = migrateToWeightSystem();
         }
       } catch {
-        generateDailyQuest();
+        nodeWeights = {};
       }
       
-      updateQuestUI();
+      // Load last decay date
+      try {
+        lastDecayDate = localStorage.getItem(STORAGE_LAST_DECAY_KEY);
+      } catch {
+        lastDecayDate = getTodayString();
+      }
+      
+      if (!lastDecayDate) {
+        lastDecayDate = getTodayString();
+        localStorage.setItem(STORAGE_LAST_DECAY_KEY, lastDecayDate);
+      }
     }
     
-    function generateDailyQuest() {
-      const today = getTodayString();
+    /**
+     * Migrate existing binary completion data to weight-based system.
+     * Infers weights from historical activity patterns.
+     */
+    function migrateToWeightSystem() {
+      const weights = {};
       
-      // Find at-risk pillars (3+ days since last activity)
-      const atRiskPillars = pillars.filter(p => {
-        const daysSinceLastActivity = getDaysSinceLastActivity(p.id);
-        return daysSinceLastActivity >= 3;
+      // Get all task cells from pillars
+      pillars.forEach(pillar => {
+        pillar.subpillars.forEach((subpillar, subIndex) => {
+          subpillar.tasks.forEach((task, taskIndex) => {
+            const cellId = `${pillar.id}-${subIndex}-${taskIndex}`;
+            const allTimeCount = statsAllTime[cellId] || 0;
+            
+            // Infer weight from all-time completions
+            // Higher completion count suggests more integrated state
+            let inferredWeight = 0;
+            if (allTimeCount >= 20) {
+              inferredWeight = 75; // Integrated
+            } else if (allTimeCount >= 10) {
+              inferredWeight = 50; // Active
+            } else if (allTimeCount >= 3) {
+              inferredWeight = 25; // Early Active
+            } else if (allTimeCount > 0) {
+              inferredWeight = 10; // Emerging from Dormant
+            }
+            
+            // Check if completed today
+            const completedToday = todayState && todayState.completed && todayState.completed[cellId];
+            
+            weights[cellId] = {
+              weight: inferredWeight,
+              lastActivity: completedToday ? getTodayString() : null,
+              state: deriveState(inferredWeight)
+            };
+          });
+        });
       });
       
-      // Choose a random at-risk pillar, or random pillar if none at risk
-      let targetPillar;
-      if (atRiskPillars.length > 0) {
-        targetPillar = atRiskPillars[Math.floor(Math.random() * atRiskPillars.length)];
-      } else {
-        targetPillar = pillars[Math.floor(Math.random() * pillars.length)];
-      }
-      
-      dailyQuest = {
-        date: today,
-        pillarId: targetPillar.id,
-        pillarName: targetPillar.name,
-        target: 8,
-        progress: 0,
-        completed: false
-      };
-      
-      const questKey = `harada_dailyQuest_${today}`;
-      localStorage.setItem(questKey, JSON.stringify(dailyQuest));
-      
-      // Save to Firestore
-      if (db && currentUser) {
-        db.collection('users').doc(currentUser.uid).collection('dailyQuest')
-          .doc(today).set(dailyQuest, { merge: true })
-          .catch(err => console.warn('Failed to save quest to Firestore:', err));
-      }
+      localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(weights));
+      return weights;
     }
     
-    function getDaysSinceLastActivity(pillarId) {
-      const sortedDates = Object.keys(dailyHistory).sort().reverse();
-      
-      for (let i = 0; i < sortedDates.length; i++) {
-        const dateStr = sortedDates[i];
-        const entry = dailyHistory[dateStr];
-        
-        if (entry && entry.pillars && entry.pillars[pillarId] > 0) {
-          const date = new Date(dateStr);
-          const today = new Date();
-          const diffTime = Math.abs(today - date);
-          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-          return diffDays;
-        }
-      }
-      
-      return 999; // Never touched
+    /**
+     * Derive state from weight value.
+     * States: Dormant, Active, Integrated
+     */
+    function deriveState(weight) {
+      if (weight >= STATE_INTEGRATED_MIN) return 'integrated';
+      if (weight >= STATE_ACTIVE_MIN) return 'active';
+      return 'dormant';
     }
     
-    function updateQuestProgress() {
-      if (!dailyQuest || dailyQuest.completed) return;
-      
-      // Count today's completions for the quest pillar
-      const pillarCompletions = Object.keys(todayState.completed).filter(
-        taskId => taskId.startsWith(dailyQuest.pillarId + '-')
-      ).length;
-      
-      dailyQuest.progress = pillarCompletions;
-      
-      // Check if quest completed
-      if (pillarCompletions >= dailyQuest.target && !dailyQuest.completed) {
-        dailyQuest.completed = true;
-        addXP(10); // Bonus XP for completing quest
-        
-        const toast = document.getElementById('xpToast');
-        if (toast) {
-          toast.textContent = '🎯 Quest Complete! +10 XP';
-          toast.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
-          toast.classList.add('show');
-          setTimeout(() => {
-            toast.classList.remove('show');
-          }, 3000);
-        }
-      }
-      
+    /**
+     * Apply gentle daily decay to all node weights.
+     * Only runs once per day. Decay is forgiving and gradual.
+     */
+    function applyDailyDecay() {
       const today = getTodayString();
-      const questKey = `harada_dailyQuest_${today}`;
-      localStorage.setItem(questKey, JSON.stringify(dailyQuest));
       
-      // Save to Firestore
-      if (db && currentUser) {
-        db.collection('users').doc(currentUser.uid).collection('dailyQuest')
-          .doc(today).set(dailyQuest, { merge: true })
-          .catch(err => console.warn('Failed to update quest in Firestore:', err));
-      }
-      
-      updateQuestUI();
-    }
-    
-    function updateQuestUI() {
-      const questCard = document.getElementById('questCard');
-      const questDescription = document.getElementById('questDescription');
-      const questProgressFill = document.getElementById('questProgressFill');
-      const questProgressText = document.getElementById('questProgressText');
-      
-      if (!dailyQuest) {
-        if (questCard) questCard.style.display = 'none';
+      // Check if decay already ran today
+      if (lastDecayDate === today) {
         return;
       }
       
-      if (questCard) questCard.style.display = 'block';
+      // Calculate days since last decay
+      const lastDate = new Date(lastDecayDate);
+      const currentDate = new Date(today);
+      const daysDiff = Math.floor((currentDate - lastDate) / (1000 * 60 * 60 * 24));
       
-      if (questDescription) {
-        if (dailyQuest.completed) {
-          questDescription.textContent = `✅ Quest Complete! You mastered ${dailyQuest.pillarName} today.`;
-        } else {
-          questDescription.textContent = `Complete all 8 tasks in ${dailyQuest.pillarName} to earn bonus XP!`;
+      if (daysDiff <= 0) {
+        return;
+      }
+      
+      // Track state transitions for narrative
+      const stateTransitions = [];
+      
+      // Apply decay to each node
+      Object.keys(nodeWeights).forEach(cellId => {
+        const node = nodeWeights[cellId];
+        const previousState = node.state;
+        
+        // Only decay if node hasn't been active today
+        const lastActivity = node.lastActivity;
+        if (lastActivity !== today) {
+          // Apply gentle decay: reduce by WEIGHT_DECAY_RATE% per day
+          const decayAmount = node.weight * (WEIGHT_DECAY_RATE / 100) * daysDiff;
+          node.weight = Math.max(0, node.weight - decayAmount);
+          
+          // Update state
+          const newState = deriveState(node.weight);
+          if (newState !== previousState) {
+            stateTransitions.push({
+              cellId,
+              from: previousState,
+              to: newState,
+              weight: node.weight
+            });
+          }
+          node.state = newState;
         }
+      });
+      
+      // Update last decay date
+      lastDecayDate = today;
+      localStorage.setItem(STORAGE_LAST_DECAY_KEY, lastDecayDate);
+      localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(nodeWeights));
+      
+      // Save to Firebase
+      if (db && currentUser) {
+        db.collection('users').doc(currentUser.uid).collection('nodeWeights')
+          .doc('data').set(nodeWeights, { merge: true })
+          .catch(err => console.warn('Failed to save node weights:', err));
+      }
+    }
+    
+    /**
+     * Increase weight for a node after action completion.
+     * Weight increases are immediate and encouraging.
+     */
+    function incrementNodeWeight(cellId) {
+      if (!nodeWeights[cellId]) {
+        nodeWeights[cellId] = {
+          weight: 0,
+          lastActivity: null,
+          state: 'dormant'
+        };
       }
       
-      if (questProgressFill) {
-        const percent = (dailyQuest.progress / dailyQuest.target) * 100;
-        questProgressFill.style.width = `${Math.min(percent, 100)}%`;
+      const node = nodeWeights[cellId];
+      const previousState = node.state;
+      
+      // Increase weight
+      node.weight = Math.min(WEIGHT_MAX, node.weight + WEIGHT_INCREMENT);
+      node.lastActivity = getTodayString();
+      
+      // Update state
+      const newState = deriveState(node.weight);
+      node.state = newState;
+      
+      // Save immediately
+      localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(nodeWeights));
+      
+      // Save to Firebase
+      if (db && currentUser) {
+        db.collection('users').doc(currentUser.uid).collection('nodeWeights')
+          .doc('data').set({ [cellId]: node }, { merge: true })
+          .catch(err => console.warn('Failed to save node weight:', err));
       }
       
-      if (questProgressText) {
-        questProgressText.textContent = `${dailyQuest.progress}/${dailyQuest.target}`;
+      // Quiet state transition (no celebration, just acknowledgment)
+      if (newState !== previousState) {
+        updateNodeVisualState(cellId, newState);
       }
+    }
+    
+    /**
+     * Decrease weight for a node when action is uncompleted.
+     * Decrease is gentler than increase to avoid punishment feel.
+     */
+    function decrementNodeWeight(cellId) {
+      if (!nodeWeights[cellId]) return;
+      
+      const node = nodeWeights[cellId];
+      const previousState = node.state;
+      
+      // Decrease weight (less than increment to be forgiving)
+      node.weight = Math.max(0, node.weight - (WEIGHT_INCREMENT * 0.5));
+      
+      // Update state
+      const newState = deriveState(node.weight);
+      node.state = newState;
+      
+      // Save
+      localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(nodeWeights));
+      
+      if (db && currentUser) {
+        db.collection('users').doc(currentUser.uid).collection('nodeWeights')
+          .doc('data').set({ [cellId]: node }, { merge: true })
+          .catch(err => console.warn('Failed to save node weight:', err));
+      }
+      
+      if (newState !== previousState) {
+        updateNodeVisualState(cellId, newState);
+      }
+    }
+    
+    /**
+     * Update visual representation of node based on state.
+     * Changes are subtle and ambient, not celebratory.
+     */
+    function updateNodeVisualState(cellId, state) {
+      const cell = document.querySelector(`[data-id="${cellId}"]`);
+      if (!cell) return;
+      
+      // Remove existing state classes
+      cell.classList.remove('node-dormant', 'node-active', 'node-integrated');
+      
+      // Add new state class
+      cell.classList.add(`node-${state}`);
+    }
+    
+    /**
+     * Apply visual states to all nodes on page load.
+     */
+    function applyAllNodeStates() {
+      Object.keys(nodeWeights).forEach(cellId => {
+        const node = nodeWeights[cellId];
+        if (node && node.state) {
+          updateNodeVisualState(cellId, node.state);
+        }
+      });
     }
     
     // ===== MILESTONE SYSTEM =====
@@ -3817,21 +3946,6 @@
         }
       });
       
-      // Listen to daily quest (today)
-      const today = getTodayString();
-      userRef.collection('dailyQuest').doc(today).onSnapshot((doc) => {
-        if (doc.exists && !doc.metadata.hasPendingWrites) {
-          const cloudData = doc.data();
-          if (JSON.stringify(cloudData) !== JSON.stringify(dailyQuest)) {
-            console.log('📥 Syncing daily quest from cloud');
-            dailyQuest = cloudData;
-            const questKey = `harada_dailyQuest_${today}`;
-            localStorage.setItem(questKey, JSON.stringify(dailyQuest));
-            updateQuestUI();
-          }
-        }
-      });
-      
       // Listen to unlocked achievements
       userRef.collection('achievements').doc('unlocked').onSnapshot((doc) => {
         if (doc.exists && !doc.metadata.hasPendingWrites) {
@@ -3840,6 +3954,19 @@
             console.log('📥 Syncing achievements from cloud');
             achievementsUnlocked = cloudData.list;
             localStorage.setItem('harada_unlockedAchievements', JSON.stringify(achievementsUnlocked));
+          }
+        }
+      });
+      
+      // Phase 2: Listen to node weights
+      userRef.collection('nodeWeights').doc('data').onSnapshot((doc) => {
+        if (doc.exists && !doc.metadata.hasPendingWrites) {
+          const cloudData = doc.data();
+          if (JSON.stringify(cloudData) !== JSON.stringify(nodeWeights)) {
+            console.log('📥 Syncing node weights from cloud');
+            nodeWeights = cloudData;
+            localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(nodeWeights));
+            applyAllNodeStates();
           }
         }
       });
@@ -4247,6 +4374,9 @@
           gridWrapper.appendChild(createPillarBox(pillar));
         }
       });
+      
+      // Phase 2: Apply node states after rendering
+      applyAllNodeStates();
     }
 
     function toggleTask(cell) {
@@ -4269,6 +4399,9 @@
           saveGameState();
           updateGameHUD();
         }
+        
+        // Phase 2: Decrease node weight (gentle)
+        decrementNodeWeight(cellId);
       } else {
         todayState.completed[cellId] = true;
         cell.classList.add("completed");
@@ -4276,6 +4409,9 @@
         
         // Award +5 XP for task completion
         addXP(5);
+        
+        // Phase 2: Increase node weight
+        incrementNodeWeight(cellId);
       }
 
       saveTodayState();
@@ -4286,9 +4422,6 @@
       updatePillarBalance();
       checkAndAwardBadges();
       updateNewAnalytics(); // Update new analytics sections
-      
-      // Update quest progress
-      updateQuestProgress();
       
       // Check milestones
       checkMilestones();
@@ -4628,6 +4761,179 @@
         item.innerHTML = insight.text;
         container.appendChild(item);
       });
+    }
+
+    // ===== PHASE 2: WEEKLY NARRATIVE SYSTEM =====
+    
+    /**
+     * Generate and display weekly state change narrative.
+     * This is read-only, observational, not directive.
+     * Should be shown once per week (or on first open of the week).
+     */
+    function generateWeeklyNarrative() {
+      const today = getTodayString();
+      const currentWeekStart = getWeekStart(today);
+      
+      // Load stored narrative
+      try {
+        const rawNarrative = localStorage.getItem(STORAGE_WEEKLY_NARRATIVE_KEY);
+        if (rawNarrative) {
+          weeklyNarrative = JSON.parse(rawNarrative);
+        }
+      } catch {
+        weeklyNarrative = null;
+      }
+      
+      // Check if narrative already generated for this week
+      if (weeklyNarrative && weeklyNarrative.weekStart === currentWeekStart) {
+        // Already have narrative for this week
+        displayWeeklyNarrative();
+        return;
+      }
+      
+      // Generate new narrative for the week
+      const narrative = analyzeWeeklyStateChanges();
+      
+      weeklyNarrative = {
+        weekStart: currentWeekStart,
+        generated: today,
+        narrative: narrative
+      };
+      
+      localStorage.setItem(STORAGE_WEEKLY_NARRATIVE_KEY, JSON.stringify(weeklyNarrative));
+      
+      // Save to Firebase
+      if (db && currentUser) {
+        db.collection('users').doc(currentUser.uid).collection('weeklyNarratives')
+          .doc(currentWeekStart).set(weeklyNarrative, { merge: true })
+          .catch(err => console.warn('Failed to save weekly narrative:', err));
+      }
+      
+      displayWeeklyNarrative();
+    }
+    
+    /**
+     * Get the start of the week (Monday) for a given date string.
+     */
+    function getWeekStart(dateStr) {
+      const date = new Date(dateStr);
+      const day = date.getDay();
+      const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Adjust to Monday
+      const monday = new Date(date.setDate(diff));
+      return monday.toISOString().split('T')[0];
+    }
+    
+    /**
+     * Analyze state changes across all nodes over the past week.
+     * Generate neutral, observational text.
+     */
+    function analyzeWeeklyStateChanges() {
+      const narratives = [];
+      
+      // Group nodes by pillar
+      const pillarStates = {};
+      pillars.forEach(p => {
+        pillarStates[p.id] = {
+          name: p.name,
+          dormant: 0,
+          active: 0,
+          integrated: 0,
+          stateChanges: []
+        };
+      });
+      
+      // Count current states per pillar
+      Object.keys(nodeWeights).forEach(cellId => {
+        const pillarId = cellId.split('-')[0];
+        const node = nodeWeights[cellId];
+        
+        if (pillarStates[pillarId]) {
+          pillarStates[pillarId][node.state]++;
+        }
+      });
+      
+      // Analyze patterns
+      const integrated = [];
+      const stabilized = [];
+      const inProgress = [];
+      
+      Object.keys(pillarStates).forEach(pillarId => {
+        const pillar = pillarStates[pillarId];
+        const totalNodes = pillar.dormant + pillar.active + pillar.integrated;
+        
+        if (totalNodes === 0) return;
+        
+        const integratedPercent = (pillar.integrated / totalNodes) * 100;
+        const activePercent = (pillar.active / totalNodes) * 100;
+        
+        if (integratedPercent >= 60) {
+          integrated.push(pillar.name);
+        } else if (activePercent >= 50) {
+          stabilized.push(pillar.name);
+        } else if (activePercent >= 25) {
+          inProgress.push(pillar.name);
+        }
+      });
+      
+      // Generate observational text
+      if (integrated.length > 0) {
+        if (integrated.length === 1) {
+          narratives.push(`${integrated[0]} shows deep integration. Several nodes have reached a stable, resolved state.`);
+        } else {
+          const domains = integrated.slice(0, -1).join(', ');
+          const last = integrated[integrated.length - 1];
+          narratives.push(`${domains} and ${last} show deep integration. Their nodes have stabilized into a consistent pattern.`);
+        }
+      }
+      
+      if (stabilized.length > 0) {
+        if (stabilized.length === 1) {
+          narratives.push(`${stabilized[0]} is actively engaged. Multiple nodes are building momentum.`);
+        } else {
+          narratives.push(`Active engagement continues in ${stabilized.join(', ')}.`);
+        }
+      }
+      
+      if (inProgress.length > 0) {
+        narratives.push(`Early-stage activity visible in ${inProgress.join(', ')}.`);
+      }
+      
+      // Check for recovery patterns (nodes that went dormant but came back)
+      const recovered = checkRecoveryPatterns();
+      if (recovered.length > 0) {
+        narratives.push(`${recovered.join(', ')} showed brief disengagement but recovered quickly.`);
+      }
+      
+      // Default message if no clear patterns
+      if (narratives.length === 0) {
+        narratives.push('This week\'s pattern is still emerging. Continue as you are.');
+      }
+      
+      return narratives.join(' ');
+    }
+    
+    /**
+     * Check for nodes that decreased in weight but then recovered.
+     * This indicates resilience, not failure.
+     */
+    function checkRecoveryPatterns() {
+      // This would require tracking weight history over time
+      // For now, return empty array
+      // Future enhancement: track daily weight snapshots
+      return [];
+    }
+    
+    /**
+     * Display the weekly narrative to the user.
+     */
+    function displayWeeklyNarrative() {
+      const section = document.getElementById('weeklyNarrativeSection');
+      const content = document.getElementById('weeklyNarrativeContent');
+      
+      if (!section || !content || !weeklyNarrative) return;
+      
+      content.innerHTML = `<p>${weeklyNarrative.narrative}</p>`;
+      section.style.display = 'block';
     }
 
     function updateTodayReflection() {
@@ -6330,8 +6636,10 @@
       
       // Initialize gamification UI
       updateGameHUD();
-      updateQuestUI();
       checkAndConsumeFreeze();
+      
+      // Phase 2: Generate weekly narrative
+      generateWeeklyNarrative();
       
       // Set up account/auth button
       const accountBtn = document.getElementById('accountBtn');
