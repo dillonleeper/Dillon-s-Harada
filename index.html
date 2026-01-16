@@ -3832,7 +3832,12 @@
             console.log('🔄 Just reset for new day - ignoring stale cloud data and pushing fresh state');
             justResetForNewDay = false; // Clear the flag
             saveToFirebase('todayState', todayState);
-            renderGrid(); // Re-render to show empty grid
+            
+            // Force re-render to clear all visual states
+            console.log('🎨 Re-rendering grid to clear all boxes');
+            renderGrid();
+            updateTodayReflection();
+            updateStatsUI();
             return;
           }
           
