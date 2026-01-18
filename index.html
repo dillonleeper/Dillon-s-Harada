@@ -2377,7 +2377,7 @@
           ></textarea>
           <div class="journal-actions">
             <button id="saveJournalBtn" class="journal-save-btn" onclick="saveJournalEntry()">Save Reflection</button>
-            <button id="viewHistoryBtn" class="journal-history-btn" onclick="openJournalHistory()">View History</button>
+            <button id="viewHistoryBtn" class="journal-history-btn" onclick="console.log('View History clicked!'); openJournalHistory()">View History</button>
           </div>
           <div class="journal-status" id="journalStatus"></div>
         </div>
@@ -5953,14 +5953,20 @@
       renderJournalHistory(listContainer);
     }
 
-    // Make functions available globally
-    window.deleteJournalEntry = deleteJournalEntry;
-    window.editJournalEntry = editJournalEntry;
-    window.saveJournalEntry = saveJournalEntry;
-    window.openJournalHistory = openJournalHistory;
-    window.closeJournalHistory = closeJournalHistory;
-    window.openAuth = openAuth;
-    window.closeAuth = closeAuth;
+    // Make journal functions available globally IMMEDIATELY after definition
+    // This ensures they're available even if there are errors later
+    try {
+      window.deleteJournalEntry = deleteJournalEntry;
+      window.editJournalEntry = editJournalEntry;
+      window.saveJournalEntry = saveJournalEntry;
+      window.openJournalHistory = openJournalHistory;
+      window.closeJournalHistory = closeJournalHistory;
+      window.openAuth = openAuth;
+      window.closeAuth = closeAuth;
+      console.log('✅ All journal and auth functions made globally available');
+    } catch (err) {
+      console.error('❌ Error making functions global:', err);
+    }
 
     function renderRadarChart(values) {
       const canvas = document.getElementById('radarChart');
