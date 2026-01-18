@@ -955,10 +955,12 @@
       align-items: center;
       justify-content: center;
       z-index: 10000;
+      pointer-events: none;
     }
 
     .settings-overlay.visible {
       display: flex;
+      pointer-events: auto;
     }
 
     .settings-panel {
@@ -1485,6 +1487,8 @@
       padding: 12px 16px;
       background: #f9fafb;
       border-top: 1px solid #e5e5ea;
+      position: relative;
+      z-index: 100;
     }
 
     .journal-save-btn, .journal-history-btn {
@@ -1563,10 +1567,12 @@
       justify-content: center;
       z-index: 10000;
       padding: 20px;
+      pointer-events: none;
     }
 
     .journal-history-overlay.visible {
       display: flex;
+      pointer-events: auto;
     }
 
     .journal-history-panel {
