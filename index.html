@@ -211,7 +211,7 @@
     .tasks-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
+      grid-auto-rows: 1fr;
       gap: 6px;
       flex: 1;
       width: 100%;
@@ -2680,13 +2680,12 @@
     name: "Regulation",
     tasks: [
       { title: "Ground your body", hint: "Breathe, move, reset" },
-      { title: "Feel, don't fix", hint: "Allow emotions to exist" },
       { title: "Treat yourself well", hint: "You deserve care" },
-      { title: "Move daily", hint: "Walk, lift, stretch, train" },
+      { title: "Move", hint: "Walk, lift, stretch, train" },
       { title: "Sleep 8 hours", hint: "Prioritize rest" },
       { title: "Drink water", hint: "Stay hydrated" },
-      { title: "Take supplements", hint: "Support your body intentionally" },
-      { title: "Breathe with purpose", hint: "5+ minutes controlled breathing" },
+      { title: "Take supplements", hint: "Support your body" },
+      { title: "Breathe with purpose", hint: "5 minutes controlled breathing" },
       { title: "Sit in stillness", hint: "Meditate, observe your mind" }
     ]
   },
@@ -4579,7 +4578,7 @@
       Object.keys(dailyHistory).forEach(dateStr => {
         const entry = dailyHistory[dateStr];
         if (entry && entry.pillars) {
-          if ((entry.pillars['P7'] || 0) > 0 && (entry.pillars['P8'] || 0) > 0) {
+          if ((entry.lifePillars['P7'] || 0) > 0 && (entry.lifePillars['P8'] || 0) > 0) {
             mindBodyCount++;
           }
         }
@@ -5177,7 +5176,7 @@
         
         const shares = {};
         lifePillars.forEach(p => {
-          shares[p.id] = (entry.pillars[p.id] || 0) / dayTotal;
+          shares[p.id] = (entry.lifePillars[p.id] || 0) / dayTotal;
         });
         
         dailyShares.push(shares);
@@ -6255,8 +6254,8 @@
         if (entry && entry.pillars) {
           Object.keys(entry.pillars).forEach(pillarId => {
             if (thisWeekPillarTotals[pillarId] !== undefined) {
-              thisWeekPillarTotals[pillarId] += entry.pillars[pillarId];
-              thisWeekTotal += entry.pillars[pillarId];
+              thisWeekPillarTotals[pillarId] += entry.lifePillars[pillarId];
+              thisWeekTotal += entry.lifePillars[pillarId];
             }
           });
         }
@@ -6275,7 +6274,7 @@
         if (entry && entry.pillars) {
           Object.keys(entry.pillars).forEach(pillarId => {
             if (lastWeekPillarTotals[pillarId] !== undefined) {
-              lastWeekPillarTotals[pillarId] += entry.pillars[pillarId];
+              lastWeekPillarTotals[pillarId] += entry.lifePillars[pillarId];
             }
           });
         }
