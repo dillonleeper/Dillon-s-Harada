@@ -1512,6 +1512,12 @@
       transform: scale(0.96);
     }
 
+    .journal-save-btn:disabled {
+      background: #d1d1d6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .journal-history-btn {
       background: #e5e5ea;
       color: #1d1d1f;
@@ -1533,10 +1539,15 @@
       min-height: 18px;
       text-align: center;
       padding: 0 16px 8px 16px;
+      transition: opacity 0.3s ease;
     }
 
     .journal-status.error {
       color: #ff3b30;
+    }
+
+    .journal-status.hidden {
+      opacity: 0;
     }
 
     /* Journal History Overlay */
@@ -1619,6 +1630,7 @@
       border-radius: 8px;
       padding: 16px;
       transition: all 0.2s ease;
+      cursor: pointer;
     }
 
     .history-entry:hover {
@@ -1626,11 +1638,17 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
+    .history-entry.editing {
+      border-color: #007AFF;
+      background: #ffffff;
+      cursor: default;
+    }
+
     .history-entry-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     .history-entry-date {
@@ -1639,15 +1657,35 @@
       color: #007AFF;
     }
 
+    .history-entry-time {
+      font-size: 0.7rem;
+      color: #86868b;
+      margin-left: 8px;
+    }
+
+    .history-entry-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .history-entry-edit,
     .history-entry-delete {
       background: none;
       border: none;
-      color: #ff3b30;
+      color: #007AFF;
       font-size: 0.75rem;
       cursor: pointer;
       padding: 4px 8px;
       border-radius: 4px;
       transition: all 0.2s ease;
+    }
+
+    .history-entry-delete {
+      color: #ff3b30;
+    }
+
+    .history-entry-edit:hover {
+      background: #e8f0fe;
     }
 
     .history-entry-delete:hover {
@@ -1660,6 +1698,72 @@
       color: #1d1d1f;
       white-space: pre-wrap;
       word-wrap: break-word;
+      margin-top: 8px;
+    }
+
+    .history-entry-textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 12px;
+      border: 1px solid #007AFF;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      resize: vertical;
+      margin-top: 8px;
+    }
+
+    .history-entry-save-btn {
+      background: #007AFF;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      margin-right: 8px;
+    }
+
+    .history-entry-save-btn:hover {
+      background: #0051D5;
+    }
+
+    .history-entry-cancel-btn {
+      background: #e5e5ea;
+      color: #1d1d1f;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .history-entry-cancel-btn:hover {
+      background: #d2d2d7;
+    }
+
+    .history-date-group {
+      margin-bottom: 24px;
+    }
+
+    .history-date-header {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e5e5ea;
+    }
+
+    .history-entries-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .history-empty {
@@ -5550,15 +5654,33 @@
 
     // Journal functionality
     const STORAGE_JOURNAL_KEY = "haradaJournalEntries";
-    let journalEntries = {};
+    let journalEntries = {}; // { date: [ { id, timestamp, text }, ... ] }
 
     function loadJournalEntries() {
       try {
         const raw = localStorage.getItem(STORAGE_JOURNAL_KEY);
         journalEntries = raw ? JSON.parse(raw) : {};
+        
+        // Migrate old format (single entry per day) to new format (array of entries)
+        Object.keys(journalEntries).forEach(date => {
+          if (typeof journalEntries[date] === 'string') {
+            // Old format: convert to new format
+            journalEntries[date] = [{
+              id: generateEntryId(),
+              timestamp: new Date(date + 'T12:00:00').toISOString(),
+              text: journalEntries[date]
+            }];
+          }
+        });
+        
+        localStorage.setItem(STORAGE_JOURNAL_KEY, JSON.stringify(journalEntries));
       } catch {
         journalEntries = {};
       }
+    }
+
+    function generateEntryId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
 
     function saveJournalEntries() {
@@ -5571,16 +5693,16 @@
     }
 
     function loadTodayJournal() {
-      const today = getTodayString();
       const journalDate = document.getElementById('journalDate');
-      const journalTextarea = document.getElementById('journalTextarea');
       
       if (journalDate) {
         journalDate.textContent = formatPrettyDate();
       }
       
+      // Clear the textarea (entries are in history now)
+      const journalTextarea = document.getElementById('journalTextarea');
       if (journalTextarea) {
-        journalTextarea.value = journalEntries[today] || '';
+        journalTextarea.value = '';
       }
     }
 
@@ -5593,20 +5715,54 @@
       
       const text = journalTextarea.value.trim();
       
-      if (text) {
-        journalEntries[today] = text;
-      } else {
-        delete journalEntries[today];
+      if (!text) {
+        if (journalStatus) {
+          journalStatus.textContent = 'Please write something first';
+          journalStatus.className = 'journal-status error';
+          setTimeout(() => {
+            journalStatus.classList.add('hidden');
+          }, 2000);
+        }
+        return;
       }
+      
+      // Initialize array for today if needed
+      if (!journalEntries[today]) {
+        journalEntries[today] = [];
+      }
+      
+      // Add new entry
+      const entry = {
+        id: generateEntryId(),
+        timestamp: new Date().toISOString(),
+        text: text
+      };
+      
+      journalEntries[today].push(entry);
       
       saveJournalEntries();
       
+      // Clear textarea
+      journalTextarea.value = '';
+      
+      // Show success message
       if (journalStatus) {
-        journalStatus.textContent = text ? 'Saved ✓' : 'Cleared';
+        journalStatus.textContent = 'Saved ✓';
         journalStatus.className = 'journal-status';
         setTimeout(() => {
-          journalStatus.textContent = '';
+          journalStatus.classList.add('hidden');
         }, 2000);
+      }
+      
+      // Trigger confetti for first reflection of the day
+      if (journalEntries[today].length === 1) {
+        confetti({
+          particleCount: 30,
+          spread: 50,
+          origin: { y: 0.6 },
+          colors: ['#007AFF', '#E8F0FE'],
+          ticks: 100
+        });
       }
     }
 
@@ -5616,34 +5772,142 @@
       
       if (!overlay || !listContainer) return;
       
-      // Sort entries by date descending
-      const sortedEntries = Object.entries(journalEntries)
-        .sort((a, b) => b[0].localeCompare(a[0]));
+      renderJournalHistory(listContainer);
+      overlay.classList.add('visible');
+    }
+
+    function renderJournalHistory(container) {
+      // Group entries by date
+      const sortedDates = Object.keys(journalEntries).sort((a, b) => b.localeCompare(a));
       
-      if (sortedEntries.length === 0) {
-        listContainer.innerHTML = '<div class="history-empty">No reflections yet. Start writing to build your history.</div>';
-      } else {
-        listContainer.innerHTML = sortedEntries.map(([date, text]) => {
-          const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString(undefined, {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-          });
-          
-          return `
-            <div class="history-entry" data-date="${date}">
-              <div class="history-entry-header">
-                <span class="history-entry-date">${formattedDate}</span>
-                <button class="history-entry-delete" onclick="deleteJournalEntry('${date}')">Delete</button>
-              </div>
-              <div class="history-entry-text">${text}</div>
-            </div>
-          `;
-        }).join('');
+      if (sortedDates.length === 0) {
+        container.innerHTML = '<div class="history-empty">No reflections yet. Start writing to build your history.</div>';
+        return;
       }
       
-      overlay.classList.add('visible');
+      container.innerHTML = '';
+      
+      sortedDates.forEach(date => {
+        const entries = journalEntries[date];
+        if (!entries || entries.length === 0) return;
+        
+        // Create date group
+        const dateGroup = document.createElement('div');
+        dateGroup.className = 'history-date-group';
+        
+        const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString(undefined, {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+        
+        const dateHeader = document.createElement('div');
+        dateHeader.className = 'history-date-header';
+        dateHeader.textContent = formattedDate;
+        
+        const entriesGroup = document.createElement('div');
+        entriesGroup.className = 'history-entries-group';
+        
+        // Sort entries by timestamp (newest first)
+        entries.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        
+        entries.forEach(entry => {
+          const entryEl = createHistoryEntryElement(date, entry);
+          entriesGroup.appendChild(entryEl);
+        });
+        
+        dateGroup.appendChild(dateHeader);
+        dateGroup.appendChild(entriesGroup);
+        container.appendChild(dateGroup);
+      });
+    }
+
+    function createHistoryEntryElement(date, entry) {
+      const entryEl = document.createElement('div');
+      entryEl.className = 'history-entry';
+      entryEl.dataset.date = date;
+      entryEl.dataset.entryId = entry.id;
+      
+      const time = new Date(entry.timestamp).toLocaleTimeString(undefined, {
+        hour: 'numeric',
+        minute: '2-digit'
+      });
+      
+      entryEl.innerHTML = `
+        <div class="history-entry-header">
+          <div>
+            <span class="history-entry-time">${time}</span>
+          </div>
+          <div class="history-entry-actions">
+            <button class="history-entry-edit" onclick="editJournalEntry('${date}', '${entry.id}')">Edit</button>
+            <button class="history-entry-delete" onclick="deleteJournalEntry('${date}', '${entry.id}')">Delete</button>
+          </div>
+        </div>
+        <div class="history-entry-text">${entry.text}</div>
+      `;
+      
+      return entryEl;
+    }
+
+    function editJournalEntry(date, entryId) {
+      const entryEl = document.querySelector(`[data-date="${date}"][data-entry-id="${entryId}"]`);
+      if (!entryEl) return;
+      
+      const entry = journalEntries[date].find(e => e.id === entryId);
+      if (!entry) return;
+      
+      entryEl.classList.add('editing');
+      
+      const textDiv = entryEl.querySelector('.history-entry-text');
+      const actionsDiv = entryEl.querySelector('.history-entry-actions');
+      
+      // Hide actions
+      actionsDiv.style.display = 'none';
+      
+      // Replace text with textarea
+      const textarea = document.createElement('textarea');
+      textarea.className = 'history-entry-textarea';
+      textarea.value = entry.text;
+      
+      const saveBtn = document.createElement('button');
+      saveBtn.className = 'history-entry-save-btn';
+      saveBtn.textContent = 'Save';
+      saveBtn.onclick = () => saveEditedEntry(date, entryId, textarea.value);
+      
+      const cancelBtn = document.createElement('button');
+      cancelBtn.className = 'history-entry-cancel-btn';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.onclick = () => {
+        const listContainer = document.getElementById('journalHistoryList');
+        renderJournalHistory(listContainer);
+      };
+      
+      textDiv.replaceWith(textarea);
+      entryEl.appendChild(saveBtn);
+      entryEl.appendChild(cancelBtn);
+      
+      textarea.focus();
+    }
+
+    function saveEditedEntry(date, entryId, newText) {
+      const trimmedText = newText.trim();
+      
+      if (!trimmedText) {
+        alert('Reflection cannot be empty');
+        return;
+      }
+      
+      const entry = journalEntries[date].find(e => e.id === entryId);
+      if (entry) {
+        entry.text = trimmedText;
+        entry.timestamp = new Date().toISOString(); // Update timestamp
+        saveJournalEntries();
+      }
+      
+      // Re-render history
+      const listContainer = document.getElementById('journalHistoryList');
+      renderJournalHistory(listContainer);
     }
 
     function closeJournalHistory() {
@@ -5653,16 +5917,28 @@
       }
     }
 
-    function deleteJournalEntry(date) {
-      if (confirm('Delete this reflection?')) {
-        delete journalEntries[date];
+    function deleteJournalEntry(date, entryId) {
+      if (!confirm('Delete this reflection?')) return;
+      
+      if (journalEntries[date]) {
+        journalEntries[date] = journalEntries[date].filter(e => e.id !== entryId);
+        
+        // Remove date key if no entries left
+        if (journalEntries[date].length === 0) {
+          delete journalEntries[date];
+        }
+        
         saveJournalEntries();
-        openJournalHistory(); // Refresh the list
       }
+      
+      // Re-render history
+      const listContainer = document.getElementById('journalHistoryList');
+      renderJournalHistory(listContainer);
     }
 
-    // Make deleteJournalEntry available globally
+    // Make functions available globally
     window.deleteJournalEntry = deleteJournalEntry;
+    window.editJournalEntry = editJournalEntry;
 
     function renderRadarChart(values) {
       const canvas = document.getElementById('radarChart');
