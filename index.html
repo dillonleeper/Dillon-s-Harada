@@ -2424,7 +2424,7 @@
 <body>
   <div class="header-container">
     <h1>Harada Open Window 64</h1>
-    <button class="edit-mode-btn" id="editModeBtn">Edit Mode</button>
+    <button class="edit-mode-btn" id="editModeBtn" onclick="toggleEditMode()">Edit Mode</button>
     <div class="meta" id="dateDisplay"></div>
   </div>
   
@@ -6377,6 +6377,7 @@
     // Make edit functions globally available
     window.closeTaskEdit = closeTaskEdit;
     window.saveTaskEdit = saveTaskEdit;
+    window.toggleEditMode = toggleEditMode;
 
     function renderRadarChart(values) {
       const canvas = document.getElementById('radarChart');
