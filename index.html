@@ -3425,6 +3425,11 @@
         // Recalculate all node states after daily reset
         recalculateAllNodeStates();
         
+        // IMPORTANT: Remove all completed classes from DOM immediately
+        document.querySelectorAll('.task-cell.completed').forEach(cell => {
+          cell.classList.remove('completed');
+        });
+        
         // Immediately sync the reset to Firebase if user is signed in
         if (currentUser && db) {
           console.log('☁️ Syncing daily reset to Firebase');
