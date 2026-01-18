@@ -3087,7 +3087,7 @@
         // Save yesterday's count and pillar breakdown before resetting
         if (todayState && todayState.date) {
           const yesterdayPillarTotals = {};
-          pillars.forEach(p => yesterdayPillarTotals[p.id] = 0);
+          lifePillars.forEach(p => yesterdayPillarTotals[p.id] = 0);
           
           Object.keys(todayState.completed).forEach(cellId => {
             const pillarId = cellId.split('-')[0];
@@ -3188,7 +3188,7 @@
       }
       if (!pillarStreaks) {
         pillarStreaks = {};
-        pillars.forEach(p => {
+        lifePillars.forEach(p => {
           pillarStreaks[p.id] = { current: 0, best: 0, lastActive: null };
         });
         localStorage.setItem(STORAGE_PILLAR_STREAKS_KEY, JSON.stringify(pillarStreaks));
@@ -3426,11 +3426,10 @@
       const weights = {};
       
       // Get all task cells from pillars
-      pillars.forEach(pillar => {
-        pillar.subpillars.forEach((subpillar, subIndex) => {
-          subpillar.tasks.forEach((task, taskIndex) => {
-            const cellId = `${pillar.id}-${subIndex}-${taskIndex}`;
-            const allTimeCount = statsAllTime[cellId] || 0;
+      lifePillars.forEach(pillar => {
+        pillar.tasks.forEach((task, taskIndex) => {
+          const cellId = `${pillar.id}-${taskIndex}`;
+          const allTimeCount = statsAllTime[cellId] || 0;
             
             // Infer weight from all-time completions
             // Higher completion count suggests more integrated state
@@ -3453,7 +3452,6 @@
               lastActivity: completedToday ? getTodayString() : null,
               state: deriveState(inferredWeight)
             };
-          });
         });
       });
       
@@ -3687,7 +3685,7 @@
       
       // Milestone 2: Any pillar hits 10 all-time completions
       const pillarTotalsAllTime = {};
-      pillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
+      lifePillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
       Object.entries(statsAllTime).forEach(([cellId, count]) => {
         const [pillarId] = cellId.split('-');
         if (pillarTotalsAllTime[pillarId] !== undefined) {
@@ -3695,7 +3693,7 @@
         }
       });
       
-      pillars.forEach(p => {
+      lifePillars.forEach(p => {
         const milestoneId = `pillar-10-${p.id}`;
         if (pillarTotalsAllTime[p.id] >= 10 && !achievementsUnlocked.includes(milestoneId)) {
           achievementsUnlocked.push(milestoneId);
@@ -4049,7 +4047,7 @@
       
       // Calculate today's pillar breakdown
       const todayPillarTotals = {};
-      pillars.forEach(p => todayPillarTotals[p.id] = 0);
+      lifePillars.forEach(p => todayPillarTotals[p.id] = 0);
       
       Object.keys(todayState.completed).forEach(cellId => {
         const pillarId = cellId.split('-')[0];
@@ -4387,14 +4385,14 @@
 
       // Define explicit grid placement for each pillar
       const pillarLayout = [
-        { pillar: pillars[0], row: 1, col: 1 }, // P1: Identity & Self-Understanding
-        { pillar: pillars[1], row: 1, col: 2 }, // P2: Love, Attachment & Emotional Safety
-        { pillar: pillars[2], row: 1, col: 3 }, // P3: Meaningful Work & Leverage
-        { pillar: pillars[7], row: 2, col: 1 }, // P8: Selective Connection
-        { pillar: pillars[3], row: 2, col: 3 }, // P4: Autonomy & Freedom of Time
-        { pillar: pillars[6], row: 3, col: 1 }, // P7: Competence, Mastery & Self-Respect
-        { pillar: pillars[5], row: 3, col: 2 }, // P6: Aesthetic, Environment & Vibe
-        { pillar: pillars[4], row: 3, col: 3 }  // P5: Emotional Regulation & Mental Health
+        { pillar: lifePillars[0], row: 1, col: 1 }, // P1: Identity & Self-Understanding
+        { pillar: lifePillars[1], row: 1, col: 2 }, // P2: Love, Attachment & Emotional Safety
+        { pillar: lifePillars[2], row: 1, col: 3 }, // P3: Meaningful Work & Leverage
+        { pillar: lifePillars[7], row: 2, col: 1 }, // P8: Selective Connection
+        { pillar: lifePillars[3], row: 2, col: 3 }, // P4: Autonomy & Freedom of Time
+        { pillar: lifePillars[6], row: 3, col: 1 }, // P7: Competence, Mastery & Self-Respect
+        { pillar: lifePillars[5], row: 3, col: 2 }, // P6: Aesthetic, Environment & Vibe
+        { pillar: lifePillars[4], row: 3, col: 3 }  // P5: Emotional Regulation & Mental Health
       ];
 
       // Create pillar cards with explicit positioning
@@ -4431,7 +4429,7 @@
         if (id === "CENTER") {
           gridWrapper.appendChild(createCenterBox());
         } else {
-          const pillar = pillars.find(p => p.id === id);
+          const pillar = lifePillars.find(p => p.id === id);
           gridWrapper.appendChild(createPillarBox(pillar));
         }
       });
@@ -4504,7 +4502,7 @@
 
       // If all 8 tasks completed, trigger confetti
       if (pillarTasksCompleted === 8) {
-        const pillar = pillars.find(p => p.id === pillarId);
+        const pillar = lifePillars.find(p => p.id === pillarId);
         triggerPillarConfetti(pillar);
       }
     }
@@ -4539,7 +4537,7 @@
     function checkAndAwardBadges() {
       // Calculate stats for badge checking
       const pillarTouches = {};
-      pillars.forEach(p => pillarTouches[p.id] = 0);
+      lifePillars.forEach(p => pillarTouches[p.id] = 0);
       
       let totalToday = 0;
       Object.keys(todayState.completed).forEach(taskId => {
@@ -4561,7 +4559,7 @@
 
       // Calculate pillar totals all time
       const pillarTotalsAllTime = {};
-      pillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
+      lifePillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
       Object.entries(statsAllTime).forEach(([cellId, count]) => {
         const [pillarId] = cellId.split('-');
         if (pillarTotalsAllTime[pillarId] !== undefined) {
