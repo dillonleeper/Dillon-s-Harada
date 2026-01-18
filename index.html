@@ -5801,8 +5801,29 @@
       container.innerHTML = '';
       
       sortedDates.forEach(date => {
-        const entries = journalEntries[date];
-        if (!entries || entries.length === 0) return;
+        let entries = journalEntries[date];
+        
+        // Handle old format (string) or non-array data
+        if (!entries) return;
+        
+        if (typeof entries === 'string') {
+          // Convert old string format to new array format
+          entries = [{
+            id: generateEntryId(),
+            timestamp: new Date(date + 'T12:00:00').toISOString(),
+            text: entries
+          }];
+          journalEntries[date] = entries;
+          saveJournalEntries();
+        }
+        
+        // Ensure entries is an array
+        if (!Array.isArray(entries)) {
+          console.error('Invalid entries format for date', date, entries);
+          return;
+        }
+        
+        if (entries.length === 0) return;
         
         // Create date group
         const dateGroup = document.createElement('div');
