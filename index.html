@@ -2376,8 +2376,8 @@
             placeholder="How did today feel? What patterns did you notice? What would you do differently?"
           ></textarea>
           <div class="journal-actions">
-            <button id="saveJournalBtn" class="journal-save-btn">Save Reflection</button>
-            <button id="viewHistoryBtn" class="journal-history-btn">View History</button>
+            <button id="saveJournalBtn" class="journal-save-btn" onclick="saveJournalEntry()">Save Reflection</button>
+            <button id="viewHistoryBtn" class="journal-history-btn" onclick="openJournalHistory()">View History</button>
           </div>
           <div class="journal-status" id="journalStatus"></div>
         </div>
@@ -2458,7 +2458,7 @@
   </div>
 
   <!-- Account/Auth Button & Overlay -->
-  <button class="settings-btn" id="accountBtn" title="Account" style="bottom: 0; right: 0; border-radius: 12px 0 0 0; background: #007aff; filter: brightness(1.1);">👤</button>
+  <button class="settings-btn" id="accountBtn" title="Account" onclick="openAuth()" style="bottom: 0; right: 0; border-radius: 12px 0 0 0; background: #007aff; filter: brightness(1.1);">👤</button>
   <div class="settings-overlay" id="authOverlay">
     <div class="settings-panel" style="max-width: 400px;">
       <div class="settings-header">
@@ -5945,6 +5945,11 @@
     // Make functions available globally
     window.deleteJournalEntry = deleteJournalEntry;
     window.editJournalEntry = editJournalEntry;
+    window.saveJournalEntry = saveJournalEntry;
+    window.openJournalHistory = openJournalHistory;
+    window.closeJournalHistory = closeJournalHistory;
+    window.openAuth = openAuth;
+    window.closeAuth = closeAuth;
 
     function renderRadarChart(values) {
       const canvas = document.getElementById('radarChart');
@@ -7124,13 +7129,21 @@
       
       // Journal event listeners
       const saveJournalBtn = document.getElementById('saveJournalBtn');
+      console.log('saveJournalBtn element:', saveJournalBtn);
       if (saveJournalBtn) {
         saveJournalBtn.addEventListener('click', saveJournalEntry);
+        console.log('✅ Save button listener attached');
+      } else {
+        console.error('❌ Save button not found!');
       }
       
       const viewHistoryBtn = document.getElementById('viewHistoryBtn');
+      console.log('viewHistoryBtn element:', viewHistoryBtn);
       if (viewHistoryBtn) {
         viewHistoryBtn.addEventListener('click', openJournalHistory);
+        console.log('✅ View History button listener attached');
+      } else {
+        console.error('❌ View History button not found!');
       }
       
       const journalHistoryClose = document.getElementById('journalHistoryClose');
