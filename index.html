@@ -2618,120 +2618,122 @@
       'P8': '#FFD4C8'  // Soft Coral - Selective Connection - Selective Connection
     };
 
-    const pillars = [
-      {
-        id: "P1",
-        name: "Identity & Self-Understanding",
-        tasks: [
-          { title: "Write/Speak", hint: "Honestly about how I feel" },
-          { title: "Notice", hint: "Thoughts/emotions without judging" },
-          { title: "Identify", hint: "A pattern in myself" },
-          { title: "Decide", hint: "Because it feels true" },
-          { title: "Act", hint: "In a way I'd respect" },
-          { title: "Treat Others", hint: "How I want to be treated" },
-          { title: "Pause", hint: "Before reacting, choose intentionally" },
-          { title: "Be Mindful", hint: "Present in at least one moment" }
-        ]
-      },
-      {
-        id: "P2",
-        name: "Love, Attachment & Emotional Safety",
-        tasks: [
-          { title: "Express", hint: "A need, boundary, or feeling" },
-          { title: "Allow Closeness", hint: "Without performing" },
-          { title: "Stay Present", hint: "With uncertainty" },
-          { title: "Show Real Me", hint: "Not the polished version" },
-          { title: "Say Yes", hint: "To invitation that feels aligned" },
-          { title: "Trust", hint: "A little more than instinct" },
-          { title: "Respond", hint: "Honestly instead of strategically" },
-          { title: "Leave Better", hint: "Connection better than found" }
-        ]
-      },
-      {
-        id: "P3",
-        name: "Meaningful Work & Leverage",
-        tasks: [
-          { title: "Improve", hint: "System/process/tool that compounds" },
-          { title: "Work On", hint: "Something that matters beyond today" },
-          { title: "Learn/Practice", hint: "Skill that increases leverage" },
-          { title: "Write Code", hint: "For personal project I care about" },
-          { title: "Fix", hint: "Bug or friction point" },
-          { title: "Apply", hint: "To 1-2 target roles" },
-          { title: "Bookmark", hint: "Role/idea/opportunity" },
-          { title: "Decide", hint: "Improves finances/efficiency/earning" }
-        ]
-      },
-      {
-        id: "P4",
-        name: "Autonomy & Freedom of Time",
-        tasks: [
-          { title: "Choose", hint: "Preserves flexibility in time/energy" },
-          { title: "Say No", hint: "To commitment that drains" },
-          { title: "Leave Margin", hint: "In schedule or mental load" },
-          { title: "Invest", hint: "In stocks/funds/education" },
-          { title: "Reduce Friction", hint: "In tomorrow's schedule" },
-          { title: "Avoid", hint: "Over-committing out of guilt" },
-          { title: "Design Day", hint: "Instead of reacting to it" },
-          { title: "Choose Freedom", hint: "Over short-term relief" }
-        ]
-      },
-      {
-        id: "P5",
-        name: "Emotional Regulation & Mental Health",
-        tasks: [
-          { title: "Ground", hint: "Nervous system (movement/breath)" },
-          { title: "Notice Emotion", hint: "Without fixing or numbing" },
-          { title: "Treat Self", hint: "As someone worth caring for" },
-          { title: "Move Body", hint: "Gym/walk/stretch/workout" },
-          { title: "Sleep", hint: "~8 hours or support better sleep" },
-          { title: "Drink Water", hint: "Hit hydration target" },
-          { title: "Take", hint: "Supplements intentionally" },
-          { title: "Notice", hint: "Disrespect, choose not to react" }
-        ]
-      },
-      {
-        id: "P6",
-        name: "Aesthetic, Environment & Vibe",
-        tasks: [
-          { title: "Improve", hint: "Environment in one small way" },
-          { title: "Clean/Organize", hint: "Reset one area" },
-          { title: "Optimize", hint: "Lighting, sound, or atmosphere" },
-          { title: "Remove", hint: "Visual or mental clutter" },
-          { title: "Create", hint: "Environment for focus or rest" },
-          { title: "Stand Tall", hint: "Improve posture, shoulders back" },
-          { title: "Avoid", hint: "Conversations/content that drain" },
-          { title: "Keep Clean", hint: "Mental space by capturing thoughts" }
-        ]
-      },
-      {
-        id: "P7",
-        name: "Competence, Mastery & Self-Respect",
-        tasks: [
-          { title: "Practice", hint: "Something requiring focus/skill" },
-          { title: "Complete", hint: "Task cleanly, not rushing" },
-          { title: "Hold Standard", hint: "Even when no one sees" },
-          { title: "Create Art", hint: "Even 15-20 minutes" },
-          { title: "Sketch", hint: "New idea or concept" },
-          { title: "Work On", hint: "Current piece or creative idea" },
-          { title: "Capture", hint: "One new creative idea in notes" },
-          { title: "Finish", hint: "Something I started today" }
-        ]
-      },
-      {
-        id: "P8",
-        name: "Selective Connection",
-        tasks: [
-          { title: "Have", hint: "One present, real interaction" },
-          { title: "Choose", hint: "Solitude intentionally" },
-          { title: "Avoid Forcing", hint: "Social energy I don't have" },
-          { title: "Plan", hint: "Hangout or suggest plans" },
-          { title: "Engage", hint: "In community I care about" },
-          { title: "Show Up Fully", hint: "For one conversation" },
-          { title: "Leave Phone", hint: "Alone during connection" },
-          { title: "Connect", hint: "Because it feels nourishing" }
-        ]
-      }
-    ];
+    const lifePillars = [
+  {
+    id: "P1",
+    name: "Self-Knowledge",
+    tasks: [
+      { title: "Journal feelings", hint: "Write honestly" },
+      { title: "Observe without judging", hint: "Notice thoughts and emotions" },
+      { title: "Spot a pattern", hint: "Identify recurring behavior" },
+      { title: "Honor your values", hint: "Choose what matters" },
+      { title: "Act with integrity", hint: "Behave as your best self" },
+      { title: "Practice reciprocity", hint: "Give what you want to receive" },
+      { title: "Pause before reacting", hint: "Choose your response" },
+      { title: "Be fully present", hint: "Inhabit one moment completely" }
+    ]
+  },
+  {
+    id: "P2",
+    name: "Connection",
+    tasks: [
+      { title: "Express a need", hint: "Communicate clearly" },
+      { title: "Drop the mask", hint: "Allow genuine closeness" },
+      { title: "Sit with uncertainty", hint: "Don't rush to resolve" },
+      { title: "Show your real self", hint: "Skip the performance" },
+      { title: "Reach out first", hint: "Initiate connection" },
+      { title: "Keep a promise", hint: "Build trust through action" },
+      { title: "Respond honestly", hint: "Truth over tactics" },
+      { title: "Leave it better", hint: "Add value to relationships" }
+    ]
+  },
+  {
+    id: "P3",
+    name: "Impact",
+    tasks: [
+      { title: "Build something lasting", hint: "Create compound value" },
+      { title: "Work on what matters", hint: "Think beyond today" },
+      { title: "Practice high-leverage skills", hint: "Multiply your impact" },
+      { title: "Code something personal", hint: "Build for yourself" },
+      { title: "Eliminate friction", hint: "Fix one pain point" },
+      { title: "Apply to target roles", hint: "1-2 strategic applications" },
+      { title: "Research opportunities", hint: "Bookmark what interests you" },
+      { title: "Review finances", hint: "Check spending and goals" }
+    ]
+  },
+  {
+    id: "P4",
+    name: "Freedom",
+    tasks: [
+      { title: "Decline one thing", hint: "Protect your time" },
+      { title: "Schedule white space", hint: "Leave room to think" },
+      { title: "Invest in your future", hint: "Stocks, education, growth" },
+      { title: "Reduce tomorrow's friction", hint: "Plan strategically" },
+      { title: "Reject guilt-driven yes", hint: "Set clear boundaries" },
+      { title: "Design your day", hint: "Lead, don't react" },
+      { title: "Choose delayed reward", hint: "Long-term over comfort" },
+      { title: "Help future you", hint: "One choice they'll thank you for" }
+    ]
+  },
+  {
+    id: "P5",
+    name: "Regulation",
+    tasks: [
+      { title: "Feel, don't fix", hint: "Allow emotions to exist" },
+      { title: "Treat yourself well", hint: "You deserve care" },
+      { title: "Move daily", hint: "Walk, lift, stretch, train" },
+      { title: "Sleep 8 hours", hint: "Prioritize rest" },
+      { title: "Drink water", hint: "Stay hydrated" },
+      { title: "Take supplements", hint: "Support your body intentionally" },
+      { title: "Breathe with purpose", hint: "5+ minutes controlled breathing" },
+      { title: "Sit in stillness", hint: "Meditate, observe your mind" }
+    ]
+  },
+  {
+    id: "P6",
+    name: "Presence",
+    tasks: [
+      { title: "Stand tall", hint: "Shoulders back, head up" },
+      { title: "Reset one space", hint: "Clean, organize, clear" },
+      { title: "Guard your inputs", hint: "Skip draining content" },
+      { title: "Notice three good things", hint: "Practice gratitude" },
+      { title: "Choose words carefully", hint: "Speak with intention" },
+      { title: "Appreciate beauty", hint: "See what's around you" },
+      { title: "Move with grace", hint: "Carry yourself well" },
+      { title: "Capture thoughts", hint: "Clear your mental space" }
+    ]
+  },
+  {
+    id: "P7",
+    name: "Mastery",
+    tasks: [
+      { title: "Practice with focus", hint: "Develop one skill" },
+      { title: "Finish properly", hint: "Complete without rushing" },
+      { title: "Hold your standard", hint: "Quality when no one's watching" },
+      { title: "Make art", hint: "Create for 15-20 minutes" },
+      { title: "Sketch an idea", hint: "Visualize something new" },
+      { title: "Advance a project", hint: "Progress creative work" },
+      { title: "Capture inspiration", hint: "Note one new idea" },
+      { title: "Complete something", hint: "Finish what you started" }
+    ]
+  },
+  {
+    id: "P8",
+    name: "Community",
+    tasks: [
+      { title: "Connect deeply", hint: "One genuine conversation" },
+      { title: "Choose solitude", hint: "Be alone intentionally" },
+      { title: "Make plans", hint: "Suggest something specific" },
+      { title: "Show up for your group", hint: "Engage in community" },
+      { title: "Give full attention", hint: "Be completely present" },
+      { title: "Put phone away", hint: "Unplug to connect" },
+      { title: "Follow up", hint: "Build relationships intentionally" },
+      { title: "Connect for real", hint: "Only when it nourishes you" }
+    ]
+  }
+];
+
+    const pillars = lifePillars;
 
     const STORAGE_TODAY_KEY = "haradaTodayState";
     const STORAGE_STATS_KEY = "haradaStatsAllTime";
@@ -3107,6 +3109,9 @@
         }
         todayState = { date: today, completed: {} };
         localStorage.setItem(STORAGE_TODAY_KEY, JSON.stringify(todayState));
+        
+        // Recalculate all node states after daily reset
+        recalculateAllNodeStates();
         
         // Immediately sync the reset to Firebase if user is signed in
         if (currentUser && db) {
@@ -3619,6 +3624,28 @@
     /**
      * Apply visual states to all nodes on page load.
      */
+    /**
+     * Recalculate visual states for all nodes based on current weights.
+     * Call this after daily decay or when node weights change significantly.
+     */
+    function recalculateAllNodeStates() {
+      Object.keys(nodeWeights).forEach(cellId => {
+        const node = nodeWeights[cellId];
+        if (node) {
+          const newState = deriveState(node.weight);
+          node.state = newState;
+        }
+      });
+      
+      // Save updated states
+      localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(nodeWeights));
+      
+      // Apply visual updates immediately if grid is rendered
+      if (document.querySelector('.task-cell')) {
+        applyAllNodeStates();
+      }
+    }
+    
     function applyAllNodeStates() {
       Object.keys(nodeWeights).forEach(cellId => {
         const node = nodeWeights[cellId];
@@ -3999,7 +4026,9 @@
             console.log('📥 Syncing node weights from cloud');
             nodeWeights = cloudData;
             localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(nodeWeights));
-            applyAllNodeStates();
+            
+            // Recalculate states after loading from cloud to ensure they match current weights
+            recalculateAllNodeStates();
           }
         }
       });
