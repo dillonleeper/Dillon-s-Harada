@@ -211,7 +211,7 @@
     .tasks-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 1fr;
+      grid-template-rows: repeat(3, 1fr);
       gap: 6px;
       flex: 1;
       width: 100%;
@@ -955,12 +955,10 @@
       align-items: center;
       justify-content: center;
       z-index: 10000;
-      pointer-events: none;
     }
 
     .settings-overlay.visible {
       display: flex;
-      pointer-events: auto;
     }
 
     .settings-panel {
@@ -1356,7 +1354,6 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      min-width: 480px;
     }
 
     .radar-canvas {
@@ -1425,26 +1422,24 @@
     .daily-reflection-journal {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      background: #ffffff;
-      border: 1px solid #d2d2d7;
-      border-radius: 12px;
-      padding: 0;
+      gap: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e5ea;
+      border-radius: 8px;
+      padding: 16px;
       height: 100%;
-      overflow: hidden;
     }
 
     .journal-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 16px 16px 12px 16px;
-      background: #ffffff;
-      border-bottom: none;
+      align-items: baseline;
+      border-bottom: 1px solid #e5e5ea;
+      padding-bottom: 8px;
     }
 
     .journal-header h3 {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
       color: #1d1d1f;
       margin: 0;
@@ -1452,49 +1447,44 @@
 
     .journal-date {
       font-size: 0.75rem;
-      color: #8e8e93;
-      font-weight: 400;
+      color: #6e6e73;
+      font-weight: 500;
     }
 
     .journal-textarea {
       flex: 1;
       min-height: 200px;
-      padding: 0 16px 16px 16px;
-      border: none;
-      border-radius: 0;
+      padding: 12px;
+      border: 1px solid #d2d2d7;
+      border-radius: 8px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      font-size: 1rem;
-      line-height: 1.5;
+      font-size: 0.85rem;
+      line-height: 1.6;
       color: #1d1d1f;
-      resize: none;
+      resize: vertical;
       background: #ffffff;
-      transition: none;
+      transition: border-color 0.2s ease;
     }
 
     .journal-textarea:focus {
       outline: none;
-      border: none;
-      box-shadow: none;
+      border-color: #007AFF;
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
     }
 
     .journal-textarea::placeholder {
-      color: #c7c7cc;
+      color: #86868b;
     }
 
     .journal-actions {
       display: flex;
       gap: 8px;
-      padding: 12px 16px;
-      background: #f9fafb;
-      border-top: 1px solid #e5e5ea;
-      position: relative;
-      z-index: 100;
     }
 
     .journal-save-btn, .journal-history-btn {
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 0.85rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -1509,32 +1499,18 @@
 
     .journal-save-btn:hover {
       background: #0051D5;
-      transform: scale(0.98);
-    }
-
-    .journal-save-btn:active {
-      transform: scale(0.96);
-    }
-
-    .journal-save-btn:disabled {
-      background: #d1d1d6;
-      cursor: not-allowed;
-      transform: none;
+      transform: translateY(-1px);
     }
 
     .journal-history-btn {
-      background: #e5e5ea;
-      color: #1d1d1f;
-      border: none;
+      background: #ffffff;
+      color: #007AFF;
+      border: 1px solid #007AFF;
       flex: 0 0 auto;
     }
 
     .journal-history-btn:hover {
-      background: #d2d2d7;
-    }
-
-    .journal-history-btn:active {
-      transform: scale(0.96);
+      background: #f0f9ff;
     }
 
     .journal-status {
@@ -1542,16 +1518,10 @@
       color: #34c759;
       min-height: 18px;
       text-align: center;
-      padding: 0 16px 8px 16px;
-      transition: opacity 0.3s ease;
     }
 
     .journal-status.error {
       color: #ff3b30;
-    }
-
-    .journal-status.hidden {
-      opacity: 0;
     }
 
     /* Journal History Overlay */
@@ -1567,12 +1537,10 @@
       justify-content: center;
       z-index: 10000;
       padding: 20px;
-      pointer-events: none;
     }
 
     .journal-history-overlay.visible {
       display: flex;
-      pointer-events: auto;
     }
 
     .journal-history-panel {
@@ -1636,7 +1604,6 @@
       border-radius: 8px;
       padding: 16px;
       transition: all 0.2s ease;
-      cursor: pointer;
     }
 
     .history-entry:hover {
@@ -1644,17 +1611,11 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
-    .history-entry.editing {
-      border-color: #007AFF;
-      background: #ffffff;
-      cursor: default;
-    }
-
     .history-entry-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     .history-entry-date {
@@ -1663,35 +1624,15 @@
       color: #007AFF;
     }
 
-    .history-entry-time {
-      font-size: 0.7rem;
-      color: #86868b;
-      margin-left: 8px;
-    }
-
-    .history-entry-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    .history-entry-edit,
     .history-entry-delete {
       background: none;
       border: none;
-      color: #007AFF;
+      color: #ff3b30;
       font-size: 0.75rem;
       cursor: pointer;
       padding: 4px 8px;
       border-radius: 4px;
       transition: all 0.2s ease;
-    }
-
-    .history-entry-delete {
-      color: #ff3b30;
-    }
-
-    .history-entry-edit:hover {
-      background: #e8f0fe;
     }
 
     .history-entry-delete:hover {
@@ -1704,72 +1645,6 @@
       color: #1d1d1f;
       white-space: pre-wrap;
       word-wrap: break-word;
-      margin-top: 8px;
-    }
-
-    .history-entry-textarea {
-      width: 100%;
-      min-height: 100px;
-      padding: 12px;
-      border: 1px solid #007AFF;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      resize: vertical;
-      margin-top: 8px;
-    }
-
-    .history-entry-save-btn {
-      background: #007AFF;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 8px;
-      margin-right: 8px;
-    }
-
-    .history-entry-save-btn:hover {
-      background: #0051D5;
-    }
-
-    .history-entry-cancel-btn {
-      background: #e5e5ea;
-      color: #1d1d1f;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 8px;
-    }
-
-    .history-entry-cancel-btn:hover {
-      background: #d2d2d7;
-    }
-
-    .history-date-group {
-      margin-bottom: 24px;
-    }
-
-    .history-date-header {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #1d1d1f;
-      margin-bottom: 12px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #e5e5ea;
-    }
-
-    .history-entries-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
     }
 
     .history-empty {
@@ -1777,170 +1652,6 @@
       padding: 40px 20px;
       color: #86868b;
       font-size: 0.9rem;
-    }
-
-    /* Edit Mode Styles */
-    .edit-mode-btn {
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1px solid #d2d2d7;
-      background: #ffffff;
-      color: #1d1d1f;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .edit-mode-btn:hover {
-      background: #f9fafb;
-      border-color: #007AFF;
-    }
-
-    .edit-mode-btn.active {
-      background: #007AFF;
-      color: #ffffff;
-      border-color: #007AFF;
-    }
-
-    .edit-mode-btn.save {
-      background: #34c759;
-      color: #ffffff;
-      border-color: #34c759;
-    }
-
-    .edit-mode-btn.save:hover {
-      background: #248A3D;
-    }
-
-    .task-cell.edit-mode {
-      cursor: text;
-      border-color: #007AFF;
-      position: relative;
-    }
-
-    .task-cell.edit-mode::before {
-      content: "✏️";
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      font-size: 0.7rem;
-      opacity: 0.6;
-    }
-
-    .task-edit-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      padding: 20px;
-      pointer-events: none;
-    }
-
-    .task-edit-overlay.visible {
-      display: flex;
-      pointer-events: auto;
-    }
-
-    .task-edit-panel {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 24px;
-      max-width: 500px;
-      width: 100%;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
-
-    .task-edit-header {
-      margin-bottom: 20px;
-    }
-
-    .task-edit-header h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 0 0 8px 0;
-      color: #1d1d1f;
-    }
-
-    .task-edit-pillar {
-      font-size: 0.8rem;
-      color: #6e6e73;
-    }
-
-    .task-edit-form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .task-edit-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #1d1d1f;
-      margin-bottom: 6px;
-    }
-
-    .task-edit-input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #d2d2d7;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      transition: border-color 0.2s ease;
-    }
-
-    .task-edit-input:focus {
-      outline: none;
-      border-color: #007AFF;
-    }
-
-    .task-edit-textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    .task-edit-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .task-edit-save-btn,
-    .task-edit-cancel-btn {
-      flex: 1;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s ease;
-    }
-
-    .task-edit-save-btn {
-      background: #007AFF;
-      color: #ffffff;
-    }
-
-    .task-edit-save-btn:hover {
-      background: #0051D5;
-    }
-
-    .task-edit-cancel-btn {
-      background: #e5e5ea;
-      color: #1d1d1f;
-    }
-
-    .task-edit-cancel-btn:hover {
-      background: #d2d2d7;
     }
 
     .balance-footer {
@@ -2127,9 +1838,9 @@
       }
 
       .radar-canvas {
-        width: 320px;
-        height: 320px;
-        max-width: 100%;
+        width: 100%;
+        height: auto;
+        max-width: 320px;
         margin: 0 auto;
       }
 
@@ -2424,7 +2135,6 @@
 <body>
   <div class="header-container">
     <h1>Harada Open Window 64</h1>
-    <button class="edit-mode-btn" id="editModeBtn" onclick="toggleEditMode()">Edit Mode</button>
     <div class="meta" id="dateDisplay"></div>
   </div>
   
@@ -2541,8 +2251,8 @@
             placeholder="How did today feel? What patterns did you notice? What would you do differently?"
           ></textarea>
           <div class="journal-actions">
-            <button id="saveJournalBtn" class="journal-save-btn" onclick="saveJournalEntry()">Save Reflection</button>
-            <button id="viewHistoryBtn" class="journal-history-btn" onclick="console.log('View History clicked!'); openJournalHistory()">View History</button>
+            <button id="saveJournalBtn" class="journal-save-btn">Save Reflection</button>
+            <button id="viewHistoryBtn" class="journal-history-btn">View History</button>
           </div>
           <div class="journal-status" id="journalStatus"></div>
         </div>
@@ -2551,11 +2261,11 @@
   </div>
 
   <!-- Journal History Overlay -->
-  <div class="journal-history-overlay" id="journalHistoryOverlay" onclick="if(event.target === this) closeJournalHistory()">
+  <div class="journal-history-overlay" id="journalHistoryOverlay">
     <div class="journal-history-panel">
       <div class="journal-history-header">
         <h2>Reflection History</h2>
-        <button class="journal-history-close" id="journalHistoryClose" onclick="closeJournalHistory()">×</button>
+        <button class="journal-history-close" id="journalHistoryClose">×</button>
       </div>
       <div class="journal-history-list" id="journalHistoryList">
         <!-- History entries will be injected here -->
@@ -2622,37 +2332,13 @@
     </div>
   </div>
 
-  <!-- Task Edit Overlay -->
-  <div class="task-edit-overlay" id="taskEditOverlay" onclick="if(event.target === this) closeTaskEdit()">
-    <div class="task-edit-panel">
-      <div class="task-edit-header">
-        <h3>Edit Task</h3>
-        <div class="task-edit-pillar" id="taskEditPillar"></div>
-      </div>
-      <div class="task-edit-form">
-        <div>
-          <div class="task-edit-label">Task Title</div>
-          <input type="text" class="task-edit-input" id="taskEditTitle" placeholder="e.g., Journal feelings" />
-        </div>
-        <div>
-          <div class="task-edit-label">Task Hint</div>
-          <textarea class="task-edit-input task-edit-textarea" id="taskEditHint" placeholder="e.g., Write honestly"></textarea>
-        </div>
-      </div>
-      <div class="task-edit-actions">
-        <button class="task-edit-cancel-btn" onclick="closeTaskEdit()">Cancel</button>
-        <button class="task-edit-save-btn" onclick="saveTaskEdit()">Save Changes</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Account/Auth Button & Overlay -->
-  <button class="settings-btn" id="accountBtn" title="Account" onclick="openAuth()" style="bottom: 0; right: 0; border-radius: 12px 0 0 0; background: #007aff; filter: brightness(1.1);">👤</button>
-  <div class="settings-overlay" id="authOverlay" onclick="if(event.target === this) closeAuth()">
+  <button class="settings-btn" id="accountBtn" title="Account" style="bottom: 0; right: 0; border-radius: 12px 0 0 0; background: #007aff; filter: brightness(1.1);">👤</button>
+  <div class="settings-overlay" id="authOverlay">
     <div class="settings-panel" style="max-width: 400px;">
       <div class="settings-header">
         <h2 id="authTitle">Sign In</h2>
-        <button class="settings-close" id="authClose" onclick="closeAuth()">×</button>
+        <button class="settings-close" id="authClose">×</button>
       </div>
       
       <div id="authContent">
@@ -2932,120 +2618,120 @@
       'P8': '#FFD4C8'  // Soft Coral - Selective Connection - Selective Connection
     };
 
-    const lifePillars = [
-  {
-    id: "P1",
-    name: "Self-Knowledge",
-    tasks: [
-      { title: "Journal feelings", hint: "Write honestly" },
-      { title: "Observe without judging", hint: "Notice thoughts and emotions" },
-      { title: "Spot a pattern", hint: "Identify recurring behavior" },
-      { title: "Honor your values", hint: "Choose what matters" },
-      { title: "Act with integrity", hint: "Behave as your best self" },
-      { title: "Practice reciprocity", hint: "Give what you want to receive" },
-      { title: "Pause before reacting", hint: "Choose your response" },
-      { title: "Be fully present", hint: "Inhabit one moment completely" }
-    ]
-  },
-  {
-    id: "P2",
-    name: "Connection",
-    tasks: [
-      { title: "Express a need", hint: "Communicate clearly" },
-      { title: "Drop the mask", hint: "Allow genuine closeness" },
-      { title: "Sit with uncertainty", hint: "Don't rush to resolve" },
-      { title: "Show your real self", hint: "Skip the performance" },
-      { title: "Reach out first", hint: "Initiate connection" },
-      { title: "Keep a promise", hint: "Build trust through action" },
-      { title: "Respond honestly", hint: "Truth over tactics" },
-      { title: "Leave it better", hint: "Add value to relationships" }
-    ]
-  },
-  {
-    id: "P3",
-    name: "Impact",
-    tasks: [
-      { title: "Build something lasting", hint: "Create compound value" },
-      { title: "Work on what matters", hint: "Think beyond today" },
-      { title: "Practice high-leverage skills", hint: "Multiply your impact" },
-      { title: "Code something personal", hint: "Build for yourself" },
-      { title: "Eliminate friction", hint: "Fix one pain point" },
-      { title: "Apply to target roles", hint: "1-2 strategic applications" },
-      { title: "Research opportunities", hint: "Bookmark what interests you" },
-      { title: "Review finances", hint: "Check spending and goals" }
-    ]
-  },
-  {
-    id: "P4",
-    name: "Freedom",
-    tasks: [
-      { title: "Decline one thing", hint: "Protect your time" },
-      { title: "Schedule white space", hint: "Leave room to think" },
-      { title: "Invest in your future", hint: "Stocks, education, growth" },
-      { title: "Reduce tomorrow's friction", hint: "Plan strategically" },
-      { title: "Reject guilt-driven yes", hint: "Set clear boundaries" },
-      { title: "Design your day", hint: "Lead, don't react" },
-      { title: "Choose delayed reward", hint: "Long-term over comfort" },
-      { title: "Help future you", hint: "One choice they'll thank you for" }
-    ]
-  },
-  {
-    id: "P5",
-    name: "Regulation",
-    tasks: [
-      { title: "Ground your body", hint: "Breathe, move, reset" },
-      { title: "Treat yourself well", hint: "You deserve care" },
-      { title: "Move", hint: "Walk, lift, stretch, train" },
-      { title: "Sleep 8 hours", hint: "Prioritize rest" },
-      { title: "Drink water", hint: "Stay hydrated" },
-      { title: "Take supplements", hint: "Support your body" },
-      { title: "Breathe with purpose", hint: "5 minutes controlled breathing" },
-      { title: "Sit in stillness", hint: "Meditate, observe your mind" }
-    ]
-  },
-  {
-    id: "P6",
-    name: "Presence",
-    tasks: [
-      { title: "Stand tall", hint: "Shoulders back, head up" },
-      { title: "Reset one space", hint: "Clean, organize, clear" },
-      { title: "Guard your inputs", hint: "Skip draining content" },
-      { title: "Notice three good things", hint: "Practice gratitude" },
-      { title: "Choose words carefully", hint: "Speak with intention" },
-      { title: "Appreciate beauty", hint: "See what's around you" },
-      { title: "Move with grace", hint: "Carry yourself well" },
-      { title: "Capture thoughts", hint: "Clear your mental space" }
-    ]
-  },
-  {
-    id: "P7",
-    name: "Mastery",
-    tasks: [
-      { title: "Practice with focus", hint: "Develop one skill" },
-      { title: "Finish properly", hint: "Complete without rushing" },
-      { title: "Hold your standard", hint: "Quality when no one's watching" },
-      { title: "Make art", hint: "Create for 15-20 minutes" },
-      { title: "Sketch an idea", hint: "Visualize something new" },
-      { title: "Advance a project", hint: "Progress creative work" },
-      { title: "Capture inspiration", hint: "Note one new idea" },
-      { title: "Complete something", hint: "Finish what you started" }
-    ]
-  },
-  {
-    id: "P8",
-    name: "Community",
-    tasks: [
-      { title: "Connect deeply", hint: "One genuine conversation" },
-      { title: "Choose solitude", hint: "Be alone intentionally" },
-      { title: "Make plans", hint: "Suggest something specific" },
-      { title: "Show up for your group", hint: "Engage in community" },
-      { title: "Give full attention", hint: "Be completely present" },
-      { title: "Put phone away", hint: "Unplug to connect" },
-      { title: "Follow up", hint: "Build relationships intentionally" },
-      { title: "Connect for real", hint: "Only when it nourishes you" }
-    ]
-  }
-];
+    const pillars = [
+      {
+        id: "P1",
+        name: "Identity & Self-Understanding",
+        tasks: [
+          { title: "Write/Speak", hint: "Honestly about how I feel" },
+          { title: "Notice", hint: "Thoughts/emotions without judging" },
+          { title: "Identify", hint: "A pattern in myself" },
+          { title: "Decide", hint: "Because it feels true" },
+          { title: "Act", hint: "In a way I'd respect" },
+          { title: "Treat Others", hint: "How I want to be treated" },
+          { title: "Pause", hint: "Before reacting, choose intentionally" },
+          { title: "Be Mindful", hint: "Present in at least one moment" }
+        ]
+      },
+      {
+        id: "P2",
+        name: "Love, Attachment & Emotional Safety",
+        tasks: [
+          { title: "Express", hint: "A need, boundary, or feeling" },
+          { title: "Allow Closeness", hint: "Without performing" },
+          { title: "Stay Present", hint: "With uncertainty" },
+          { title: "Show Real Me", hint: "Not the polished version" },
+          { title: "Say Yes", hint: "To invitation that feels aligned" },
+          { title: "Trust", hint: "A little more than instinct" },
+          { title: "Respond", hint: "Honestly instead of strategically" },
+          { title: "Leave Better", hint: "Connection better than found" }
+        ]
+      },
+      {
+        id: "P3",
+        name: "Meaningful Work & Leverage",
+        tasks: [
+          { title: "Improve", hint: "System/process/tool that compounds" },
+          { title: "Work On", hint: "Something that matters beyond today" },
+          { title: "Learn/Practice", hint: "Skill that increases leverage" },
+          { title: "Write Code", hint: "For personal project I care about" },
+          { title: "Fix", hint: "Bug or friction point" },
+          { title: "Apply", hint: "To 1-2 target roles" },
+          { title: "Bookmark", hint: "Role/idea/opportunity" },
+          { title: "Decide", hint: "Improves finances/efficiency/earning" }
+        ]
+      },
+      {
+        id: "P4",
+        name: "Autonomy & Freedom of Time",
+        tasks: [
+          { title: "Choose", hint: "Preserves flexibility in time/energy" },
+          { title: "Say No", hint: "To commitment that drains" },
+          { title: "Leave Margin", hint: "In schedule or mental load" },
+          { title: "Invest", hint: "In stocks/funds/education" },
+          { title: "Reduce Friction", hint: "In tomorrow's schedule" },
+          { title: "Avoid", hint: "Over-committing out of guilt" },
+          { title: "Design Day", hint: "Instead of reacting to it" },
+          { title: "Choose Freedom", hint: "Over short-term relief" }
+        ]
+      },
+      {
+        id: "P5",
+        name: "Emotional Regulation & Mental Health",
+        tasks: [
+          { title: "Ground", hint: "Nervous system (movement/breath)" },
+          { title: "Notice Emotion", hint: "Without fixing or numbing" },
+          { title: "Treat Self", hint: "As someone worth caring for" },
+          { title: "Move Body", hint: "Gym/walk/stretch/workout" },
+          { title: "Sleep", hint: "~8 hours or support better sleep" },
+          { title: "Drink Water", hint: "Hit hydration target" },
+          { title: "Take", hint: "Supplements intentionally" },
+          { title: "Notice", hint: "Disrespect, choose not to react" }
+        ]
+      },
+      {
+        id: "P6",
+        name: "Aesthetic, Environment & Vibe",
+        tasks: [
+          { title: "Improve", hint: "Environment in one small way" },
+          { title: "Clean/Organize", hint: "Reset one area" },
+          { title: "Optimize", hint: "Lighting, sound, or atmosphere" },
+          { title: "Remove", hint: "Visual or mental clutter" },
+          { title: "Create", hint: "Environment for focus or rest" },
+          { title: "Stand Tall", hint: "Improve posture, shoulders back" },
+          { title: "Avoid", hint: "Conversations/content that drain" },
+          { title: "Keep Clean", hint: "Mental space by capturing thoughts" }
+        ]
+      },
+      {
+        id: "P7",
+        name: "Competence, Mastery & Self-Respect",
+        tasks: [
+          { title: "Practice", hint: "Something requiring focus/skill" },
+          { title: "Complete", hint: "Task cleanly, not rushing" },
+          { title: "Hold Standard", hint: "Even when no one sees" },
+          { title: "Create Art", hint: "Even 15-20 minutes" },
+          { title: "Sketch", hint: "New idea or concept" },
+          { title: "Work On", hint: "Current piece or creative idea" },
+          { title: "Capture", hint: "One new creative idea in notes" },
+          { title: "Finish", hint: "Something I started today" }
+        ]
+      },
+      {
+        id: "P8",
+        name: "Selective Connection",
+        tasks: [
+          { title: "Have", hint: "One present, real interaction" },
+          { title: "Choose", hint: "Solitude intentionally" },
+          { title: "Avoid Forcing", hint: "Social energy I don't have" },
+          { title: "Plan", hint: "Hangout or suggest plans" },
+          { title: "Engage", hint: "In community I care about" },
+          { title: "Show Up Fully", hint: "For one conversation" },
+          { title: "Leave Phone", hint: "Alone during connection" },
+          { title: "Connect", hint: "Because it feels nourishing" }
+        ]
+      }
+    ];
 
     const STORAGE_TODAY_KEY = "haradaTodayState";
     const STORAGE_STATS_KEY = "haradaStatsAllTime";
@@ -3400,7 +3086,7 @@
         // Save yesterday's count and pillar breakdown before resetting
         if (todayState && todayState.date) {
           const yesterdayPillarTotals = {};
-          lifePillars.forEach(p => yesterdayPillarTotals[p.id] = 0);
+          pillars.forEach(p => yesterdayPillarTotals[p.id] = 0);
           
           Object.keys(todayState.completed).forEach(cellId => {
             const pillarId = cellId.split('-')[0];
@@ -3421,14 +3107,6 @@
         }
         todayState = { date: today, completed: {} };
         localStorage.setItem(STORAGE_TODAY_KEY, JSON.stringify(todayState));
-        
-        // Recalculate all node states after daily reset
-        recalculateAllNodeStates();
-        
-        // IMPORTANT: Remove all completed classes from DOM immediately
-        document.querySelectorAll('.task-cell.completed').forEach(cell => {
-          cell.classList.remove('completed');
-        });
         
         // Immediately sync the reset to Firebase if user is signed in
         if (currentUser && db) {
@@ -3506,7 +3184,7 @@
       }
       if (!pillarStreaks) {
         pillarStreaks = {};
-        lifePillars.forEach(p => {
+        pillars.forEach(p => {
           pillarStreaks[p.id] = { current: 0, best: 0, lastActive: null };
         });
         localStorage.setItem(STORAGE_PILLAR_STREAKS_KEY, JSON.stringify(pillarStreaks));
@@ -3744,10 +3422,11 @@
       const weights = {};
       
       // Get all task cells from pillars
-      lifePillars.forEach(pillar => {
-        pillar.tasks.forEach((task, taskIndex) => {
-          const cellId = `${pillar.id}-${taskIndex}`;
-          const allTimeCount = statsAllTime[cellId] || 0;
+      pillars.forEach(pillar => {
+        pillar.subpillars.forEach((subpillar, subIndex) => {
+          subpillar.tasks.forEach((task, taskIndex) => {
+            const cellId = `${pillar.id}-${subIndex}-${taskIndex}`;
+            const allTimeCount = statsAllTime[cellId] || 0;
             
             // Infer weight from all-time completions
             // Higher completion count suggests more integrated state
@@ -3770,6 +3449,7 @@
               lastActivity: completedToday ? getTodayString() : null,
               state: deriveState(inferredWeight)
             };
+          });
         });
       });
       
@@ -3939,28 +3619,6 @@
     /**
      * Apply visual states to all nodes on page load.
      */
-    /**
-     * Recalculate visual states for all nodes based on current weights.
-     * Call this after daily decay or when node weights change significantly.
-     */
-    function recalculateAllNodeStates() {
-      Object.keys(nodeWeights).forEach(cellId => {
-        const node = nodeWeights[cellId];
-        if (node) {
-          const newState = deriveState(node.weight);
-          node.state = newState;
-        }
-      });
-      
-      // Save updated states
-      localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(nodeWeights));
-      
-      // Apply visual updates immediately if grid is rendered
-      if (document.querySelector('.task-cell')) {
-        applyAllNodeStates();
-      }
-    }
-    
     function applyAllNodeStates() {
       Object.keys(nodeWeights).forEach(cellId => {
         const node = nodeWeights[cellId];
@@ -4003,7 +3661,7 @@
       
       // Milestone 2: Any pillar hits 10 all-time completions
       const pillarTotalsAllTime = {};
-      lifePillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
+      pillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
       Object.entries(statsAllTime).forEach(([cellId, count]) => {
         const [pillarId] = cellId.split('-');
         if (pillarTotalsAllTime[pillarId] !== undefined) {
@@ -4011,7 +3669,7 @@
         }
       });
       
-      lifePillars.forEach(p => {
+      pillars.forEach(p => {
         const milestoneId = `pillar-10-${p.id}`;
         if (pillarTotalsAllTime[p.id] >= 10 && !achievementsUnlocked.includes(milestoneId)) {
           achievementsUnlocked.push(milestoneId);
@@ -4341,9 +3999,7 @@
             console.log('📥 Syncing node weights from cloud');
             nodeWeights = cloudData;
             localStorage.setItem(STORAGE_NODE_WEIGHTS_KEY, JSON.stringify(nodeWeights));
-            
-            // Recalculate states after loading from cloud to ensure they match current weights
-            recalculateAllNodeStates();
+            applyAllNodeStates();
           }
         }
       });
@@ -4365,7 +4021,7 @@
       
       // Calculate today's pillar breakdown
       const todayPillarTotals = {};
-      lifePillars.forEach(p => todayPillarTotals[p.id] = 0);
+      pillars.forEach(p => todayPillarTotals[p.id] = 0);
       
       Object.keys(todayState.completed).forEach(cellId => {
         const pillarId = cellId.split('-')[0];
@@ -4517,20 +4173,17 @@
         cell.dataset.id = cellId;
         cell.dataset.pillar = pillar.id;
         
-        // Get task text (custom or original)
-        const taskText = getTaskText(cellId);
-        
         // Store full task text for tooltip
-        cell.dataset.taskTitle = taskText.title;
-        cell.dataset.taskHint = taskText.hint;
+        cell.dataset.taskTitle = task.title;
+        cell.dataset.taskHint = task.hint;
         
         const titleEl = document.createElement("div");
         titleEl.className = "task-title";
-        titleEl.textContent = taskText.title;
+        titleEl.textContent = task.title;
         
         const hintEl = document.createElement("div");
         hintEl.className = "task-hint";
-        hintEl.textContent = taskText.hint;
+        hintEl.textContent = task.hint;
         
         cell.appendChild(titleEl);
         cell.appendChild(hintEl);
@@ -4538,18 +4191,9 @@
         if (todayState.completed[cellId]) {
           cell.classList.add("completed");
         }
-        
-        // Add edit mode class if in edit mode
-        if (isEditMode) {
-          cell.classList.add("edit-mode");
-        }
 
         cell.addEventListener("click", () => {
-          if (isEditMode) {
-            openTaskEdit(cellId);
-          } else {
-            toggleTask(cell);
-          }
+          toggleTask(cell);
         });
 
         // Add tooltip event listeners
@@ -4715,14 +4359,14 @@
 
       // Define explicit grid placement for each pillar
       const pillarLayout = [
-        { pillar: lifePillars[0], row: 1, col: 1 }, // P1: Identity & Self-Understanding
-        { pillar: lifePillars[1], row: 1, col: 2 }, // P2: Love, Attachment & Emotional Safety
-        { pillar: lifePillars[2], row: 1, col: 3 }, // P3: Meaningful Work & Leverage
-        { pillar: lifePillars[7], row: 2, col: 1 }, // P8: Selective Connection
-        { pillar: lifePillars[3], row: 2, col: 3 }, // P4: Autonomy & Freedom of Time
-        { pillar: lifePillars[6], row: 3, col: 1 }, // P7: Competence, Mastery & Self-Respect
-        { pillar: lifePillars[5], row: 3, col: 2 }, // P6: Aesthetic, Environment & Vibe
-        { pillar: lifePillars[4], row: 3, col: 3 }  // P5: Emotional Regulation & Mental Health
+        { pillar: pillars[0], row: 1, col: 1 }, // P1: Identity & Self-Understanding
+        { pillar: pillars[1], row: 1, col: 2 }, // P2: Love, Attachment & Emotional Safety
+        { pillar: pillars[2], row: 1, col: 3 }, // P3: Meaningful Work & Leverage
+        { pillar: pillars[7], row: 2, col: 1 }, // P8: Selective Connection
+        { pillar: pillars[3], row: 2, col: 3 }, // P4: Autonomy & Freedom of Time
+        { pillar: pillars[6], row: 3, col: 1 }, // P7: Competence, Mastery & Self-Respect
+        { pillar: pillars[5], row: 3, col: 2 }, // P6: Aesthetic, Environment & Vibe
+        { pillar: pillars[4], row: 3, col: 3 }  // P5: Emotional Regulation & Mental Health
       ];
 
       // Create pillar cards with explicit positioning
@@ -4759,7 +4403,7 @@
         if (id === "CENTER") {
           gridWrapper.appendChild(createCenterBox());
         } else {
-          const pillar = lifePillars.find(p => p.id === id);
+          const pillar = pillars.find(p => p.id === id);
           gridWrapper.appendChild(createPillarBox(pillar));
         }
       });
@@ -4832,7 +4476,7 @@
 
       // If all 8 tasks completed, trigger confetti
       if (pillarTasksCompleted === 8) {
-        const pillar = lifePillars.find(p => p.id === pillarId);
+        const pillar = pillars.find(p => p.id === pillarId);
         triggerPillarConfetti(pillar);
       }
     }
@@ -4867,7 +4511,7 @@
     function checkAndAwardBadges() {
       // Calculate stats for badge checking
       const pillarTouches = {};
-      lifePillars.forEach(p => pillarTouches[p.id] = 0);
+      pillars.forEach(p => pillarTouches[p.id] = 0);
       
       let totalToday = 0;
       Object.keys(todayState.completed).forEach(taskId => {
@@ -4889,7 +4533,7 @@
 
       // Calculate pillar totals all time
       const pillarTotalsAllTime = {};
-      lifePillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
+      pillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
       Object.entries(statsAllTime).forEach(([cellId, count]) => {
         const [pillarId] = cellId.split('-');
         if (pillarTotalsAllTime[pillarId] !== undefined) {
@@ -4909,7 +4553,7 @@
       Object.keys(dailyHistory).forEach(dateStr => {
         const entry = dailyHistory[dateStr];
         if (entry && entry.pillars) {
-          if ((entry.lifePillars['P7'] || 0) > 0 && (entry.lifePillars['P8'] || 0) > 0) {
+          if ((entry.pillars['P7'] || 0) > 0 && (entry.pillars['P8'] || 0) > 0) {
             mindBodyCount++;
           }
         }
@@ -5064,7 +4708,7 @@
       
       // Get pillar totals
       const pillarTotalsAllTime = {};
-      lifePillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
+      pillars.forEach(p => pillarTotalsAllTime[p.id] = 0);
       Object.entries(statsAllTime).forEach(([cellId, count]) => {
         const [pillarId] = cellId.split('-');
         if (pillarTotalsAllTime[pillarId] !== undefined) {
@@ -5074,7 +4718,7 @@
       
       // Find strongest pillar
       const maxCount = Math.max(...Object.values(pillarTotalsAllTime));
-      const strongestPillar = lifePillars.find(p => pillarTotalsAllTime[p.id] === maxCount);
+      const strongestPillar = pillars.find(p => pillarTotalsAllTime[p.id] === maxCount);
       
       // Find most improved (if we have history data)
       const sortedPillars = [...pillars].sort((a, b) => pillarTotalsAllTime[b.id] - pillarTotalsAllTime[a.id]);
@@ -5221,7 +4865,7 @@
       
       // Group nodes by pillar
       const pillarStates = {};
-      lifePillars.forEach(p => {
+      pillars.forEach(p => {
         pillarStates[p.id] = {
           name: p.name,
           dormant: 0,
@@ -5328,7 +4972,7 @@
     function updateTodayReflection() {
       // Count tasks completed today per pillar
       const pillarTouches = {};
-      lifePillars.forEach(p => pillarTouches[p.id] = 0);
+      pillars.forEach(p => pillarTouches[p.id] = 0);
       
       let totalToday = 0;
       Object.keys(todayState.completed).forEach(taskId => {
@@ -5381,7 +5025,7 @@
       } else if (totalAllTime % 50 === 0 && totalAllTime > 0) {
         insightEl.textContent = `${totalAllTime} total completions—milestone reached!`;
       } else if ( pillarsCount === 1) {
-        const activePillar = lifePillars.find(p => pillarTouches[p.id] > 0);
+        const activePillar = pillars.find(p => pillarTouches[p.id] > 0);
         const count = pillarTouches[activePillar.id];
         if (count >= 4) {
           insightEl.textContent = `Deep focus in ${activePillar.name} today—${count} steps forward.`;
@@ -5408,7 +5052,7 @@
       let totalToday = 0;
       let totalAllTime = 0;
 
-      lifePillars.forEach((p) => {
+      pillars.forEach((p) => {
         pillarTotalsToday[p.id] = 0;
         pillarTotalsAllTime[p.id] = 0;
       });
@@ -5429,7 +5073,7 @@
         }
       });
 
-      lifePillars.forEach((p) => {
+      pillars.forEach((p) => {
         const tr = document.createElement("tr");
         const tdName = document.createElement("td");
         const tdToday = document.createElement("td");
@@ -5500,17 +5144,14 @@
       
       nonZeroDays.forEach(dateStr => {
         const entry = dailyHistory[dateStr];
-        if (!entry) return; // Skip if no entry
-        
-        // Handle both old (pillars) and new (lifePillars) format
-        const pillarData = entry.lifePillars || entry.pillars || {};
+        if (!entry || !entry.pillars) return; // Skip if no pillar data
         
         const dayTotal = entry.total || 0;
         if (dayTotal === 0) return;
         
         const shares = {};
-        lifePillars.forEach(p => {
-          shares[p.id] = (pillarData[p.id] || 0) / dayTotal;
+        pillars.forEach(p => {
+          shares[p.id] = (entry.pillars[p.id] || 0) / dayTotal;
         });
         
         dailyShares.push(shares);
@@ -5527,7 +5168,7 @@
       // Calculate variance for each pillar across days
       const pillarVariances = [];
       
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const pillarShares = dailyShares.map(day => day[pillar.id]);
         const mean = pillarShares.reduce((sum, val) => sum + val, 0) / pillarShares.length;
         const variance = pillarShares.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / pillarShares.length;
@@ -5564,7 +5205,7 @@
     function oldCalculateFocusStability_REMOVED(datesInRange) {
       // Old approximation-based code removed
       const allTimePillarTotals = {};
-      lifePillars.forEach(p => allTimePillarTotals[p.id] = 0);
+      pillars.forEach(p => allTimePillarTotals[p.id] = 0);
       Object.entries(statsAllTime).forEach(([cellId, count]) => {
         const [pillarId] = cellId.split('-');
         if (allTimePillarTotals[pillarId] !== undefined) {
@@ -5575,12 +5216,12 @@
       
       // For each day, approximate pillar shares using all-time distribution
       const dailyShares = {}; // pillarId -> array of daily shares
-      lifePillars.forEach(p => dailyShares[p.id] = []);
+      pillars.forEach(p => dailyShares[p.id] = []);
       
       nonZeroDays.forEach(dateStr => {
         const dayTotal = dailyHistory[dateStr];
         if (dayTotal > 0) {
-          lifePillars.forEach(p => {
+          pillars.forEach(p => {
             // Approximate pillar count for this day using all-time ratio
             const pillarRatio = allTimeTotal > 0 ? allTimePillarTotals[p.id] / allTimeTotal : 1/8;
             const estimatedPillarCount = dayTotal * pillarRatio;
@@ -5592,7 +5233,7 @@
       
       // Calculate standard deviation for each pillar's daily shares
       const pillarStdDevs = [];
-      lifePillars.forEach(p => {
+      pillars.forEach(p => {
         const shares = dailyShares[p.id];
         if (shares.length > 0) {
           const mean = shares.reduce((sum, s) => sum + s, 0) / shares.length;
@@ -5705,7 +5346,7 @@
       
       // Calculate pillar totals from ALL-TIME stats (not filtered by range)
       const countsByPillar = {};
-      lifePillars.forEach(p => countsByPillar[p.id] = 0);
+      pillars.forEach(p => countsByPillar[p.id] = 0);
       Object.entries(statsAllTime).forEach(([cellId, count]) => {
         const [pillarId] = cellId.split('-');
         if (countsByPillar[pillarId] !== undefined) {
@@ -5715,7 +5356,7 @@
       
       // Calculate today's counts per pillar for data integrity check
       const todayPillarCounts = {};
-      lifePillars.forEach(p => todayPillarCounts[p.id] = 0);
+      pillars.forEach(p => todayPillarCounts[p.id] = 0);
       Object.keys(todayState.completed).forEach((cellId) => {
         const [pillarId] = cellId.split("-");
         if (todayPillarCounts[pillarId] !== undefined) {
@@ -5724,7 +5365,7 @@
       });
       
       // Apply safety check: ensure all-time is at least as high as today's count
-      lifePillars.forEach(p => {
+      pillars.forEach(p => {
         countsByPillar[p.id] = Math.max(countsByPillar[p.id], todayPillarCounts[p.id]);
       });
       
@@ -5742,10 +5383,10 @@
       renderActivityTimeline(datesInRange);
       
       const totalCompletions = Object.values(countsByPillar).reduce((sum, val) => sum + val, 0);
-      const values = lifePillars.map(p => countsByPillar[p.id] || 0);
+      const values = pillars.map(p => countsByPillar[p.id] || 0);
       
       console.log('=== Radar Chart Data Verification ===');
-      console.log('Pillar order:', lifePillars.map(p => p.name));
+      console.log('Pillar order:', pillars.map(p => p.name));
       console.log('Values for radar chart:', values);
       console.log('Total completions:', totalCompletions);
       
@@ -5801,11 +5442,11 @@
       // Find most neglected and most active pillars
       const minValue = Math.min(...values);
       const minIndex = values.indexOf(minValue);
-      const neglectedPillar = lifePillars[minIndex];
+      const neglectedPillar = pillars[minIndex];
       
       const maxValue = Math.max(...values);
       const maxIndex = values.indexOf(maxValue);
-      const activePillar = lifePillars[maxIndex];
+      const activePillar = pillars[maxIndex];
       const percentage = totalCompletions > 0 ? Math.round((maxValue / totalCompletions) * 100) : 0;
       
       // Update Focus Pattern card (merged Most Active + Most Neglected)
@@ -5866,33 +5507,15 @@
 
     // Journal functionality
     const STORAGE_JOURNAL_KEY = "haradaJournalEntries";
-    let journalEntries = {}; // { date: [ { id, timestamp, text }, ... ] }
+    let journalEntries = {};
 
     function loadJournalEntries() {
       try {
         const raw = localStorage.getItem(STORAGE_JOURNAL_KEY);
         journalEntries = raw ? JSON.parse(raw) : {};
-        
-        // Migrate old format (single entry per day) to new format (array of entries)
-        Object.keys(journalEntries).forEach(date => {
-          if (typeof journalEntries[date] === 'string') {
-            // Old format: convert to new format
-            journalEntries[date] = [{
-              id: generateEntryId(),
-              timestamp: new Date(date + 'T12:00:00').toISOString(),
-              text: journalEntries[date]
-            }];
-          }
-        });
-        
-        localStorage.setItem(STORAGE_JOURNAL_KEY, JSON.stringify(journalEntries));
       } catch {
         journalEntries = {};
       }
-    }
-
-    function generateEntryId() {
-      return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
 
     function saveJournalEntries() {
@@ -5905,16 +5528,16 @@
     }
 
     function loadTodayJournal() {
+      const today = getTodayString();
       const journalDate = document.getElementById('journalDate');
+      const journalTextarea = document.getElementById('journalTextarea');
       
       if (journalDate) {
         journalDate.textContent = formatPrettyDate();
       }
       
-      // Clear the textarea (entries are in history now)
-      const journalTextarea = document.getElementById('journalTextarea');
       if (journalTextarea) {
-        journalTextarea.value = '';
+        journalTextarea.value = journalEntries[today] || '';
       }
     }
 
@@ -5927,457 +5550,81 @@
       
       const text = journalTextarea.value.trim();
       
-      if (!text) {
-        if (journalStatus) {
-          journalStatus.textContent = 'Please write something first';
-          journalStatus.className = 'journal-status error';
-          setTimeout(() => {
-            journalStatus.classList.add('hidden');
-          }, 2000);
-        }
-        return;
+      if (text) {
+        journalEntries[today] = text;
+      } else {
+        delete journalEntries[today];
       }
-      
-      // Initialize array for today if needed
-      if (!journalEntries[today]) {
-        journalEntries[today] = [];
-      }
-      
-      // Add new entry
-      const entry = {
-        id: generateEntryId(),
-        timestamp: new Date().toISOString(),
-        text: text
-      };
-      
-      journalEntries[today].push(entry);
       
       saveJournalEntries();
       
-      // Clear textarea
-      journalTextarea.value = '';
-      
-      // Show success message
-      if (journalStatus) {
-        journalStatus.textContent = 'Saved ✓';
-        journalStatus.className = 'journal-status';
-        setTimeout(() => {
-          journalStatus.classList.add('hidden');
-        }, 2000);
+      // Clear the textarea after saving
+      if (text) {
+        journalTextarea.value = '';
       }
       
-      // Trigger confetti for first reflection of the day
-      if (journalEntries[today].length === 1) {
-        confetti({
-          particleCount: 30,
-          spread: 50,
-          origin: { y: 0.6 },
-          colors: ['#007AFF', '#E8F0FE'],
-          ticks: 100
-        });
+      if (journalStatus) {
+        journalStatus.textContent = text ? 'Reflection saved ✓' : 'Reflection cleared';
+        journalStatus.className = 'journal-status';
+        setTimeout(() => {
+          journalStatus.textContent = '';
+        }, 2000);
       }
     }
 
     function openJournalHistory() {
-      console.log('openJournalHistory called');
       const overlay = document.getElementById('journalHistoryOverlay');
       const listContainer = document.getElementById('journalHistoryList');
       
-      console.log('overlay:', overlay, 'listContainer:', listContainer);
+      if (!overlay || !listContainer) return;
       
-      if (!overlay || !listContainer) {
-        console.error('Missing elements - overlay:', overlay, 'listContainer:', listContainer);
-        return;
+      // Sort entries by date descending
+      const sortedEntries = Object.entries(journalEntries)
+        .sort((a, b) => b[0].localeCompare(a[0]));
+      
+      if (sortedEntries.length === 0) {
+        listContainer.innerHTML = '<div class="history-empty">No reflections yet. Start writing to build your history.</div>';
+      } else {
+        listContainer.innerHTML = sortedEntries.map(([date, text]) => {
+          const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString(undefined, {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          });
+          
+          return `
+            <div class="history-entry" data-date="${date}">
+              <div class="history-entry-header">
+                <span class="history-entry-date">${formattedDate}</span>
+                <button class="history-entry-delete" onclick="deleteJournalEntry('${date}')">Delete</button>
+              </div>
+              <div class="history-entry-text">${text}</div>
+            </div>
+          `;
+        }).join('');
       }
       
-      renderJournalHistory(listContainer);
       overlay.classList.add('visible');
-      console.log('Journal history overlay should be visible now');
-    }
-
-    function renderJournalHistory(container) {
-      // Group entries by date
-      const sortedDates = Object.keys(journalEntries).sort((a, b) => b.localeCompare(a));
-      
-      if (sortedDates.length === 0) {
-        container.innerHTML = '<div class="history-empty">No reflections yet. Start writing to build your history.</div>';
-        return;
-      }
-      
-      container.innerHTML = '';
-      
-      sortedDates.forEach(date => {
-        let entries = journalEntries[date];
-        
-        // Handle old format (string) or non-array data
-        if (!entries) return;
-        
-        if (typeof entries === 'string') {
-          // Convert old string format to new array format
-          entries = [{
-            id: generateEntryId(),
-            timestamp: new Date(date + 'T12:00:00').toISOString(),
-            text: entries
-          }];
-          journalEntries[date] = entries;
-          saveJournalEntries();
-        }
-        
-        // Ensure entries is an array
-        if (!Array.isArray(entries)) {
-          console.error('Invalid entries format for date', date, entries);
-          return;
-        }
-        
-        if (entries.length === 0) return;
-        
-        // Create date group
-        const dateGroup = document.createElement('div');
-        dateGroup.className = 'history-date-group';
-        
-        const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString(undefined, {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        });
-        
-        const dateHeader = document.createElement('div');
-        dateHeader.className = 'history-date-header';
-        dateHeader.textContent = formattedDate;
-        
-        const entriesGroup = document.createElement('div');
-        entriesGroup.className = 'history-entries-group';
-        
-        // Sort entries by timestamp (newest first)
-        entries.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        
-        entries.forEach(entry => {
-          const entryEl = createHistoryEntryElement(date, entry);
-          entriesGroup.appendChild(entryEl);
-        });
-        
-        dateGroup.appendChild(dateHeader);
-        dateGroup.appendChild(entriesGroup);
-        container.appendChild(dateGroup);
-      });
-    }
-
-    function createHistoryEntryElement(date, entry) {
-      const entryEl = document.createElement('div');
-      entryEl.className = 'history-entry';
-      entryEl.dataset.date = date;
-      entryEl.dataset.entryId = entry.id;
-      
-      const time = new Date(entry.timestamp).toLocaleTimeString(undefined, {
-        hour: 'numeric',
-        minute: '2-digit'
-      });
-      
-      entryEl.innerHTML = `
-        <div class="history-entry-header">
-          <div>
-            <span class="history-entry-time">${time}</span>
-          </div>
-          <div class="history-entry-actions">
-            <button class="history-entry-edit" onclick="editJournalEntry('${date}', '${entry.id}')">Edit</button>
-            <button class="history-entry-delete" onclick="deleteJournalEntry('${date}', '${entry.id}')">Delete</button>
-          </div>
-        </div>
-        <div class="history-entry-text">${entry.text}</div>
-      `;
-      
-      return entryEl;
-    }
-
-    function editJournalEntry(date, entryId) {
-      const entryEl = document.querySelector(`[data-date="${date}"][data-entry-id="${entryId}"]`);
-      if (!entryEl) return;
-      
-      const entry = journalEntries[date].find(e => e.id === entryId);
-      if (!entry) return;
-      
-      entryEl.classList.add('editing');
-      
-      const textDiv = entryEl.querySelector('.history-entry-text');
-      const actionsDiv = entryEl.querySelector('.history-entry-actions');
-      
-      // Hide actions
-      actionsDiv.style.display = 'none';
-      
-      // Replace text with textarea
-      const textarea = document.createElement('textarea');
-      textarea.className = 'history-entry-textarea';
-      textarea.value = entry.text;
-      
-      const saveBtn = document.createElement('button');
-      saveBtn.className = 'history-entry-save-btn';
-      saveBtn.textContent = 'Save';
-      saveBtn.onclick = () => saveEditedEntry(date, entryId, textarea.value);
-      
-      const cancelBtn = document.createElement('button');
-      cancelBtn.className = 'history-entry-cancel-btn';
-      cancelBtn.textContent = 'Cancel';
-      cancelBtn.onclick = () => {
-        const listContainer = document.getElementById('journalHistoryList');
-        renderJournalHistory(listContainer);
-      };
-      
-      textDiv.replaceWith(textarea);
-      entryEl.appendChild(saveBtn);
-      entryEl.appendChild(cancelBtn);
-      
-      textarea.focus();
-    }
-
-    function saveEditedEntry(date, entryId, newText) {
-      const trimmedText = newText.trim();
-      
-      if (!trimmedText) {
-        alert('Reflection cannot be empty');
-        return;
-      }
-      
-      const entry = journalEntries[date].find(e => e.id === entryId);
-      if (entry) {
-        entry.text = trimmedText;
-        entry.timestamp = new Date().toISOString(); // Update timestamp
-        saveJournalEntries();
-      }
-      
-      // Re-render history
-      const listContainer = document.getElementById('journalHistoryList');
-      renderJournalHistory(listContainer);
     }
 
     function closeJournalHistory() {
-      console.log('closeJournalHistory called');
       const overlay = document.getElementById('journalHistoryOverlay');
       if (overlay) {
         overlay.classList.remove('visible');
-        console.log('Journal history overlay closed');
-      } else {
-        console.error('journalHistoryOverlay element not found');
       }
     }
 
-    function deleteJournalEntry(date, entryId) {
-      if (!confirm('Delete this reflection?')) return;
-      
-      if (journalEntries[date]) {
-        journalEntries[date] = journalEntries[date].filter(e => e.id !== entryId);
-        
-        // Remove date key if no entries left
-        if (journalEntries[date].length === 0) {
-          delete journalEntries[date];
-        }
-        
+    function deleteJournalEntry(date) {
+      if (confirm('Delete this reflection?')) {
+        delete journalEntries[date];
         saveJournalEntries();
-      }
-      
-      // Re-render history
-      const listContainer = document.getElementById('journalHistoryList');
-      renderJournalHistory(listContainer);
-    }
-
-    // Make journal functions available globally IMMEDIATELY after definition
-    // This ensures they're available even if there are errors later
-    try {
-      window.deleteJournalEntry = deleteJournalEntry;
-      window.editJournalEntry = editJournalEntry;
-      window.saveJournalEntry = saveJournalEntry;
-      window.openJournalHistory = openJournalHistory;
-      window.closeJournalHistory = closeJournalHistory;
-      window.openAuth = openAuth;
-      window.closeAuth = closeAuth;
-      console.log('✅ All journal and auth functions made globally available');
-    } catch (err) {
-      console.error('❌ Error making functions global:', err);
-    }
-
-    // Edit Mode State
-    let isEditMode = false;
-    let currentEditingCellId = null;
-    const STORAGE_CUSTOM_TASKS_KEY = "haradaCustomTasks";
-    let customTasks = {}; // { cellId: { title, hint } }
-
-    function loadCustomTasks() {
-      try {
-        const raw = localStorage.getItem(STORAGE_CUSTOM_TASKS_KEY);
-        customTasks = raw ? JSON.parse(raw) : {};
-      } catch {
-        customTasks = {};
+        openJournalHistory(); // Refresh the list
       }
     }
 
-    function saveCustomTasks() {
-      localStorage.setItem(STORAGE_CUSTOM_TASKS_KEY, JSON.stringify(customTasks));
-      
-      // Sync to Firebase
-      if (db && currentUser) {
-        saveToFirebase('customTasks', customTasks);
-      }
-    }
-
-    function toggleEditMode() {
-      isEditMode = !isEditMode;
-      const btn = document.getElementById('editModeBtn');
-      
-      if (isEditMode) {
-        btn.textContent = 'Save Changes';
-        btn.classList.add('active', 'save');
-        
-        // Add edit mode class to all task cells
-        document.querySelectorAll('.task-cell').forEach(cell => {
-          cell.classList.add('edit-mode');
-        });
-        
-        // Show toast
-        showEditModeToast('Edit mode enabled - click any task to customize');
-      } else {
-        btn.textContent = 'Edit Mode';
-        btn.classList.remove('active', 'save');
-        
-        // Remove edit mode class
-        document.querySelectorAll('.task-cell').forEach(cell => {
-          cell.classList.remove('edit-mode');
-        });
-        
-        // Save all changes
-        saveCustomTasks();
-        
-        // Show success toast
-        showEditModeToast('Changes saved successfully!');
-        
-        // Refresh grid to show updated text
-        renderGrid();
-        updateTodayReflection();
-        updateStatsUI();
-      }
-    }
-
-    function showEditModeToast(message) {
-      const toast = document.getElementById('xpToast');
-      if (!toast) return;
-      
-      toast.textContent = message;
-      toast.style.background = 'linear-gradient(135deg, #007AFF, #5AC8FA)';
-      toast.classList.add('show');
-      
-      setTimeout(() => {
-        toast.classList.remove('show');
-        toast.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
-      }, 2500);
-    }
-
-    function openTaskEdit(cellId) {
-      if (!isEditMode) return;
-      
-      currentEditingCellId = cellId;
-      const overlay = document.getElementById('taskEditOverlay');
-      const titleInput = document.getElementById('taskEditTitle');
-      const hintInput = document.getElementById('taskEditHint');
-      const pillarLabel = document.getElementById('taskEditPillar');
-      
-      // Get task data (custom or original)
-      const [pillarId, taskId] = cellId.split('-');
-      const taskIndex = parseInt(taskId.substring(1)) - 1;
-      const pillar = lifePillars.find(p => p.id === pillarId);
-      const originalTask = pillar.tasks[taskIndex];
-      
-      // Check for custom override
-      const customTask = customTasks[cellId];
-      
-      // Populate form
-      pillarLabel.textContent = pillar.name;
-      titleInput.value = customTask ? customTask.title : originalTask.title;
-      hintInput.value = customTask ? customTask.hint : originalTask.hint;
-      
-      // Show overlay
-      overlay.classList.add('visible');
-      titleInput.focus();
-    }
-
-    function closeTaskEdit() {
-      const overlay = document.getElementById('taskEditOverlay');
-      overlay.classList.remove('visible');
-      currentEditingCellId = null;
-    }
-
-    function saveTaskEdit() {
-      if (!currentEditingCellId) return;
-      
-      const titleInput = document.getElementById('taskEditTitle');
-      const hintInput = document.getElementById('taskEditHint');
-      
-      const title = titleInput.value.trim();
-      const hint = hintInput.value.trim();
-      
-      if (!title) {
-        alert('Task title cannot be empty');
-        return;
-      }
-      
-      // Save custom task
-      customTasks[currentEditingCellId] = {
-        title: title,
-        hint: hint
-      };
-      
-      // Update the cell immediately in the DOM
-      const cell = document.querySelector(`[data-id="${currentEditingCellId}"]`);
-      if (cell) {
-        const titleEl = cell.querySelector('.task-title');
-        const hintEl = cell.querySelector('.task-hint');
-        
-        if (titleEl) titleEl.textContent = title;
-        if (hintEl) hintEl.textContent = hint;
-        
-        // Update tooltip data
-        cell.dataset.taskTitle = title;
-        cell.dataset.taskHint = hint;
-      }
-      
-      closeTaskEdit();
-      
-      // Show mini confirmation
-      const toast = document.getElementById('xpToast');
-      if (toast) {
-        toast.textContent = '✓ Task updated';
-        toast.style.background = 'linear-gradient(135deg, #34c759, #30d158)';
-        toast.classList.add('show');
-        setTimeout(() => {
-          toast.classList.remove('show');
-          toast.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
-        }, 1500);
-      }
-    }
-
-    function getTaskText(cellId) {
-      // Check for custom task first
-      if (customTasks[cellId]) {
-        return customTasks[cellId];
-      }
-      
-      // Return original task
-      const [pillarId, taskId] = cellId.split('-');
-      const taskIndex = parseInt(taskId.substring(1)) - 1;
-      const pillar = lifePillars.find(p => p.id === pillarId);
-      
-      if (pillar && pillar.tasks[taskIndex]) {
-        return {
-          title: pillar.tasks[taskIndex].title,
-          hint: pillar.tasks[taskIndex].hint
-        };
-      }
-      
-      return { title: '', hint: '' };
-    }
-
-    // Make edit functions globally available
-    window.closeTaskEdit = closeTaskEdit;
-    window.saveTaskEdit = saveTaskEdit;
-    window.toggleEditMode = toggleEditMode;
+    // Make deleteJournalEntry available globally
+    window.deleteJournalEntry = deleteJournalEntry;
 
     function renderRadarChart(values) {
       const canvas = document.getElementById('radarChart');
@@ -6416,7 +5663,7 @@
       // Draw axes
       ctx.strokeStyle = '#d2d2d7';
       ctx.lineWidth = 1;
-      lifePillars.forEach((pillar, i) => {
+      pillars.forEach((pillar, i) => {
         const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
         const x = centerX + Math.cos(angle) * radius;
         const y = centerY + Math.sin(angle) * radius;
@@ -6432,7 +5679,7 @@
       ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif';
       ctx.textBaseline = 'middle';
       
-      lifePillars.forEach((pillar, i) => {
+      pillars.forEach((pillar, i) => {
         const angle = (Math.PI * 2 * i) / 8 - Math.PI / 2;
         const labelRadius = radius + 30;
         const x = centerX + Math.cos(angle) * labelRadius;
@@ -6520,7 +5767,7 @@
         dataPoints.push({
           x: x,
           y: y,
-          pillar: lifePillars[i],
+          pillar: pillars[i],
           value: value
         });
       });
@@ -6630,7 +5877,7 @@
           
           // Create individual completion events
           for (const pillarId in pillars) {
-            const count = lifePillars[pillarId];
+            const count = pillars[pillarId];
             for (let i = 0; i < count; i++) {
               completions.push({
                 date: dateStr,
@@ -6674,7 +5921,7 @@
     function calculatePillarStreaks() {
       const today = getTodayString();
       
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const pillarId = pillar.id;
         
         // Check if pillar was active today
@@ -6722,7 +5969,7 @@
       const pillarTotals = {};
       let totalTasks = 0;
       
-      lifePillars.forEach(p => pillarTotals[p.id] = 0);
+      pillars.forEach(p => pillarTotals[p.id] = 0);
       
       Object.keys(todayState.completed).forEach(cellId => {
         const pillarId = cellId.split('-')[0];
@@ -6737,7 +5984,7 @@
       
       container.innerHTML = '';
       
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const actual = totalTasks > 0 ? Math.round((pillarTotals[pillar.id] / totalTasks) * 100) : 0;
         const target = targets[pillar.id] || 12.5;
         const diff = actual - target;
@@ -6793,7 +6040,7 @@
       container.innerHTML = '';
       const atRiskPillars = [];
       
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const streak = pillarStreaks[pillar.id];
         const daysSince = getDaysSinceLastActivity(pillar.id);
         
@@ -6839,7 +6086,7 @@
       // Momentum summary
       if (summaryContainer) {
         const activeStreaks = Object.values(pillarStreaks).filter(s => s.current > 0).length;
-        const totalPillars = lifePillars.length;
+        const totalPillars = pillars.length;
         
         let momentum;
         if (activeStreaks >= 6) momentum = '📈 OVERALL MOMENTUM: STRONG';
@@ -6864,7 +6111,7 @@
       // Calculate current balance
       const pillarTotals = {};
       let totalToday = 0;
-      lifePillars.forEach(p => pillarTotals[p.id] = 0);
+      pillars.forEach(p => pillarTotals[p.id] = 0);
       Object.keys(todayState.completed).forEach(cellId => {
         const pillarId = cellId.split('-')[0];
         if (pillarTotals[pillarId] !== undefined) {
@@ -6879,7 +6126,7 @@
       // Find neglected high-priority pillars
       const recommendations = [];
       
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const actual = totalToday > 0 ? Math.round((pillarTotals[pillar.id] / totalToday) * 100) : 0;
         const target = targets[pillar.id];
         const weight = weights[pillar.id];
@@ -6973,7 +6220,7 @@
       
       const thisWeekPillarTotals = {};
       let thisWeekTotal = 0;
-      lifePillars.forEach(p => thisWeekPillarTotals[p.id] = 0);
+      pillars.forEach(p => thisWeekPillarTotals[p.id] = 0);
       
       // Count this week's completions
       for (let d = new Date(weekAgo); d <= today; d.setDate(d.getDate() + 1)) {
@@ -6982,8 +6229,8 @@
         if (entry && entry.pillars) {
           Object.keys(entry.pillars).forEach(pillarId => {
             if (thisWeekPillarTotals[pillarId] !== undefined) {
-              thisWeekPillarTotals[pillarId] += entry.lifePillars[pillarId];
-              thisWeekTotal += entry.lifePillars[pillarId];
+              thisWeekPillarTotals[pillarId] += entry.pillars[pillarId];
+              thisWeekTotal += entry.pillars[pillarId];
             }
           });
         }
@@ -6994,7 +6241,7 @@
       twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 7);
       
       const lastWeekPillarTotals = {};
-      lifePillars.forEach(p => lastWeekPillarTotals[p.id] = 0);
+      pillars.forEach(p => lastWeekPillarTotals[p.id] = 0);
       
       for (let d = new Date(twoWeeksAgo); d < weekAgo; d.setDate(d.getDate() + 1)) {
         const dateStr = d.toISOString().split('T')[0];
@@ -7002,7 +6249,7 @@
         if (entry && entry.pillars) {
           Object.keys(entry.pillars).forEach(pillarId => {
             if (lastWeekPillarTotals[pillarId] !== undefined) {
-              lastWeekPillarTotals[pillarId] += entry.lifePillars[pillarId];
+              lastWeekPillarTotals[pillarId] += entry.pillars[pillarId];
             }
           });
         }
@@ -7012,7 +6259,7 @@
       winsContainer.innerHTML = '';
       const wins = [];
       
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const count = thisWeekPillarTotals[pillar.id];
         const streak = pillarStreaks[pillar.id];
         
@@ -7046,7 +6293,7 @@
       gapsContainer.innerHTML = '';
       const gaps = [];
       
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const count = thisWeekPillarTotals[pillar.id];
         const lastWeek = lastWeekPillarTotals[pillar.id];
         
@@ -7073,7 +6320,7 @@
       // Render trends
       trendsContainer.innerHTML = '';
       
-      lifePillars.slice(0, 5).forEach(pillar => {
+      pillars.slice(0, 5).forEach(pillar => {
         const thisWeek = thisWeekPillarTotals[pillar.id];
         const lastWeek = lastWeekPillarTotals[pillar.id];
         
@@ -7198,14 +6445,8 @@
     }
     
     function closeAuth() {
-      console.log('closeAuth called');
       const overlay = document.getElementById('authOverlay');
-      if (overlay) {
-        overlay.classList.remove('visible');
-        console.log('Auth overlay closed');
-      } else {
-        console.error('authOverlay element not found');
-      }
+      if (overlay) overlay.classList.remove('visible');
       
       // Clear error
       const errorEl = document.getElementById('authError');
@@ -7315,7 +6556,7 @@
       const pillarTargetsContainer = document.getElementById('pillarTargetsSettings');
       if (pillarTargetsContainer) {
         pillarTargetsContainer.innerHTML = '';
-        lifePillars.forEach(pillar => {
+        pillars.forEach(pillar => {
           const row = document.createElement('div');
           row.className = 'settings-row';
           row.innerHTML = `
@@ -7331,7 +6572,7 @@
       const goalWeightsContainer = document.getElementById('goalWeightsSettings');
       if (goalWeightsContainer) {
         goalWeightsContainer.innerHTML = '';
-        lifePillars.forEach(pillar => {
+        pillars.forEach(pillar => {
           const row = document.createElement('div');
           row.className = 'settings-row';
           row.innerHTML = `
@@ -7367,13 +6608,13 @@
 
     function saveSettings() {
       // Save pillar targets
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const input = document.getElementById(`target-${pillar.id}`);
         if (input) userSettings.pillarTargets[pillar.id] = parseFloat(input.value) || 0;
       });
 
       // Save goal weights
-      lifePillars.forEach(pillar => {
+      pillars.forEach(pillar => {
         const input = document.getElementById(`weight-${pillar.id}`);
         if (input) userSettings.goalWeights[pillar.id] = parseInt(input.value) || 1;
       });
@@ -7416,7 +6657,6 @@
 
     function init() {
       loadState();
-      loadCustomTasks(); // Load custom task text
       const dateDisplay = document.getElementById("dateDisplay");
       if (dateDisplay) {
         dateDisplay.textContent = formatPrettyDate() + " · Daily progress resets";
@@ -7564,21 +6804,13 @@
       
       // Journal event listeners
       const saveJournalBtn = document.getElementById('saveJournalBtn');
-      console.log('saveJournalBtn element:', saveJournalBtn);
       if (saveJournalBtn) {
         saveJournalBtn.addEventListener('click', saveJournalEntry);
-        console.log('✅ Save button listener attached');
-      } else {
-        console.error('❌ Save button not found!');
       }
       
       const viewHistoryBtn = document.getElementById('viewHistoryBtn');
-      console.log('viewHistoryBtn element:', viewHistoryBtn);
       if (viewHistoryBtn) {
         viewHistoryBtn.addEventListener('click', openJournalHistory);
-        console.log('✅ View History button listener attached');
-      } else {
-        console.error('❌ View History button not found!');
       }
       
       const journalHistoryClose = document.getElementById('journalHistoryClose');
@@ -7595,34 +6827,15 @@
         });
       }
       
-      // Removed auto-save - user will manually save reflections
-      
-      // Set up edit mode button
-      const editModeBtn = document.getElementById('editModeBtn');
-      if (editModeBtn) {
-        editModeBtn.addEventListener('click', toggleEditMode);
+      // Auto-save journal on change (debounced)
+      const journalTextarea = document.getElementById('journalTextarea');
+      let journalSaveTimeout;
+      if (journalTextarea) {
+        journalTextarea.addEventListener('input', () => {
+          clearTimeout(journalSaveTimeout);
+          journalSaveTimeout = setTimeout(saveJournalEntry, 1000);
+        });
       }
-      
-      // Add ESC key support for closing overlays
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' || e.key === 'Esc') {
-          // Check which overlay is open and close it
-          const taskEditOverlay = document.getElementById('taskEditOverlay');
-          const authOverlay = document.getElementById('authOverlay');
-          const journalHistoryOverlay = document.getElementById('journalHistoryOverlay');
-          const settingsOverlay = document.getElementById('settingsOverlay');
-          
-          if (taskEditOverlay && taskEditOverlay.classList.contains('visible')) {
-            closeTaskEdit();
-          } else if (authOverlay && authOverlay.classList.contains('visible')) {
-            closeAuth();
-          } else if (journalHistoryOverlay && journalHistoryOverlay.classList.contains('visible')) {
-            closeJournalHistory();
-          } else if (settingsOverlay && settingsOverlay.classList.contains('visible')) {
-            closeSettings();
-          }
-        }
-      });
     }
 
     init();
