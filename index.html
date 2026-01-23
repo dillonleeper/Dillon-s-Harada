@@ -286,9 +286,6 @@
     
     /* Dormant: Normal appearance - recently touched but not active */
     /* No visual change - looks the same as untouched cells */
-    .task-cell.node-dormant {
-      /* No styling - appears normal */
-    }
     
     /* Active: Subtle emphasis - regularly engaged */
     .task-cell.node-active {
@@ -2493,6 +2490,38 @@
       <tbody id="statsBody"></tbody>
     </table>
     <div class="stats-summary" id="statsSummary"></div>
+
+  </div>
+
+  <!-- Recovery vs Drive Ratio Widget (below Progress Overview) -->
+  <div class="analytics-section" id="driveRecoverySection">
+    <div class="drive-recovery-header-row" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px;">
+      <h2 class="drive-recovery-title" style="margin: 0; font-size: 1rem; font-weight: 600; color: #1d1d1f;">Recovery vs Drive Ratio</h2>
+      <div class="drive-recovery-controls" style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; color: #1d1d1f;">
+        <label for="driveRecoveryRange">Time Window:</label>
+        <select id="driveRecoveryRange" style="font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; border: 1px solid #d2d2d7; background: #fff; color: #1d1d1f;">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="365">Last 365 days</option>
+          <option value="all">All time</option>
+        </select>
+      </div>
+    </div>
+    <div class="drive-recovery-widget" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 32px; margin-bottom: 4px;">
+      <div class="drive-recovery-bar-area" style="min-width: 240px; flex: 1 1 240px; display: flex; flex-direction: column; gap: 8px;">
+        <div id="driveRecoveryBarContainer" class="drive-recovery-bar-container" style="height: 32px; width: 100%; background: #f1f3f6; border-radius: 8px; overflow: hidden; display: flex; align-items: center; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.03); border: 1px solid #e5e5ea;">
+          <div id="driveBar" class="drive-bar" style="height: 100%; background: var(--pillar-p1); transition: width 0.4s; min-width: 0; z-index: 3;"></div>
+          <div id="recoveryBar" class="recovery-bar" style="height: 100%; background: var(--pillar-p3); transition: width 0.4s; min-width: 0; z-index: 2;"></div>
+          <span id="driveRecoveryBarLabel" class="drive-recovery-bar-label" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: 600; color: #1d1d1f; font-size: 0.95rem; pointer-events: none; background: rgba(255,255,255,0.85); border-radius: 6px; padding: 2px 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);"></span>
+        </div>
+        <div class="drive-recovery-bar-legend" style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 2px; color: #6e6e73; font-weight: 500; gap: 8px;">
+          <span class="drive-label" style="color: #1d1d1f; background: var(--pillar-p1); padding: 2px 10px; border-radius: 6px;">Drive</span>
+          <span class="recovery-label" style="color: #1d1d1f; background: var(--pillar-p3); padding: 2px 10px; border-radius: 6px;">Recovery</span>
+        </div>
+      </div>
+    </div>
+    <div id="driveRecoveryStats" class="drive-recovery-stats" style="margin-top: 10px; font-size: 0.9rem; color: #1d1d1f;"></div>
   </div>
 
   <div class="pillar-balance">
@@ -2797,6 +2826,73 @@
   </div>
 
   <script>
+    // --- Recovery vs Drive Ratio Widget Logic ---
+    function getAllCompletionEvents() {
+      // Gather all completions from dailyHistory
+      const events = [];
+      if (!dailyHistory) return events;
+      Object.entries(dailyHistory).forEach(([date, entry]) => {
+        if (!entry || !entry.pillars) return;
+        Object.entries(entry.pillars).forEach(([pillarId, count]) => {
+          for (let i = 0; i < count; i++) {
+            events.push({ cellId: pillarId + '-X', date }); // cellId format for mapping
+          }
+        });
+      });
+      return events;
+    }
+
+    function updateDriveRecoveryWidget() {
+      const range = document.getElementById('driveRecoveryRange').value;
+      let startDate, endDate = getTodayString();
+      if (range === 'all') {
+        // Find earliest date in dailyHistory
+        const allDates = Object.keys(dailyHistory || {});
+        startDate = allDates.length ? allDates.sort()[0] : getTodayString();
+      } else {
+        const days = parseInt(range, 10);
+        const d = new Date();
+        d.setDate(d.getDate() - (days - 1));
+        startDate = getDateString(d);
+      }
+      const events = getAllCompletionEvents();
+      const metrics = computeDriveRecoveryMetrics(events, startDate, endDate);
+
+      // Bar visualization
+      const total = metrics.total || 1;
+      const drivePct = (metrics.drive / total) * 100;
+      const recoveryPct = (metrics.recovery / total) * 100;
+      const driveBar = document.getElementById('driveBar');
+      const recoveryBar = document.getElementById('recoveryBar');
+      driveBar.style.width = drivePct + '%';
+      recoveryBar.style.width = recoveryPct + '%';
+      driveBar.style.zIndex = 3;
+      recoveryBar.style.zIndex = 2;
+
+      // Label
+      const label = document.getElementById('driveRecoveryBarLabel');
+      label.textContent = `D:R = ${metrics.drive}:${metrics.recovery}  (Ratio: ${metrics.ratio === Infinity ? '∞' : metrics.ratio.toFixed(2)})`;
+
+      // Stats
+      const stats = document.getElementById('driveRecoveryStats');
+      stats.innerHTML = `Drive: <b>${metrics.drive}</b> &nbsp;|&nbsp; Recovery: <b>${metrics.recovery}</b> &nbsp;|&nbsp; Total: <b>${metrics.total}</b>`;
+    }
+
+    // Hook up widget on load
+    document.addEventListener('DOMContentLoaded', function() {
+      const rangeSel = document.getElementById('driveRecoveryRange');
+      if (rangeSel) {
+        rangeSel.addEventListener('change', updateDriveRecoveryWidget);
+      }
+      updateDriveRecoveryWidget();
+    });
+
+    // Also update widget when dailyHistory changes (after completions)
+    const origUpdateStatsUI = window.updateStatsUI;
+    window.updateStatsUI = function() {
+      if (origUpdateStatsUI) origUpdateStatsUI();
+      updateDriveRecoveryWidget();
+    };
     // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyB59smNnnR9zCw9Wohr0lHQfbL9cMIEyi4",
@@ -3008,7 +3104,7 @@
         name: "Nervous System",
         tasks: [
           { title: "Breathe and reset", hint: "Long exhale" },
-          { title: "Release tension", hint: "Jaw, shoulders, hands" },
+          { title: "Release tension", hint: "Face, shoulders, hands" },
           { title: "Limit stimulation", hint: "One less input" },
           { title: "Change environments", hint: "Step into a new space" },
           { title: "Create stillness", hint: "Reduce fidgeting" },
@@ -3705,6 +3801,95 @@
     }
     
     // ===== PHASE 2: NODE WEIGHT SYSTEM =====
+
+      /**
+       * Compute Recovery vs Drive Ratio metrics for a set of completion events.
+       *
+       * @param {Array} events - Array of completion events. Each event should have at least {cellId, date}.
+       * @param {string|Date} startDate - Inclusive start date (YYYY-MM-DD or Date).
+       * @param {string|Date} endDate - Inclusive end date (YYYY-MM-DD or Date).
+       * @returns {Object} { drive: number, recovery: number, neutral: number, total: number, ratio: number }
+       *
+       * Mapping:
+       *   - Drive: P1 (Mind), P3 (Work, Money & Momentum), P4 (Personality), P7 (Leverage & Trajectory)
+       *   - Recovery: P2 (Relational Stability), P5 (Body), P6 (Nervous System), P8 (Selective Connection)
+       *   - Neutral: Any cellId not matching above (future-proofing)
+       *
+       * Ratio = drive / (recovery || 1)  // Avoid division by zero
+       */
+      function computeDriveRecoveryMetrics(events, startDate, endDate) {
+        // Normalize dates
+        const start = typeof startDate === 'string' ? new Date(startDate) : new Date(startDate);
+        const end = typeof endDate === 'string' ? new Date(endDate) : new Date(endDate);
+        end.setHours(23,59,59,999); // Include full end day
+
+        // Pillar mapping
+        const drivePillars = new Set(['P1', 'P3', 'P4', 'P7']);
+        const recoveryPillars = new Set(['P2', 'P5', 'P6', 'P8']);
+
+        let drive = 0, recovery = 0;
+
+        for (const event of events) {
+          if (!event.cellId || !event.date) continue;
+          const eventDate = new Date(event.date);
+          if (eventDate < start || eventDate > end) continue;
+          const pillar = event.cellId.split('-')[0];
+          if (drivePillars.has(pillar)) drive++;
+          else if (recoveryPillars.has(pillar)) recovery++;
+        }
+        const total = drive + recovery;
+        return {
+          drive,
+          recovery,
+          total,
+          ratio: recovery === 0 ? (drive > 0 ? Infinity : 0) : drive / recovery
+        };
+      }
+
+      // === UNIT TESTS for computeDriveRecoveryMetrics ===
+      function test_computeDriveRecoveryMetrics() {
+        const today = getTodayString();
+        const yesterday = getDateString(new Date(Date.now() - 86400000));
+        const events = [
+          { cellId: 'P1-0', date: today }, // drive
+          { cellId: 'P3-1', date: today }, // drive
+          { cellId: 'P2-0', date: today }, // recovery
+          { cellId: 'P5-2', date: today }, // recovery
+          { cellId: 'P8-1', date: today }, // recovery
+          { cellId: 'P7-0', date: today }, // drive
+          { cellId: 'P4-0', date: yesterday }, // drive (should be included if range)
+          { cellId: 'PX-0', date: today }, // neutral
+        ];
+        // Test 1: Only today
+        let result = computeDriveRecoveryMetrics(events, today, today);
+        console.log('Test 1 (today only):', result);
+        // Expect: drive=3, recovery=3, neutral=1, total=7, ratio=1
+
+        // Test 2: Today + yesterday
+        result = computeDriveRecoveryMetrics(events, yesterday, today);
+        console.log('Test 2 (today+yesterday):', result);
+        // Expect: drive=4, recovery=3, neutral=1, total=8, ratio~1.33
+
+        // Test 3: No recovery
+        const driveOnly = [ { cellId: 'P1-0', date: today }, { cellId: 'P3-1', date: today } ];
+        result = computeDriveRecoveryMetrics(driveOnly, today, today);
+        console.log('Test 3 (drive only):', result);
+        // Expect: drive=2, recovery=0, neutral=0, total=2, ratio=Infinity
+
+        // Test 4: No drive
+        const recoveryOnly = [ { cellId: 'P2-0', date: today }, { cellId: 'P5-2', date: today } ];
+        result = computeDriveRecoveryMetrics(recoveryOnly, today, today);
+        console.log('Test 4 (recovery only):', result);
+        // Expect: drive=0, recovery=2, neutral=0, total=2, ratio=0
+
+        // Test 5: No events
+        result = computeDriveRecoveryMetrics([], today, today);
+        console.log('Test 5 (no events):', result);
+        // Expect: all zero
+      }
+
+      // Uncomment to run tests in console:
+      test_computeDriveRecoveryMetrics();
     
     /**
      * Load node weights from storage.
