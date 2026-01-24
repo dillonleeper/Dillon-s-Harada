@@ -2944,7 +2944,7 @@
           console.log('✅ Signed in as:', user.email || 'Anonymous', '(', user.uid, ')');
           showSyncStatus('Connected ✓', false);
 
-          // Load or create chart doc
+          // Load or create chart doc, then hydrate all state from Firestore
           let chartDoc = null;
           try {
             const chartsQuery = await db.collection('charts')
@@ -2959,7 +2959,28 @@
               window.centerGoal = chartData.centerGoal;
               window.lifePillars = chartData.pillars;
               window.activeChartId = chartDoc.id;
-              console.log('Loaded chart from Firestore:', chartDoc.id);
+              // Hydrate all app state from Firestore (customTasks, todayState, statsAllTime, dailyHistory, journalEntries)
+              if (chartData.customTasks) {
+                customTasks = chartData.customTasks;
+                localStorage.setItem(STORAGE_CUSTOM_TASKS_KEY, JSON.stringify(customTasks));
+              }
+              if (chartData.todayState) {
+                todayState = chartData.todayState;
+                localStorage.setItem(STORAGE_TODAY_KEY, JSON.stringify(todayState));
+              }
+              if (chartData.statsAllTime) {
+                statsAllTime = chartData.statsAllTime;
+                localStorage.setItem(STORAGE_STATS_KEY, JSON.stringify(statsAllTime));
+              }
+              if (chartData.dailyHistory) {
+                dailyHistory = chartData.dailyHistory;
+                localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(dailyHistory));
+              }
+              if (chartData.journalEntries) {
+                journalEntries = chartData.journalEntries;
+                localStorage.setItem(STORAGE_JOURNAL_KEY, JSON.stringify(journalEntries));
+              }
+              console.log('Loaded chart and hydrated state from Firestore:', chartDoc.id);
             } else {
               // No chart found, create blank chart
               const newChart = {
@@ -2975,6 +2996,17 @@
               window.centerGoal = '';
               window.lifePillars = [];
               window.activeChartId = docRef.id;
+              // Clear all state
+              customTasks = {};
+              todayState = null;
+              statsAllTime = null;
+              dailyHistory = null;
+              journalEntries = {};
+              localStorage.setItem(STORAGE_CUSTOM_TASKS_KEY, JSON.stringify(customTasks));
+              localStorage.setItem(STORAGE_TODAY_KEY, JSON.stringify(todayState));
+              localStorage.setItem(STORAGE_STATS_KEY, JSON.stringify(statsAllTime));
+              localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(dailyHistory));
+              localStorage.setItem(STORAGE_JOURNAL_KEY, JSON.stringify(journalEntries));
               console.log('Created new blank chart in Firestore:', docRef.id);
             }
           } catch (err) {
@@ -2985,6 +3017,18 @@
           updateAuthUI();
           // Set up real-time listeners after sign in
           setupFirebaseListeners();
+          // Re-render UI with hydrated state
+          renderGrid();
+          updateTodayReflection();
+          updateStatsUI();
+          updateStreakUI();
+          renderBadges();
+          renderGrowthInsights();
+          updateTimeRangeButtons();
+          updatePillarBalance();
+          updateNewAnalytics();
+          updateGameHUD();
+          loadTodayJournal();
         } else {
           // No user signed in - try anonymous
           signInAnonymously();
