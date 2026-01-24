@@ -2412,6 +2412,7 @@
   <div class="header-container">
     <h1>Harada Open Window 64</h1>
     <button class="edit-mode-btn" id="editModeBtn" onclick="toggleEditMode()">Edit Mode</button>
+    <button class="account-btn" id="accountBtn" title="Account" style="background: none; border: none; color: #007AFF; font-size: 1.2rem; cursor: pointer; margin-left: 8px;">👤</button>
     <div class="meta" id="dateDisplay"></div>
   </div>
   
@@ -3029,6 +3030,8 @@
           updateNewAnalytics();
           updateGameHUD();
           loadTodayJournal();
+          // Show sync status
+          showSyncStatus('Synced with Firestore', false);
         } else {
           // No user signed in - try anonymous
           signInAnonymously();
@@ -3089,10 +3092,16 @@
         signedInView.style.display = 'block';
         userEmailEl.textContent = user.email;
         userIdEl.textContent = user.uid.substring(0, 12) + '...';
+        // Show account button as active
+        const accountBtn = document.getElementById('accountBtn');
+        if (accountBtn) accountBtn.classList.add('signed-in');
       } else {
         // Anonymous or signed out
         authForm.style.display = 'block';
         signedInView.style.display = 'none';
+        // Remove account button highlight
+        const accountBtn = document.getElementById('accountBtn');
+        if (accountBtn) accountBtn.classList.remove('signed-in');
       }
     }
 
@@ -7619,6 +7628,8 @@
     
     function handleSignOut() {
       signOut();
+      // Always close auth overlay after sign out
+      closeAuth();
     }
     
     function handleGoogleSignIn() {
@@ -7774,17 +7785,12 @@
       // Phase 2: Generate weekly narrative
       generateWeeklyNarrative();
       
-      // Set up account/auth button
+      // Set up account/auth button (always visible)
       const accountBtn = document.getElementById('accountBtn');
-      console.log('Account button element:', accountBtn);
       if (accountBtn) {
-        console.log('Adding click listener to account button');
         accountBtn.addEventListener('click', () => {
-          console.log('Account button clicked!');
           openAuth();
         });
-      } else {
-        console.error('Account button not found!');
       }
       
       const authClose = document.getElementById('authClose');
